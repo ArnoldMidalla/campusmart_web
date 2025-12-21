@@ -1,0 +1,16 @@
+{
+  "name": "Campusmart",
+  "short_name": "Campusmart",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "MovieMaster PWA helps you find the latest movies with an easy search by genre, year, and more. It works smoothly on any device, even offline, giving you a great movie browsing experience.",
+  "background_color": "#000000",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/vercel-icon-light.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    }
+  ]
+}
