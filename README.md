@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Campusmart
+
+## Overview
+Campusmart is a high-performance, mobile-first e-commerce platform specifically engineered for campus ecosystems. Built with **Next.js 15** and **TypeScript**, the application provides students with a streamlined interface to browse, search, and purchase items ranging from fashion to electronics. The project emphasizes speed and accessibility, featuring a robust **Progressive Web App (PWA)** implementation and persistent state management to ensure a seamless user experience even in low-connectivity environments.
+
+## Features
+- **Mobile-First Experience**: Fully responsive interface designed for the "on-the-go" student lifestyle.
+- **Persistent Shopping Cart**: Integrated **Zustand** state management with local storage persistence, ensuring cart data remains intact across sessions.
+- **PWA Capabilities**: Service worker integration allowing for "Add to Home Screen" functionality and improved performance.
+- **Dynamic Product Routing**: Highly optimized item pages featuring size selection, seller verification badges, and peer reviews.
+- **Automated Calculations**: Real-time price and quantity updates during the checkout flow.
+- **Modern UI/UX**: Clean aesthetic powered by **Tailwind CSS 4.0** and **Lucide React** icons.
 
 ## Getting Started
 
-First, run the development server:
+### Installation
+Follow these steps to set up the development environment locally:
 
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/arnoldMidalla/campusmart_web
+   cd campusmart_web
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:3000`.
+
+### Environment Variables
+Currently, the project utilizes local mock data for product listings. Future integrations with a production backend will require the following configuration:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NEXT_PUBLIC_API_URL=https://api.campusmart.com/v1
+NEXT_PUBLIC_STRIPE_KEY=your_stripe_public_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Navigation Flow
+The application is structured into four primary modules:
+1. **Discovery**: The homepage provides categorized filtering (Fashion, Tech, Food, etc.) and search functionality to find specific products.
+2. **Product Detail**: Users can view high-resolution images, read detailed specifications, select sizes (S/M/L/XL), and check seller ratings before adding items to the cart.
+3. **Cart Management**: Accessible via the navigation bar, the cart allows users to adjust quantities or remove items dynamically.
+4. **Order Confirmation**: A dedicated checkout route provides a final summary of costs before proceeding to payment.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Progressive Web App (PWA)
+On supported mobile browsers, a prompt will automatically appear suggesting the user install the app. This provides a full-screen experience without browser address bars, mimicking a native mobile application.
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+| Technology | Purpose | Link |
+| :--- | :--- | :--- |
+| **Next.js 16** | Full-stack React Framework | [View](https://nextjs.org/) |
+| **TypeScript** | Static Type Checking | [View](https://www.typescriptlang.org/) |
+| **Zustand** | State Management | [View](https://zustand-demo.pmnd.rs/) |
+| **Tailwind CSS** | Utility-first Styling | [View](https://tailwindcss.com/) |
+| **Lucide React** | Icon Suite | [View](https://lucide.dev/) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
+We welcome contributions that improve the campus shopping experience. 
+- 🛠️ **Bug Fixes**: Submit a PR with a detailed description of the fix.
+- 💡 **Feature Requests**: Open an issue to discuss new modules (e.g., student-to-student chat).
+- 🎨 **UI Enhancements**: Ensure designs follow the existing `main` (#ff681f) brand color scheme.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Author Info
+**Arnold Midalla**
+- **GitHub**: [arnoldMidalla](https://github.com/arnoldMidalla)
+- **LinkedIn**: [Your Name]
+- **Twitter**: [@yourhandle]
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-orange?style=for-the-badge)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)
