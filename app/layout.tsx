@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
-import { DM_Sans, Geist, Geist_Mono, Google_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { DM_Sans, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Nav from "./components/nav";
+import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,15 +19,11 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
 });
 
-const googleSans = Google_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Campusmart",
   description: "Buy and sell on Campusmart",
-  // manifest: "/manifest.json",
+  manifest: "/manifest.json",
+  themeColor: "#ff681f", //change to match brand colour
 };
 
 export default function RootLayout({
@@ -36,11 +33,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* replace placeholders with actual icons */}
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${googleSans.variable} antialiased relative`}
+        className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} antialiased`}
       >
+        <ServiceWorkerRegister />
+        <PWAInstallPrompt/>
         {children}
-        <Nav/>
       </body>
     </html>
   );

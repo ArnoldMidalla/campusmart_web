@@ -1,10 +1,102 @@
+// import { Home, Search, ShoppingCart, UserRound } from "lucide-react";
+// import Link from "next/link";
+
+// export default function Nav() {
+//   return (
+//     // <main className="w-full flex justify-center items-center h-24 absolute bottom-0 font-dmSans tracking-tight text-sm">
+//     <main className="fixed bottom-0 left-0 w-full flex justify-center items-center h-24 z-50 font-dmSans tracking-tight text-sm">
+//       <div className="backdrop-blur-xs flex gap-4 items-center py-2 px-2 rounded-full border border-neutral-200 bg-white/30">
+//         <Link
+//           href={"/"}
+//           className="flex gap-1 bg-main py-2 px-4 items-center rounded-full border border-neutral-200"
+//         >
+//           <Home size={18} color="white" />{" "}
+//           <p className="font-medium text-white">Home</p>
+//         </Link>
+//         <Link
+//           href={"/"}
+//           className="p-2 bg-white rounded-full border border-neutral-200"
+//         >
+//           <Search size={18} />
+//         </Link>
+//         <Link
+//           href={"/"}
+//           className="p-2 bg-white rounded-full border border-neutral-200"
+//         >
+//           <ShoppingCart size={18} />
+//         </Link>
+//         <Link
+//           href={"/"}
+//           className="p-2 bg-white rounded-full border border-neutral-200"
+//         >
+//           <UserRound size={18} />
+//         </Link>
+//       </div>
+//     </main>
+//   );
+// }
+
+"use client";
+
+import { Home, Search, ShoppingCart, UserRound } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Nav() {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname === path;
+
+  const baseIcon =
+    "p-2 rounded-full border border-neutral-200 transition-all";
+  const activeIcon = "bg-main text-white py-2 px-4";
+  const inactiveIcon = "bg-white text-black";
+
   return (
-    <main className="absolute w-full h-20 border bottom-0 flex justify-center items-center">
-      <div className="h-10 w-14 bg-black">
-        <Link href="/">Home</Link>
+    <main className="fixed bottom-0 left-0 w-full flex justify-center pb-6 z-50 font-dmSans text-sm">
+      <div className="backdrop-blur-xs flex gap-4 items-center py-2 px-2 rounded-full border border-neutral-200 bg-white/30">
+
+        {/* Home */}
+        <Link
+          href="/"
+          className={`flex gap-1 items-center rounded-full ${baseIcon}
+            ${isActive("/") ? "bg-main text-white" : "bg-white text-black"}`}
+        >
+          <Home size={18} />
+          {isActive("/") && <p className="font-medium">Home</p>}
+        </Link>
+
+        {/* Search */}
+        <Link
+          href="/search"
+          className={`${baseIcon} flex gap-1 ${
+            isActive("/search") ? activeIcon : inactiveIcon
+          }`}
+        >
+          <Search size={18} />
+          {isActive("/search") && <p className="font-medium">Search</p>}
+        </Link>
+
+        {/* Cart */}
+        <Link
+          href="/cart"
+          className={`${baseIcon} flex gap-1 ${
+            isActive("/cart") ? activeIcon : inactiveIcon
+          }`}
+        >
+          <ShoppingCart size={18} />
+          {isActive("/cart") && <p className="font-medium">Cart</p>}
+        </Link>
+
+        {/* Profile */}
+        <Link
+          href="/profile"
+          className={`${baseIcon} ${
+            isActive("/profile") ? activeIcon : inactiveIcon
+          }`}
+        >
+          <UserRound size={18} />
+        </Link>
       </div>
     </main>
   );

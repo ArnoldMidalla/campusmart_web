@@ -1,16 +1,17 @@
 {
   "name": "Campusmart",
   "short_name": "Campusmart",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "display": "standalone",
-  "description": "MovieMaster PWA helps you find the latest movies with an easy search by genre, year, and more. It works smoothly on any device, even offline, giving you a great movie browsing experience.",
-  "background_color": "#000000",
-  "theme_color": "#0f172a",
+  "description": "Campusmart PWA helps you buy and sell various kinds of products you otherwise wouldn't be able to physically, from the comfort of your home",
+  "background_color": "#ffffff",
+  "theme_color": "#ff681f",
   "icons": [
     {
       "src": "/vercel-icon-light.png",
       "sizes": "500x500",
       "type": "image/png"
     }
-  ]
+  ],
+  "orientation": "portrait-primary"
 }

@@ -1,0 +1,50 @@
+import { ShoppingCart } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function ProductsCard({
+  name,
+  price,
+  category,
+  image,
+  id,
+}: {
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+  id: number;
+}) {
+  return (
+    <Link
+      href={`/productItem/` + id}
+      className="flex justify-center max-w-42"
+    >
+      <main className="max-w-38 flex flex-col gap-2">
+        <div className="relative overflow-hidden w-38 h-28 rounded-lg">
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="object-cover w-full h-full"
+          />
+        </div>
+
+        <div className="flex flex-col gap-0.5 w-full">
+          <p className="text-xs font-dmSans tracking-tight text-neutral-700">
+            {category}
+          </p>
+          <p className="font-dmSans tracking-tight text-sm font-medium leading-3.5 line-clamp-1">
+            {name}
+          </p>
+          <div className="flex-1 flex justify-between max-w-38">
+            <p className="font-dmSans tracking-tight text-main text-sm font-medium">
+              N{price}
+            </p>
+            <ShoppingCart size={15} />
+          </div>
+        </div>
+      </main>
+    </Link>
+  );
+}
