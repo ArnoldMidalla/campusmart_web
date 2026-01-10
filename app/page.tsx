@@ -78,7 +78,7 @@ export default function Home() {
               See all
             </Link>
           </div>
-          <div className="flex gap-4 scrollbar-hide px-6">
+          <div className="flex gap-4 px-6 overflow-x-scroll">
             {products.map((product) => (
               <ProductsCard
                 key={product.id}
@@ -102,7 +102,7 @@ export default function Home() {
               See all
             </Link>
           </div>
-          <div className="flex gap-4 scrollbar-hide px-6">
+          <div className="flex gap-4 px-6 overflow-x-scroll">
             {products.map((product) => (
               <ProductsCard
                 key={product.id}

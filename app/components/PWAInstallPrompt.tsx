@@ -37,11 +37,11 @@ export default function PWAInstallPrompt() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-white shadow-lg p-4 rounded-lg flex items-center gap-4 z-50">
-      <span className="text-gray-800 font-medium">Install Campus Mart?</span>
+    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-white shadow-lg p-4 rounded-lg flex items-center gap-4 z-50 font-dmSans">
+      <p className="text-gray-800 font-medium">Install Campus Mart?</p>
       <button
         onClick={handleInstall}
-        className="bg-green-600 text-white px-3 py-1 rounded"
+        className="bg-main text-white px-3 py-1 rounded-full"
       >
         Install
       </button>
