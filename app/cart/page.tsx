@@ -105,7 +105,6 @@ export default function Cart() {
         </div>
       </main>
 
-      {/* <Nav /> */}
       <CheckoutNav text="Checkout" link="checkout"/>
     </div>
   );

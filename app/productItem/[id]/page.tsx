@@ -59,19 +59,19 @@ export default function ProductItem() {
           </button>
           <div className="flex gap-4">
             <button
-              // onClick={() => router.back()}
+              onClick={() => router.push("/search")}
               className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg"
             >
               <Search size={18} />
             </button>
             <button
-              // onClick={() => router.back()}
+              onClick={() => router.push("/")}
               className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg"
             >
               <Share2 size={18} />
             </button>
             <button
-              // onClick={() => router.back()}
+              onClick={() => router.push("/")}
               className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg"
             >
               <HeartPlus size={18} />
