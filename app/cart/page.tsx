@@ -2,7 +2,6 @@
 
 import { ChevronLeft, CircleMinus, CirclePlus, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Nav from "../components/nav";
 import { useCartStore } from "../store/useCartStore";
 import Image from "next/image";
 import CheckoutNav from "../components/checkoutNav";
@@ -10,7 +9,6 @@ import { useEffect, useState } from "react";
 
 export default function Cart() {
   const { cart, increaseQty, decreaseQty } = useCartStore();
-  const totalPrice = useCartStore((state) => state.getTotalPrice());
   const router = useRouter();
 
     const [mounted, setMounted] = useState(false);
