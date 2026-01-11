@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Campusmart",
   description: "Buy and sell on Campusmart",
   manifest: "/manifest.json",
-  themeColor: "#ff681f", //change to match brand colour
+  themeColor: "#ff681f", //brand colour
 };
 
 export default function RootLayout({

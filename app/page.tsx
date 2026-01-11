@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
       <main className="flex flex-col max-w-md w-full pb-28">
-        {/* section 1 */}
+        {/* section 1: Search & Filter */}
         <section className="flex flex-col gap-4 bg-white pt-12 pb-4 px-6">
           {/* search */}
           <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between pl-4">
@@ -62,7 +62,7 @@ export default function Home() {
 
         <div className="bg-neutral-100 w-full h-1" />
 
-        {/* section 2 */}
+        {/* section 2: Featured */}
         <section className="flex flex-col gap-2 bg-white py-4 px-6">
           <p className=" text-sm font-medium ">Featured</p>
           <div className="bg-neutral-300 rounded-lg w-full h-40"></div>
@@ -70,7 +70,7 @@ export default function Home() {
 
         <div className="bg-neutral-100 w-full h-1" />
 
-        {/*  */}
+        {/* section 3: Recommendations */}
         <section className="flex flex-col gap-2 bg-white py-4">
           <div className="w-full flex justify-between px-6">
             <p className=" text-sm font-medium ">You Might Need</p>
@@ -94,7 +94,7 @@ export default function Home() {
 
         <div className="bg-neutral-100 w-full h-1" />
 
-        {/*  */}
+        {/* section 4: New Stocks */}
         <section className="flex flex-col gap-2 bg-white py-4">
           <div className="w-full flex justify-between px-6">
             <p className=" text-sm font-medium ">New in Stock</p>
