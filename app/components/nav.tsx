@@ -22,7 +22,7 @@ export default function Nav() {
         <Link
           href="/"
           className={`flex gap-1 items-center rounded-full ${baseIcon}
-            ${isActive("/") ? "bg-main text-white" : "bg-white text-black"}`}
+            ${isActive("/") ? activeIcon : inactiveIcon}`}
         >
           <Home size={18} />
           {isActive("/") && <p className="font-medium">Home</p>}
