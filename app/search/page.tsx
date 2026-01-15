@@ -7,47 +7,17 @@ import PageHeader from "../components/PageHeader";
 import ProductsCard from "../components/ProductsCard";
 import { products, categories } from "../components/data";
 import CategoryItem from "../components/CategoryItem";
+import { applySearchFilters, SortOption } from "../utils/searchFilters";
+import { SORT_OPTIONS } from "../utils/sortOptions";
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<"relevant" | "price-low" | "price-high" | "rating">("relevant");
+  const [sortBy, setSortBy] = useState<SortOption>("relevant");
 
-  // Filter and search logic
+  // Filter and search logic using utility function
   const filteredProducts = useMemo(() => {
-    let results = products;
-
-    // Filter by search query
-    if (searchQuery.trim()) {
-      results = results.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    // Filter by category
-    if (selectedCategory) {
-      results = results.filter((product) => product.category === selectedCategory);
-    }
-
-    // Sort results
-    switch (sortBy) {
-      case "price-low":
-        results = [...results].sort((a, b) => a.price - b.price);
-        break;
-      case "price-high":
-        results = [...results].sort((a, b) => b.price - a.price);
-        break;
-      case "rating":
-        results = [...results].sort((a, b) => b.avgRating - a.avgRating);
-        break;
-      default:
-        // Keep original order for "relevant"
-        break;
-    }
-
-    return results;
+    return applySearchFilters(products, searchQuery, selectedCategory, sortBy);
   }, [searchQuery, selectedCategory, sortBy]);
 
   const handleCategoryPress = (categoryName: string) => {
@@ -105,28 +75,19 @@ export default function SearchPage() {
 
         {/* Sorting Options */}
         <div className="flex gap-2 overflow-x-auto pb-2">
-          {(["relevant", "price-low", "price-high", "rating"] as const).map((option) => {
-            const labels = {
-              relevant: "Relevant",
-              "price-low": "Price: Low to High",
-              "price-high": "Price: High to Low",
-              rating: "Highest Rated",
-            };
-
-            return (
-              <button
-                key={option}
-                onClick={() => setSortBy(option)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition border ${
-                  sortBy === option
-                    ? "bg-main text-white border-main"
-                    : "bg-white border-neutral-200 text-black hover:border-neutral-300"
-                }`}
-              >
-                {labels[option]}
-              </button>
-            );
-          })}
+          {SORT_OPTIONS.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => setSortBy(option.value)}
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition border ${
+                sortBy === option.value
+                  ? "bg-main text-white border-main"
+                  : "bg-white border-neutral-200 text-black hover:border-neutral-300"
+              }`}
+            >
+              {option.label}
+            </button>
+          ))}
         </div>
 
         {/* Results Info */}
