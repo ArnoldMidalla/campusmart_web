@@ -7,7 +7,7 @@
 5. A proper logic to determine new in stock has to be put in place
 
 * Search Page
-1. Page is empty
+1. Page is empty (fixed)
 
 * Cart Page
 1. Restructure calls to the "cartStore" to reference actual data through API calls
