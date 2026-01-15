@@ -1,25 +1,21 @@
 "use client";
 
 import {
-  ChevronLeft,
   ChevronRight,
   CircleMinus,
   CirclePlus,
-  Trash,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Nav from "../components/nav";
 import { useCartStore } from "../store/useCartStore";
 import Image from "next/image";
 import Link from "next/link";
 import CheeckoutNav from "../components/checkoutNav";
+import PageHeader from "../components/PageHeader";
 import { useEffect, useState } from "react";
 
 export default function Checkout() {
   const { cart, increaseQty, decreaseQty } = useCartStore();
   const totalPrice = useCartStore((state) => state.getTotalPrice());
-  const router = useRouter();
-    const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -28,25 +24,9 @@ export default function Checkout() {
   if (!mounted) return null;
 
   return (
-    <div className="relative flex justify-center w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
+    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
       <main className="flex flex-col gap-8 max-w-md w-full pb-28 px-6 pt-12">
-        {/* top nav */}
-        <div className="flex items-center">
-          <div className="w-10">
-            <button
-              onClick={() => router.back()}
-              className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg"
-            >
-              <ChevronLeft size={18} />
-            </button>
-          </div>
-          <div className="flex-1">
-            <p className="text-center text-lg font-medium line-clamp-1">
-              Order Confirmation
-            </p>
-          </div>
-          <div className="w-10"></div>
-        </div>
+        <PageHeader title="Order Confirmation" />
 
         {/* items map over */}
         <div>

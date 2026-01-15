@@ -1,17 +1,16 @@
 "use client";
 
-import { ChevronLeft, CircleMinus, CirclePlus, Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { CircleMinus, CirclePlus } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
 import Image from "next/image";
 import CheckoutNav from "../components/checkoutNav";
+import PageHeader from "../components/PageHeader";
 import { useEffect, useState } from "react";
 
 export default function Cart() {
   const { cart, increaseQty, decreaseQty } = useCartStore();
-  const router = useRouter();
 
-    const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -22,22 +21,7 @@ export default function Cart() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
       <main className="flex flex-col gap-8 max-w-md w-full pb-28 px-6 pt-12">
-
-        {/* top nav */}
-        <div className="flex items-center">
-          <div className="w-10">
-            <button
-              onClick={() => router.back()}
-              className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg"
-            >
-              <ChevronLeft size={18} />
-            </button>
-          </div>
-          <div className="flex-1">
-            <p className="text-center text-lg font-medium">My cart ({cart.length})</p>
-          </div>
-          <div className="w-10"></div>
-        </div>
+        <PageHeader title={`My cart (${cart.length})`} />
 
         {/* empty */}
         {cart.length === 0 && <p className="text-sm">Your cart is empty</p>}
