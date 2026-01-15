@@ -7,6 +7,8 @@ import {
   ScanFace,
   Search,
   WandSparkles,
+  GraduationCap,
+  TvMinimal
 } from "lucide-react";
 
 export const categories = [
@@ -34,6 +36,14 @@ export const categories = [
     name: "Services",
     Icon: HeartHandshake,
   },
+  {
+    name: "Education",
+    Icon: GraduationCap
+  },
+  {
+    name: "Electronics",
+    Icon: TvMinimal
+  }
 ];
 
 // export const products = [
