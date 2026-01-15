@@ -17,6 +17,7 @@ export default function ProductCarousel({ products }: Props) {
           category={product.category}
           image={product.image}
           id={product.id}
+          badge={product.badge}
         />
       ))}
     </div>

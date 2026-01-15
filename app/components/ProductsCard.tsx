@@ -2,19 +2,26 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+interface ProductsCardProps {
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+  id: number;
+  badge?: {
+    text: string;
+    color: string;
+  };
+}
+
 export default function ProductsCard({
   name,
   price,
   category,
   image,
   id,
-}: {
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-  id: number;
-}) {
+  badge,
+}: ProductsCardProps) {
   return (
     <Link
       href={`/productItem/` + id}
@@ -28,6 +35,13 @@ export default function ProductsCard({
             fill
             className="object-cover w-full h-full"
           />
+          {badge && (
+            <div
+              className={`absolute top-2 right-2 ${badge.color} text-white text-xs font-semibold px-2 py-1 rounded-full`}
+            >
+              {badge.text}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-0.5 w-full">
