@@ -72,7 +72,7 @@ export default function ProductItem() {
     return (
       <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
         <main className="flex flex-col gap-2 max-w-md w-full pb-28">
-          <div className="sticky top-0 z-50 bg-white pt-2 px-6 pb-4">
+          <div className="sticky top-0 z-50 bg-white pt-4 px-6 pb-2">
             <PageHeader title={product.name} rightItems={rightItems} />
           </div>
 
