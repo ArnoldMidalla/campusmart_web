@@ -9,6 +9,7 @@ import { products, categories } from "../components/data";
 import CategoryItem from "../components/CategoryItem";
 import { applySearchFilters, SortOption } from "../utils/searchFilters";
 import { SORT_OPTIONS } from "../utils/sortOptions";
+import SearchBar from "../components/SearchBar";
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,7 +22,9 @@ export default function SearchPage() {
   }, [searchQuery, selectedCategory, sortBy]);
 
   const handleCategoryPress = (categoryName: string) => {
-    setSelectedCategory((prev) => (prev === categoryName ? null : categoryName));
+    setSelectedCategory((prev) =>
+      prev === categoryName ? null : categoryName,
+    );
   };
 
   const clearSearch = () => {
@@ -29,13 +32,13 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
-      <main className="flex flex-col gap-6 max-w-md w-full pb-28 px-6 pt-12">
-        <PageHeader title="Search Products" showBack={false} />
+    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight font-dmsans">
+      <main className="flex flex-col gap-6 max-w-md w-full pb-28 pt-8">
+        {/* <PageHeader showBack={false} /> */}
 
         {/* Search Input */}
         <div className="flex flex-col gap-4">
-          <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between pl-4 bg-white">
+          {/* <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between pl-4 bg-white">
             <input
               type="text"
               placeholder="Search on Campusmart..."
@@ -54,14 +57,20 @@ export default function SearchPage() {
             <div className="bg-main flex justify-center items-center px-4 rounded-full">
               <SearchIcon color="white" size={17} strokeWidth={3} />
             </div>
+          </div> */}
+          <div className="px-5">
+            <SearchBar />
           </div>
 
           {/* Categories Filter */}
-          <div className="flex justify-between gap-2 overflow-x-auto pb-2 scroll-smooth">
+          <div className="flex justify-between pb-2 px-5">
             {categories.map((category) => {
               const isActive = selectedCategory === category.name;
               return (
-                <div key={category.name} onClick={() => handleCategoryPress(category.name)}>
+                <div
+                  key={category.name}
+                  onClick={() => handleCategoryPress(category.name)}
+                >
                   <CategoryItem
                     category={category}
                     isActive={isActive}
@@ -74,7 +83,7 @@ export default function SearchPage() {
         </div>
 
         {/* Sorting Options */}
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-5">
           {SORT_OPTIONS.map((option) => (
             <button
               key={option.value}
@@ -91,9 +100,10 @@ export default function SearchPage() {
         </div>
 
         {/* Results Info */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center px-5">
           <p className="text-sm text-neutral-600">
-            {filteredProducts.length} result{filteredProducts.length !== 1 ? "s" : ""}
+            {filteredProducts.length} result
+            {filteredProducts.length !== 1 ? "s" : ""}
             {searchQuery && ` for "${searchQuery}"`}
           </p>
           {(searchQuery || selectedCategory) && (
@@ -112,7 +122,7 @@ export default function SearchPage() {
 
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 px-5">
             {filteredProducts.map((product) => (
               <ProductsCard
                 key={product.id}
@@ -125,7 +135,7 @@ export default function SearchPage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-12 gap-4">
+          <div className="flex flex-col items-center justify-center py-12 gap-4 px-5">
             <div className="size-16 rounded-full bg-neutral-100 flex items-center justify-center">
               <SearchIcon size={32} className="text-neutral-400" />
             </div>

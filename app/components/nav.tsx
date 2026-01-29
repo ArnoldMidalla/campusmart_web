@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Search, ShoppingCart, UserRound } from "lucide-react";
+import { Home, ShoppingCart, TextSearch, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,15 +9,13 @@ export default function Nav() {
 
   const isActive = (path: string) => pathname === path;
 
-  const baseIcon =
-    "p-2 rounded-full border border-neutral-200 transition-all";
+  const baseIcon = "p-2 rounded-full border border-neutral-200 transition-all";
   const activeIcon = "bg-main text-white py-2 px-4";
   const inactiveIcon = "bg-white text-black";
 
   return (
     <main className="fixed bottom-0 left-0 w-full flex justify-center pb-6 z-40 font-dmSans text-sm">
       <div className="backdrop-blur-sm flex gap-4 items-center py-2 px-2 rounded-full border border-neutral-200 bg-white/20">
-
         {/* Home */}
         <Link
           href="/"
@@ -28,15 +26,15 @@ export default function Nav() {
           {isActive("/") && <p className="font-medium">Home</p>}
         </Link>
 
-        {/* Search */}
+        {/* Categories */}
         <Link
-          href="/search"
+          href="/categories"
           className={`${baseIcon} flex gap-1 ${
-            isActive("/search") ? activeIcon : inactiveIcon
+            isActive("/categories") ? activeIcon : inactiveIcon
           }`}
         >
-          <Search size={18} />
-          {isActive("/search") && <p className="font-medium">Search</p>}
+          <TextSearch size={18} />
+          {isActive("/categories") && <p className="font-medium">Categories</p>}
         </Link>
 
         {/* Cart */}

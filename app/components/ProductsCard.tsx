@@ -8,6 +8,7 @@ interface ProductsCardProps {
   category: string;
   image: string;
   id: number;
+  hearted?: boolean;
   badge?: {
     text: string;
     color: string;
@@ -20,7 +21,8 @@ export default function ProductsCard({
   category,
   image,
   id,
-  badge,
+  hearted,
+  // badge,
 }: ProductsCardProps) {
   return (
     <Link href={`/productItem/` + id} className="flex justify-center max-w-42">
@@ -40,7 +42,11 @@ export default function ProductsCard({
             </div>
           )} */}
           <div className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-neutral-300">
-            <HeartPlus size={18} />
+            {hearted ? (
+              <HeartPlus size={18} fill="#ff681f" color="white" />
+            ) : (
+              <HeartPlus size={18} />
+            )}
           </div>
         </div>
 
