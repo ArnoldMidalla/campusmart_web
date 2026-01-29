@@ -351,3 +351,15 @@ export const promotions = [
   },
 ];
 
+export const featuredStores = [
+  {
+    name: "Business Name",
+    category: "Category of business",
+    image: "/api/placeholder/48/48",
+  },
+  {
+    name: "Business Name",
+    category: "Category of business",
+    image: "/api/placeholder/48/48",
+  },
+];

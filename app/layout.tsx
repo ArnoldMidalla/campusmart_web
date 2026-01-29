@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Geist, Geist_Mono } from "next/font/google";
+import { Jost, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const dmSans = DM_Sans({
+const dmSans = Jost({
   variable: "--font-dm-sans",
   subsets: ["latin"],
 });

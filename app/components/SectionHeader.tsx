@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
@@ -8,13 +9,18 @@ type Props = {
   linkText?: string;
 };
 
-export default function SectionHeader({ title, href, linkText = "See all" }: Props) {
+export default function SectionHeader({
+  title,
+  href,
+  linkText = "See all",
+}: Props) {
   return (
     <div className="w-full flex justify-between px-6">
-      <p className=" text-sm font-medium ">{title}</p>
+      <p className=" text-sm font-semibold">{title}</p>
       {href ? (
-        <Link href={href} className="text-main text-sm  ">
-          {linkText}
+        <Link href={href} className="text-main text-xs flex items-center">
+          <p>{linkText}</p>
+          <ChevronRight size={15} />
         </Link>
       ) : null}
     </div>
