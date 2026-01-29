@@ -12,7 +12,7 @@ export default function CategoryList() {
   };
 
   return (
-    <div className="flex justify-between overflow-x-scroll gap-2">
+    <div className="flex justify-between overflow-x-scroll">
       {categories.map((category) => {
         const isActive = pressed === category.name;
 

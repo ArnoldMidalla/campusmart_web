@@ -74,7 +74,7 @@ export default function FeaturedBanner() {
         </div>
       </Link>
 
-      {featuredDisplays.length > 1 && (
+      {/* {featuredDisplays.length > 1 && (
         <div className="flex gap-2 justify-center mt-2">
           <button
             onClick={handlePrev}
@@ -89,7 +89,7 @@ export default function FeaturedBanner() {
             →
           </button>
         </div>
-      )}
+      )} */}
     </section>
   );
 }

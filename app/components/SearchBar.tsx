@@ -11,7 +11,7 @@ export default function SearchBar() {
       <input
         type="search"
         placeholder="Search on Campusmart"
-        className="text-sm font-medium w-full  focus:outline-none"
+        className="text-xs tracking-tight font-medium w-full  focus:outline-none"
       />
       <button
         className="bg-main flex justify-center items-center px-4 rounded-full"

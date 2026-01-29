@@ -40,10 +40,10 @@ export const categories = [
     name: "Education",
     Icon: GraduationCap
   },
-  {
-    name: "Electronics",
-    Icon: TvMinimal
-  }
+  // {
+  //   name: "Electronics",
+  //   Icon: TvMinimal
+  // }
 ];
 
 // export const products = [
