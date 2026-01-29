@@ -26,7 +26,7 @@ export default function Checkout() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
       <main className="flex flex-col gap-8 max-w-md w-full pb-28 px-6 pt-12">
-        <PageHeader title="Order Confirmation" />
+        <PageHeader />
 
         {/* items map over */}
         <div>
