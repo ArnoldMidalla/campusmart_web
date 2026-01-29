@@ -87,6 +87,7 @@ export default function ProductItem() {
           </div>
 
           <div className="flex flex-col gap-2 px-6 pt-6">
+            <p className="text-lg font-semibold">{product.name}</p>
             <p className="text-black/50 text-sm leading-4">
               {product.productDetails}
             </p>

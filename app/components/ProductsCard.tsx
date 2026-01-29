@@ -39,7 +39,7 @@ export default function ProductsCard({
               {badge.text}
             </div>
           )} */}
-          <div className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-md">
+          <div className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-neutral-300">
             <HeartPlus size={18} />
           </div>
         </div>
