@@ -8,7 +8,7 @@ type Props = {
 
 export default function ProductCarousel({ products }: Props) {
   return (
-    <div className="flex gap-4 px-6 overflow-x-scroll no-scrollbar">
+    <div className="flex gap-3 px-4 overflow-x-scroll no-scrollbar">
       {products.map((product) => (
         <ProductsCard
           key={product.id}

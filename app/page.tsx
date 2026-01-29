@@ -16,7 +16,7 @@ export default function Home() {
       <main className="flex flex-col max-w-md w-full pb-28">
         
         {/* Section 1: Search & Filter */}
-        <section className="flex flex-col gap-5 bg-white pt-12 pb-2 px-5">
+        <section className="flex flex-col gap-5 bg-white pt-8 pb-2 px-4">
           <SearchBar />
           <CategoryList />
         </section>
@@ -45,9 +45,9 @@ export default function Home() {
         <SectionDivider />
 
         {/* Section 5: Featured Store */}
-        <section className="flex flex-col gap-3 bg-white py-5 px-5">
+        <section className="flex flex-col gap-3 bg-white py-5">
           <SectionHeader title="Featured Store" href="/stores" />
-          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar">
+          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4">
              {featuredStores.map((store, index) => (
                 <FeaturedStoreCard key={index} store={store} />
              ))}

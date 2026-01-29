@@ -15,7 +15,7 @@ export default function SectionHeader({
   linkText = "See all",
 }: Props) {
   return (
-    <div className="w-full flex justify-between px-6">
+    <div className="w-full flex justify-between px-4">
       <p className=" text-sm font-semibold">{title}</p>
       {href ? (
         <Link href={href} className="text-main text-xs flex items-center">

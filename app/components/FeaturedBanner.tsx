@@ -51,7 +51,7 @@ export default function FeaturedBanner() {
   };
 
   return (
-    <section className="flex flex-col gap-2 bg-white py-4 px-6">
+    <section className="flex flex-col gap-2 bg-white py-4 px-4">
       <div className="flex justify-between items-center">
         <p className="text-sm font-medium">Featured</p>
       </div>
