@@ -48,15 +48,15 @@ export default function Checkout() {
         </div>
 
         {/* items map over */}
-        <div className="px-5 flex flex-col gap-2">
-          <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center px-5">
             <p className="font-semibold">Items in your order({cart.length})</p>
             <Link href={"/cart"} className="flex items-center">
               <p className="text-xs text-black/70 tracking-normal">View all</p>
               <ChevronRight size={14} strokeWidth={1.5} />
             </Link>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 overflow-x-scroll px-5 no-scrollbar">
             {cart.map((cartItem) => (
               <div
                 key={`${cartItem.id}-${cartItem.size}`}
@@ -151,7 +151,7 @@ export default function Checkout() {
               >
                 <div className="flex gap-2 items-center">
                   <div
-                    className="rounded-full border border-neutral-300 transition-all duration-200 size-4 mr-2"
+                    className="rounded-full border border-neutral-300 transition-all duration-200 size-3.5 mr-2"
                     style={{
                       backgroundColor:
                         option.id === payMethod ? "#ff681f" : "transparent",
