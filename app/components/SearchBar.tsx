@@ -15,7 +15,7 @@ export default function SearchBar() {
       />
       <button
         className="bg-main flex justify-center items-center py-1.5 px-3 shrink rounded-full"
-        onClick={() => router.push("/search")}
+        onClick={() => router.push("/categories")}
       >
         <Search color="white" size={17} strokeWidth={3} />
       </button>

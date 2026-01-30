@@ -5,6 +5,7 @@ import { products } from "@/app/components/data";
 import {
   BadgeCheck,
   ChevronRight,
+  Heart,
   HeartPlus,
   RulerDimensionLine,
   Search,
@@ -39,6 +40,8 @@ export default function ProductItem() {
 
   const product = products.find((p) => p.id == Number(id));
 
+  const [hearted, setHearted] = useState(false);
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -49,12 +52,12 @@ export default function ProductItem() {
   if (product) {
     const rightItems = (
       <div className="flex gap-3">
-        <button
-          onClick={() => router.push("/search")}
+        <Link
+          href={"/categories"}
           className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
         >
           <Search size={16} />
-        </button>
+        </Link>
         <button
           onClick={() => router.push("/")}
           className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
@@ -62,10 +65,14 @@ export default function ProductItem() {
           <Share2 size={16} />
         </button>
         <button
-          onClick={() => router.push("/")}
+          onClick={() => setHearted(!hearted)}
           className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
         >
-          <HeartPlus size={16} />
+          {hearted ? (
+            <Heart size={16} fill="#ff681f" color="#ff681f" />
+          ) : (
+            <HeartPlus size={16} />
+          )}
         </button>
       </div>
     );
@@ -173,9 +180,7 @@ export default function ProductItem() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-sm leading-3.5">
-                    {review.actualReview}
-                  </p>
+                  <p className="text-sm leading-3.5">{review.actualReview}</p>
                 </div>
               ))}
             </div>
