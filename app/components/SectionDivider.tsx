@@ -1,3 +1,3 @@
 export default function SectionDivider() {
-  return <div className="bg-neutral-100 w-full h-1" />;
+  return <div className="w-full h-0.5 rounded-full bg-neutral-200" />;
 }

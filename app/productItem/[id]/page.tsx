@@ -5,10 +5,12 @@ import { products } from "@/app/components/data";
 import {
   BadgeCheck,
   ChevronRight,
+  Heart,
   HeartPlus,
   RulerDimensionLine,
   Search,
   Share2,
+  Star,
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
@@ -38,6 +40,8 @@ export default function ProductItem() {
 
   const product = products.find((p) => p.id == Number(id));
 
+  const [hearted, setHearted] = useState(false);
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -47,24 +51,28 @@ export default function ProductItem() {
   if (!mounted) return null;
   if (product) {
     const rightItems = (
-      <div className="flex gap-2">
-        <button
-          onClick={() => router.push("/search")}
-          className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
+      <div className="flex gap-3">
+        <Link
+          href={"/categories"}
+          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
         >
-          <Search size={18} />
-        </button>
-        <button
-          onClick={() => router.push("/")}
-          className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
-        >
-          <Share2 size={18} />
-        </button>
+          <Search size={16} />
+        </Link>
         <button
           onClick={() => router.push("/")}
-          className="size-8 bg-white rounded-md border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
+          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
         >
-          <HeartPlus size={18} />
+          <Share2 size={16} />
+        </button>
+        <button
+          onClick={() => setHearted(!hearted)}
+          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
+        >
+          {hearted ? (
+            <Heart size={16} fill="#ff681f" color="#ff681f" />
+          ) : (
+            <HeartPlus size={16} />
+          )}
         </button>
       </div>
     );
@@ -72,8 +80,8 @@ export default function ProductItem() {
     return (
       <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
         <main className="flex flex-col gap-2 max-w-md w-full pb-28">
-          <div className="sticky top-0 z-50 bg-white pt-4 px-6 pb-2">
-            <PageHeader title={product.name} rightItems={rightItems} />
+          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full max-w-md">
+            <PageHeader rightItems={rightItems} />
           </div>
 
           <div className="w-full h-[50vh] relative overflow-hidden">
@@ -86,19 +94,19 @@ export default function ProductItem() {
           </div>
 
           <div className="flex flex-col gap-2 px-6 pt-6">
+            <p className="text-lg font-semibold">{product.name}</p>
             <p className="text-black/50 text-sm leading-4">
               {product.productDetails}
             </p>
-            <div className="flex gap-2">
-              <p className="text-sm text-black/70">{product.avgRating}</p>{" "}
+            <div className="flex gap-2 text-sm text-neutral-600">
+              <div className="flex gap-0.5 items-center">
+                <Star fill="#ff681f" color="#ff681f" size={14} />
+                <p>{product.avgRating}</p>
+              </div>
               <div className="h-5 rounded w-0.5 bg-neutral-200" />
-              <p className="text-sm text-black/70">
-                {product.noOfRatings} ratings
-              </p>
+              <p>{product.noOfRatings} ratings</p>
               <div className="h-5 rounded w-0.5 bg-neutral-200" />
-              <p className="text-sm text-black/70">
-                {product.noOfReview} reviews
-              </p>
+              <p>{product.noOfReview} reviews</p>
             </div>
             <p className="text-main text-xl font-bold">N{product.price}</p>
 
@@ -172,9 +180,7 @@ export default function ProductItem() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-sm font-medium leading-3.5">
-                    {review.actualReview}
-                  </p>
+                  <p className="text-sm leading-3.5">{review.actualReview}</p>
                 </div>
               ))}
             </div>
@@ -201,7 +207,7 @@ export default function ProductItem() {
               </div>
               <Link
                 href={"/"}
-                className="size-8 border border-neutral-200 shadow-lg/5 rounded-full flex justify-center items-center"
+                className="size-8 border border-neutral-200 shadow-lg/10 rounded-full flex justify-center items-center"
               >
                 <ChevronRight size={18} />
               </Link>
@@ -216,7 +222,7 @@ export default function ProductItem() {
             <div className="w-full flex justify-between mt-4">
               <p className="text-sm font-medium ">Best Picks</p>
             </div>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-4">
               {products.map((productsMap) => (
                 <ProductsCard
                   category={productsMap.category}

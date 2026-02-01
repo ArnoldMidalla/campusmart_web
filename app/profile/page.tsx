@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
 import {
   LogOut,
   Settings,
@@ -95,7 +96,7 @@ export default function ProfilePage() {
         <PageHeader title="Profile" showBack={false} />
 
         {/* User Profile Card */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 flex flex-col gap-4">
+        <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 flex flex-col gap-4">
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">

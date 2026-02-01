@@ -4,11 +4,12 @@ import ProductsCard from "../components/ProductsCard";
 
 type Props = {
   products: any[];
+  hearted?: boolean;
 };
 
-export default function ProductCarousel({ products }: Props) {
+export default function ProductCarousel({ products, hearted }: Props) {
   return (
-    <div className="flex gap-4 px-6 overflow-x-scroll">
+    <div className="flex gap-3 px-4 overflow-x-scroll no-scrollbar">
       {products.map((product) => (
         <ProductsCard
           key={product.id}
@@ -18,6 +19,7 @@ export default function ProductCarousel({ products }: Props) {
           image={product.image}
           id={product.id}
           badge={product.badge}
+          hearted={hearted}
         />
       ))}
     </div>

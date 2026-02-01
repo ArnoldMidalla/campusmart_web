@@ -8,7 +8,7 @@ import {
   Search,
   WandSparkles,
   GraduationCap,
-  TvMinimal
+  TvMinimal,
 } from "lucide-react";
 
 export const categories = [
@@ -38,46 +38,9 @@ export const categories = [
   },
   {
     name: "Education",
-    Icon: GraduationCap
+    Icon: GraduationCap,
   },
-  {
-    name: "Electronics",
-    Icon: TvMinimal
-  }
 ];
-
-// export const products = [
-//   {
-//     name: "UrbanFlex Cargo Pants",
-//     price: 14500,
-//     category: "Fashion",
-//     image: "",
-//     avgRating: 4.7,
-//     noOfRatings: 1058,
-//     noOfReview: 400,
-//     reviews: [
-//       {
-//         nameOfReviewer: "David John",
-//         actualReview: "",
-//         rating: 5,
-//         ratingUpvotes: 19,
-//         ratingDownvotes: 1,
-//         timeAgo: 20,
-//       },
-//       {
-//         nameOfReviewer: "David John",
-//         actualReview: "",
-//         rating: 5,
-//         ratingUpvotes: 19,
-//         ratingDownvotes: 1,
-//         timeAgo: 20,
-//       }
-//     ],
-//     productDetails: "",
-//     keyFeatures: "",
-//     size: ["S", "M", "L", "XL"]
-//   },
-// ];
 
 export const products = [
   {
@@ -85,8 +48,9 @@ export const products = [
     name: "UrbanFlex dark-blue Cargo Pants",
     price: 14500,
     category: "Fashion",
-    image:
-      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=697&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    // image:
+    //   "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=697&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/mainImg.jpg",
     avgRating: 4.7,
     noOfRatings: 1058,
     noOfReview: 400,
@@ -111,8 +75,10 @@ export const products = [
         timeAgo: 45,
       },
     ],
+    // productDetails:
+    //   "Premium cotton-blend cargo pants designed for both style and utility. Features reinforced stitching and 6 functional pockets.",
     productDetails:
-      "Premium cotton-blend cargo pants designed for both style and utility. Features reinforced stitching and 6 functional pockets.",
+      "Comfort-fit, multi-purpose cargo pants designed for students who want durability, flexibility, and style in one.",
     keyFeatures:
       "Breathable fabric, Adjustable waist straps, Water-resistant coating.",
     size: ["S", "M", "L", "XL"],
@@ -351,3 +317,15 @@ export const promotions = [
   },
 ];
 
+export const featuredStores = [
+  {
+    name: "Business Name",
+    category: "Category of business",
+    image: "/api/placeholder/48/48",
+  },
+  {
+    name: "Business Name",
+    category: "Category of business",
+    image: "/api/placeholder/48/48",
+  },
+];
