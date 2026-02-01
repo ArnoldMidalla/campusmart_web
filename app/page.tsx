@@ -30,7 +30,7 @@ export default function Home() {
 
         {/* Section 3: Recommendations */}
         <section className="flex flex-col gap-3 bg-white py-5">
-          <SectionHeader title="You Might Need" href="/recommendations" />
+          <SectionHeader title="You Migt Need" href="/recommendations" />
           <ProductCarousel products={products} />
         </section>
 
