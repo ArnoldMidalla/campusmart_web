@@ -1,25 +1,26 @@
 "use client";
-import { Home, ShoppingCart, TextSearch, UserRound } from "lucide-react";
+import { ClipboardList, Home, Package, ShoppingCart, TextSearch, UserRound, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Nav() {
+export default function SellersNav() {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
   const baseIcon = "p-2 rounded-full border border-neutral-200 transition-all";
-  const activeIcon = "bg-main text-white py-2 px-4";
+  const activeIcon = "bg-[#13368B] text-white py-2 px-4";
   const inactiveIcon = "bg-white text-black";
 
   const navItems = [
-    { href: "/", icon: Home, label: "Home" },
-    { href: "/categories", icon: TextSearch, label: "Categories" },
-    { href: "/cart", icon: ShoppingCart, label: "Cart" },
-    { href: "/profile", icon: UserRound, label: "Profile" },
+    { href: "/sellers", icon: Home, label: "Dashboard" },
+    { href: "/sellers/products", icon: Package, label: "Inventory" },
+    { href: "/sellers/orders", icon: ClipboardList, label: "Orders" },
+    { href: "/sellers/earnings", icon: Wallet, label: "Earnings" },
+    { href: "/sellers/profile", icon: UserRound, label: "Profile" },
   ];
 
   return (
     <main className="fixed bottom-0 left-0 w-full flex justify-center pb-6 z-40 font-dmSans text-sm">
-      <div className="backdrop-blur-sm flex gap-4 items-center py-2 px-2 rounded-full border border-neutral-200">
+      <div className="backdrop-blur-sm flex gap-2 items-center py-2 px-2 rounded-full border border-neutral-200">
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href);
