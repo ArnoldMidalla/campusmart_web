@@ -14,17 +14,17 @@ export default function CategoryItem({ category, isActive, onClick }: Props) {
       className="flex flex-col items-center gap-2"
     >
       <div
-        className={`p-2 rounded-full border shadow-lg/5 transition-all duration-300
+        className={`p-2 rounded-full border shadow-lg transition-all duration-300
                     ${
                       isActive
                         ? "bg-main border-main text-white"
                         : "border-neutral-200 text-black"
                     }`}
       >
-        <category.Icon size={20} />
+        <category.Icon size={20} strokeWidth={1.6} />
       </div>
 
-      <span className="text-xs font-medium ">{category.name}</span>
+      <span className="text-xs tracking-wide">{category.name}</span>
     </button>
   );
 }

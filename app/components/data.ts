@@ -36,10 +36,10 @@ export const categories = [
     name: "Services",
     Icon: HeartHandshake,
   },
-  {
-    name: "Education",
-    Icon: GraduationCap,
-  },
+  // {
+  //   name: "Education",
+  //   Icon: GraduationCap,
+  // },
 ];
 
 export const products = [
