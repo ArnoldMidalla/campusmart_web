@@ -13,6 +13,7 @@ import {
   HelpCircle,
   ChevronRight,
   Edit2,
+  Link2,
 } from "lucide-react";
 import Link from "next/link";
 import Nav from "../components/nav";
@@ -67,6 +68,12 @@ export default function ProfilePage() {
       href: "#",
       badge: null,
     },
+    {
+      icon: Link2,
+      label: "Sellers page",
+      description: "Go to sellers page",
+      href: "/sellers",
+    }
   ];
 
   const settingsItems = [
