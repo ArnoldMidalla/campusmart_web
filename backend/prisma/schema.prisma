@@ -26,6 +26,52 @@ enum OrderStatus {
   COMPLETED
 }
 
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  SOLDOUT
+  ARCHIVED
+  FLAGGED
+}
+
+enum ProductCondition {
+  NEW
+  USED_LIKE_NEW
+  USED_GOOD
+  USED_FAIR
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum ModerationActionType {
+  APPROVE
+  REJECT
+  SUSPEND
+  FLAG
+}
+
+enum ListingCategory {
+  FASHION
+  BEAUTY
+  FOOD
+  CREATIVE
+  TECH
+  SERVICES
+  OTHERS
+}
+
 model User {
   id            String      @id @default(uuid())
   email         String      @unique
@@ -34,12 +80,34 @@ model User {
   firstName     String
   lastName      String
   role          UserRole
+  trustScore     Float         @default(0)
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  isActive      Boolean     @default(true)
+  isSuspended     Boolean     @default(false)
+
+  institutionId  String?
+  institution    Institution?   @relation(fields: [institutionId], references: [id])
+
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
   listings      Listing[]   @relation("SellerListings")
   orders        Order[]     @relation("BuyerOrders")
   wishlist      Wishlist[]
+  reviewsGiven   Review[]    @relation("Reviewer")
+  reviewsReceived Review[]    @relation("Reviewee")
+  verificationRequests VerificationRequest[]
+  moderationActions ModerationAction[]
+}
+
+model Institution {
+  id            String      @id @default(uuid())
+  name          String      @unique
+  domain        String?
+  createdAt     DateTime    @default(now())
+
+  users         User[]
+  listings      Listing[]
 }
 
 model Listing {
@@ -48,15 +116,35 @@ model Listing {
   description   String
   price         Decimal     @db.Decimal(10,2)
   quantity      Int
-  isActive      Boolean     @default(true)
+  category      ListingCategory
+  status        ListingStatus @default(DRAFT)
+  condition     ProductCondition
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+  isDeleted     Boolean     @default(false)
+  isPromoted     Boolean     @default(false)
+  isFlagged     Boolean     @default(false)
 
   sellerId      String
   seller        User        @relation("SellerListings", fields: [sellerId], references: [id])
 
+  institutionId  String?
+  institution    Institution? @relation(fields: [institutionId], references: [id])
+
+  images        ListingImage[]
   orderItems    OrderItem[]
   wishlistedBy  Wishlist[]
+  reviews       Review[]
+  moderationLogs  ModerationAction[]
+
+  @@index([sellerId, status, institutionId])
+}
+
+model ListingImage {
+  id            String      @id @default(uuid())
+  url           String
+  listingId     String
+  listing       Listing     @relation(fields: [listingId], references: [id])
 }
 
 model Order {
@@ -70,6 +158,10 @@ model Order {
   buyer         User        @relation("BuyerOrders", fields: [buyerId], references: [id])
 
   items         OrderItem[]
+  payment       Payment?
+  review        Review?
+
+  @@index([buyerId, status])
 }
 
 model OrderItem {
@@ -86,6 +178,40 @@ model OrderItem {
   @@unique([orderId, listingId])
 }
 
+model Payment{
+  id            String      @id @default(uuid())
+  amount        Decimal     @db.Decimal(10,2)
+  status        PaymentStatus @default(PENDING)
+  provider      String?
+  reference     String?     @unique
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  orderId       String      @unique
+  order         Order       @relation(fields: [orderId], references: [id])
+}
+
+model Review {
+  id            String      @id @default(uuid())
+  rating        Int
+  comment       String?
+  createdAt     DateTime    @default(now())
+
+  reviewerId    String
+  reviewer      User        @relation("Reviewer", fields: [reviewerId], references: [id])
+
+  revieweeId    String      @unique
+  reviewee      User        @relation("Reviewee", fields: [revieweeId], references: [id])
+
+  listingId     String
+  listing       Listing     @relation(fields: [listingId], references: [id])
+
+  orderId       String      @unique
+  order         Order       @relation(fields: [orderId], references: [id])
+
+  @@index([revieweeId])
+}
+
 model Wishlist {
   id            String      @id @default(uuid())
   userId        String
@@ -96,4 +222,29 @@ model Wishlist {
   listing       Listing      @relation(fields: [listingId], references: [id])
 
   @@unique([userId, listingId])
+  @@index([userId, listingId])
+}
+
+model VerificationRequest {
+  id            String      @id @default(uuid())
+  status        VerificationStatus @default(PENDING)
+  documentUrl   String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+}
+
+model ModerationAction {
+  id            String      @id @default(uuid())
+  type          ModerationActionType
+  reason        String?
+  createdAt     DateTime    @default(now())
+
+  listingId     String?
+  listing       Listing?     @relation(fields: [listingId], references: [id])
+
+  moderatorId   String
+  moderator     User        @relation(fields: [moderatorId], references: [id])
 }
