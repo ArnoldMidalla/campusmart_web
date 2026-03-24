@@ -11,6 +11,10 @@
   --bgGray: "#F6F6F6"; */
 }
 
+@theme{
+  --font-satoshi: var(--font-satoshi);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

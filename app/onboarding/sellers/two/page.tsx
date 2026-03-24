@@ -59,7 +59,7 @@ export default function SignInPage() {
 
           <div className="mt-8">
             <div className="p-1 border border-neutral-200 rounded-full w-full relative">
-              <button className="flex items-center justify-center w-full bg-main text-white py-3.5 rounded-full font-medium text-[16px] hover:brightness-105 transition-all">
+              <button className="flex items-center justify-center w-full bg-[#13368B] text-white py-3.5 rounded-full font-medium text-[16px] hover:brightness-105 transition-all">
                 Sign in
               </button>
             </div>
@@ -71,7 +71,7 @@ export default function SignInPage() {
             </span>
             <Link
               href="#"
-              className="text-main text-[14.5px] font-semibold hover:underline"
+              className="text-[#13368B] text-[14.5px] font-semibold hover:underline"
             >
               Get recovery mail here
             </Link>
@@ -106,10 +106,10 @@ export default function SignInPage() {
               You do not have an account yet? No worries
             </span>
             <Link
-              href="/onboarding/buyers/one"
-              className="text-main text-[15px] font-semibold hover:underline text-center"
+              href="/onboarding/sellers/one"
+              className="text-[#13368B] text-[15px] font-semibold hover:underline text-center"
             >
-              Create an account with us here
+              Create a sellers account with us here
             </Link>
           </div>
         </section>
