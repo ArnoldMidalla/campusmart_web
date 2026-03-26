@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Bell, Package, ClipboardList, TrendingUp, TrendingDown } from "lucide-react";
 import SellersNav from "./components/sellersNav";
 import { useSellerStore } from "@/app/store/useSellerStore";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 
@@ -68,6 +69,8 @@ function BestPerformingCard() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SellersPage() {
+  useRequireAuth("/onboarding/sellers/one"); // Redirects to login if not authenticated
+  
   const { isOnline, setIsOnline, sellerName, stats } = useSellerStore();
 
   const formatCurrency = (n: number) =>
