@@ -19,16 +19,25 @@ import Link from "next/link";
 import Nav from "../components/nav";
 import PageHeader from "../components/PageHeader";
 import { useCartStore } from "../store/useCartStore";
+import { useAuthStore } from "../store/useAuthStore";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false);
   const { cart } = useCartStore();
+  const { logout } = useAuthStore();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/onboarding/one");
+  };
 
   // Mock user data
   const user = {
@@ -196,7 +205,9 @@ export default function ProfilePage() {
 
         {/* Danger Zone */}
         <div className="flex flex-col gap-3">
-          <button className="flex items-center gap-3 p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition">
+          <button
+           onClick={handleLogout}
+           className="flex items-center gap-3 p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition">
             <div className="p-2 bg-red-100 rounded-lg">
               <LogOut size={18} className="text-red-600" />
             </div>
