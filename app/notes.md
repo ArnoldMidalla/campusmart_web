@@ -1,13 +1,8 @@
 ## This is a list of important omissions worthy of note
 * Home Page
-1. The featured section is always rendered even when empty
-2. Majority of the buttons are not functioning
-3. The Link tags point nowhere
-4. All calls to data.ts need to be restructured to get data from the backend
-5. A proper logic to determine new in stock has to be put in place
+1. All calls to data.ts need to be restructured to get data from the backend
+2. A proper logic to determine new in stock has to be put in place
 
-* Search Page
-1. Page is empty (fixed)
 
 * Cart Page
 1. Restructure calls to the "cartStore" to reference actual data through API calls
