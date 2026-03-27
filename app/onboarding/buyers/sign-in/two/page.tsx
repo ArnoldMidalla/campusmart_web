@@ -106,7 +106,7 @@ export default function SignInPage() {
               You do not have an account yet? No worries
             </span>
             <Link
-              href="/onboarding/buyers/one"
+              href="/onboarding/buyers/sign-up/one"
               className="text-main text-[15px] font-semibold hover:underline text-center"
             >
               Create an account with us here
