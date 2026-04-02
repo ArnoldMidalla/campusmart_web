@@ -42,7 +42,7 @@ export default function SignInPage() {
             <br />
             Log in to continue
             <br />
-            shopping.
+            earning.
           </h1>
 
           <div className="flex flex-col gap-4">
