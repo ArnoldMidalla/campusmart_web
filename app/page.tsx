@@ -21,7 +21,6 @@ export default function Home() {
         {/* Section 1: Search & Filter */}
         <section className="flex flex-col gap-5 bg-white pt-8 pb-2 px-4">
           <SearchBar />
-          <CategoryList />
         </section>
 
         <SectionDivider />
