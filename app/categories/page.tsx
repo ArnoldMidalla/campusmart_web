@@ -42,7 +42,7 @@ export default function SearchPage() {
               placeholder="Search on Campusmart..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="text-sm font-medium w-full focus:outline-none"
+              className="text-xs tracking-tight font-medium w-full  focus:outline-none"
             />
             {searchQuery && (
               <button
