@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
 import Nav from "../components/nav";
-import PageHeader from "../components/PageHeader";
 import ProductsCard from "../components/ProductsCard";
 import { products, categories } from "../components/data";
 import CategoryItem from "../components/CategoryItem";
@@ -34,8 +33,6 @@ export default function SearchPage() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight font-dmsans">
       <main className="flex flex-col gap-6 max-w-md w-full pb-28 pt-8">
-        {/* <PageHeader showBack={false} /> */}
-
         {/* Search Input */}
         <div className="flex flex-col gap-4">
           {/* <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between pl-4 bg-white">
