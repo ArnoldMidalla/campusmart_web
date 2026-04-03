@@ -3,7 +3,6 @@
 import { products, featuredStores } from "./components/data";
 import Nav from "./components/nav";
 import SearchBar from "./components/SearchBar";
-import CategoryList from "./components/CategoryList";
 import SectionHeader from "./components/SectionHeader";
 import ProductCarousel from "./components/ProductCarousel";
 import FeaturedBanner from "./components/FeaturedBanner";
