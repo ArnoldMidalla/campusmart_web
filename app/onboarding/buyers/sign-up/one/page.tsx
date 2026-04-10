@@ -60,7 +60,7 @@ export default function SignUpOnePage() {
             <span className="text-neutral-500 text-[13.5px] mb-1.5 font-medium">
               Already have an account? Welcome back!
             </span>
-            <Link href="/onboarding/buyers/sign-in/two" className="flex items-center justify-center w-full">
+            <Link href="/onboarding/buyers/sign-in/one" className="flex items-center justify-center w-full">
               <span className="text-main text-[14.5px] font-semibold hover:underline">
                 Log into your account here
               </span>

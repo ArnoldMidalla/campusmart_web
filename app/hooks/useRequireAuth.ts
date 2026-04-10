@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/useAuthStore";
 
-export function useRequireAuth(redirectTo = "/onboarding/buyers/one") {
+export function useRequireAuth(redirectTo = "/onboarding/buyers/sign-up/one") {
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
 

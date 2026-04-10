@@ -21,7 +21,7 @@ export default function SignInPage() {
       if (useAuthStore.getState().user?.role === "BUYER") {
         router.push("/"); // Redirect to homepage after successful login
       } else if (useAuthStore.getState().user?.role === "SELLER") {
-        router.push("/onboarding/sellers/one"); // Redirect to seller dashboard
+        router.push("/onboarding/sellers/sign-up/one"); // Redirect to seller dashboard
       }
     } catch (error) {
       console.error("Login failed:", error);
