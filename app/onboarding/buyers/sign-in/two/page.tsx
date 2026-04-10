@@ -4,10 +4,29 @@ import PageHeader from "@/app/components/PageHeader";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuthStore } from "@/app/store/useAuthStore";
 
 export default function SignInPage() {
+  const { login } = useAuthStore();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    try {
+      await login(email, password);
+      if (useAuthStore.getState().user?.role === "BUYER") {
+        router.push("/"); // Redirect to homepage after successful login
+      } else if (useAuthStore.getState().user?.role === "SELLER") {
+        router.push("/onboarding/sellers/one"); // Redirect to seller dashboard
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
 
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
@@ -33,6 +52,8 @@ export default function SignInPage() {
                 type="text"
                 className="bg-transparent border-none outline-none w-full text-[15px] font-medium text-neutral-800 placeholder-neutral-400"
                 placeholder="Email or username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -44,6 +65,8 @@ export default function SignInPage() {
                   type={showPassword ? "text" : "password"}
                   className="bg-transparent border-none outline-none w-full text-[15px] font-medium text-neutral-800 placeholder-neutral-400"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <span className="text-neutral-300 mx-1 text-lg">|</span>
               </div>
@@ -59,7 +82,11 @@ export default function SignInPage() {
 
           <div className="mt-8">
             <div className="p-1 border border-neutral-200 rounded-full w-full relative">
-              <button className="flex items-center justify-center w-full bg-main text-white py-3.5 rounded-full font-medium text-[16px] hover:brightness-105 transition-all">
+              <button 
+              type="submit"
+                onClick={handleLogin}
+                className="flex items-center justify-center w-full bg-main text-white py-3.5 rounded-full font-medium text-[16px] hover:brightness-105 transition-all"
+                >
                 Sign in
               </button>
             </div>

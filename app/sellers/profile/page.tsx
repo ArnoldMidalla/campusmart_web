@@ -16,16 +16,18 @@ import {
   Link2,
 } from "lucide-react";
 import Link from "next/link";
-import Nav from "../components/nav";
-import PageHeader from "../components/PageHeader";
-import { useCartStore } from "../store/useCartStore";
-import { useAuthStore } from "../store/useAuthStore";
 import { useRouter } from "next/navigation";
+import PageHeader from "@/app/components/PageHeader";
+import { useCartStore } from "@/app/store/useCartStore";
+import { useSellerStore } from "@/app/store/useSellerStore";
+import SellersNav from "../components/sellersNav";
+import { useAuthStore } from "@/app/store/useAuthStore";
 
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false);
-  const { cart } = useCartStore();
   const { logout } = useAuthStore();
+  const { cart } = useCartStore();
+  const { sellerName, sellerEmail, sellerPhone, isOnline } = useSellerStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -36,38 +38,38 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await logout();
-    router.push("/onboarding/one");
+    router.push("/onboarding/sellers/one");
   };
 
   // Mock user data
   const user = {
-    name: "John Doe",
-    email: "john.doe@campus.edu",
-    phone: "+234 701 234 5678",
-    verified: true,
+    name: sellerName,
+    email: sellerEmail,
+    phone: sellerPhone,
+    verified: isOnline,
     joinedDate: "January 2024",
   };
 
   const menuItems = [
     {
       icon: Package,
-      label: "My Orders",
-      description: "Track and manage your purchases",
-      href: "/checkout",
+      label: "Pending Orders",
+      description: "Track and manage your sales",
+      href: "/sellers/orders",
       badge: null,
     },
     {
       icon: Heart,
-      label: "Wishlist",
-      description: "Your saved items",
-      href: "/cart",
+      label: "Earnings",
+      description: "View your sales and payouts",
+      href: "/sellers/earnings",
       badge: cart.length > 0 ? `${cart.length}` : null,
     },
     {
       icon: MessageSquare,
-      label: "Messages",
-      description: "Chat with sellers",
-      href: "#",
+      label: "Inventory",
+      description: "Manage your product inventory",
+      href: "/sellers/products",
       badge: "2",
     },
     {
@@ -76,12 +78,6 @@ export default function ProfilePage() {
       description: "Manage passwords and verification",
       href: "#",
       badge: null,
-    },
-    {
-      icon: Link2,
-      label: "Sellers page",
-      description: "Go to sellers page",
-      href: "/sellers",
     }
   ];
 
@@ -205,9 +201,7 @@ export default function ProfilePage() {
 
         {/* Danger Zone */}
         <div className="flex flex-col gap-3">
-          <button
-           onClick={handleLogout}
-           className="flex items-center gap-3 p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition">
+          <button onClick={handleLogout} className="flex items-center gap-3 p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition">
             <div className="p-2 bg-red-100 rounded-lg">
               <LogOut size={18} className="text-red-600" />
             </div>
@@ -226,7 +220,7 @@ export default function ProfilePage() {
           </p>
         </div>
       </main>
-      <Nav />
+      <SellersNav />
     </div>
   );
 }

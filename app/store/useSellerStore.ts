@@ -20,6 +20,8 @@ export type SellerStore = {
   // Seller identity
   sellerName: string;
   setSellerName: (name: string) => void;
+  sellerEmail?: string;
+  sellerPhone?: string;
 
   // Dashboard stats (would be fetched from API in production)
   stats: SellerStats;
@@ -36,6 +38,8 @@ export const useSellerStore = create<SellerStore>()(
 
       sellerName: "Alexander",
       setSellerName: (name) => set({ sellerName: name }),
+      sellerEmail: "alexander.seller@campusmart.com",
+      sellerPhone: "+234 701 234 5678",
 
       stats: {
         views: 1204,
