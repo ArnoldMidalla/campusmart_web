@@ -13,10 +13,6 @@ export default function SignUpTwoPage() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
       <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="bg-white px-4">
-          <PageHeader />
-        </section>
-
         <section className="flex flex-col px-6 mt-12 w-full">
           <h1 className="text-[40px] leading-[1.1] font-bold text-[#1c1c1c] mb-10">
             Join your campus

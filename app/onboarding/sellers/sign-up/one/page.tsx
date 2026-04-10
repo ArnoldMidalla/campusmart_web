@@ -7,10 +7,6 @@ export default function SellerSignUpOnePage() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
       <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="bg-white px-4">
-          <PageHeader />
-        </section>
-
         <section className="flex flex-col items-center justify-center pt-8 pb-6 px-4">
           <Image
             src="/login.png"
