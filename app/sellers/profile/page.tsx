@@ -38,7 +38,7 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await logout();
-    router.push("/onboarding/sellers/one");
+    router.push("/onboarding/role-select");
   };
 
   // Mock user data
