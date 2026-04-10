@@ -69,7 +69,7 @@ function BestPerformingCard() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SellersPage() {
-  useRequireAuth("/onboarding/sellers/one"); // Redirects to login if not authenticated
+  useRequireAuth("/onboarding/sellers/sign-up/one"); // Redirects to login if not authenticated
   
   const { isOnline, setIsOnline, sellerName, stats } = useSellerStore();
 
