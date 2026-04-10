@@ -8,11 +8,10 @@ import ProductCarousel from "./components/ProductCarousel";
 import FeaturedBanner from "./components/FeaturedBanner";
 import SectionDivider from "./components/SectionDivider";
 import FeaturedStoreCard from "./components/FeaturedStoreCard";
-import { useSplash } from "./hooks/useSplash";
+import { useRequireAuth } from "./hooks/useRequireAuth";
 
 export default function Home() {
-  useSplash(); // Redirects to splash screen on initial load
-  //useRequireAuth(); // Redirects to onboarding if not authenticated
+  useRequireAuth(); // Redirects to onboarding if not authenticated
   
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
