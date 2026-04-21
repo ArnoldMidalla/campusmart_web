@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/filters/http-exception.filter';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +23,12 @@ async function bootstrap() {
       transform: true,        // auto-transform primitives (e.g. string → number)
     }),
   );
+
+  // Global exception filter to catch unhandled exceptions and format them as JSON
+  app.useGlobalFilters(new AllExceptionsFilter());
+
+  // Global interceptor to wrap all responses in a consistent format
+  app.useGlobalInterceptors(new TransformInterceptor());
 
   // CORS — allow the Next.js frontend to send cookies cross-origin
   app.enableCors({
