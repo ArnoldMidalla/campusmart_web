@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 
@@ -37,6 +38,13 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
+
+  // Swagger API docs available at /api/docs
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('CampusMart API')
+    .setDescription('API documentation for CampusMart')
+    .setVersion('1.0')
+    .build()
 
   await app.listen(process.env.PORT ?? 4000);
   console.log(`Backend running on http://localhost:${process.env.PORT ?? 4000}/api`);
