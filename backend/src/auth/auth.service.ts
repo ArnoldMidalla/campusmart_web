@@ -3,7 +3,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserRole } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { RegisterBuyerDto } from './dto/register-buyer.dto';
@@ -52,7 +51,7 @@ export class AuthService {
   async registerBuyer(dto: RegisterBuyerDto) {
     const user = await this.usersService.create({
       ...dto,
-      role: UserRole.BUYER,
+      role: "BUYER",
     });
 
     const token = this.signToken(user.id, user.email, user.role);
@@ -62,7 +61,7 @@ export class AuthService {
   async registerSeller(dto: RegisterSellerDto) {
     const user = await this.usersService.create({
       ...dto,
-      role: UserRole.SELLER,
+      role: "SELLER",
     });
 
     const token = this.signToken(user.id, user.email, user.role);

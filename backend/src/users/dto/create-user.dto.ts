@@ -1,4 +1,3 @@
-import { UserRole } from '@prisma/client';
 import {
   IsEmail,
   IsEnum,
@@ -25,8 +24,8 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Last name is required' })
   lastName: string;
 
-  @IsEnum(UserRole)
-  role: UserRole;
+  @IsEnum(['BUYER', 'SELLER'], { message: 'Role must be either BUYER or SELLER' })
+  role: string;
 
   @IsUUID('4', { message: 'institutionId must be a valid UUID' })
   @IsOptional()
