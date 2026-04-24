@@ -1,14 +1,14 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'bcrypt';
-import { prisma } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  constructor() {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateUserDto) {
-    const existing = await prisma.user.findUnique({
+    const existing = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
 
@@ -18,7 +18,7 @@ export class UsersService {
 
     const hashedPassword = await hash(dto.password, 12);
 
-    const user = await prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         email: dto.email,
         password: hashedPassword,
@@ -45,7 +45,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return prisma.user.findUnique({
+    return this.prisma.user.findUnique({
       where: { email },
       // Include password here so AuthService can compare hashes
       select: {
@@ -66,7 +66,7 @@ export class UsersService {
   }
 
   async findById(id: string) {
-    return prisma.user.findUnique({
+    return this.prisma.user.findUnique({
       where: { id },
       select: {
         id: true,
