@@ -267,7 +267,7 @@ export default function WaitlistPage() {
               </p>
             </div>
             <div className="w-full p-4 bg-orange-50 border border-orange-100 rounded-2xl text-[13.5px] text-[#ff681f] font-semibold">
-              Tell a friend — every seller you refer moves you up the queue 👀
+              Tell a friend — every seller you refer moves you up the queue
             </div>
             <Link
               href="/"
