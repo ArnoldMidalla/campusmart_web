@@ -48,7 +48,7 @@ export default function LoginPage() {
           </div>
 
           <div className="p-1 border border-neutral-200 rounded-full w-full mb-6 relative hover:shadow-sm transition-all focus-within:ring-2 focus-within:ring-main/20">
-            <Link href="/onboarding/buyers/two" className="flex items-center justify-center w-full bg-main text-white py-3.5 rounded-full font-medium text-[15px] hover:brightness-105 transition-all">
+            <Link href="/onboarding/buyers/sign-in/two" className="flex items-center justify-center w-full bg-main text-white py-3.5 rounded-full font-medium text-[15px] hover:brightness-105 transition-all">
               Sign in with email/number
             </Link>
           </div>
@@ -57,7 +57,7 @@ export default function LoginPage() {
             <span className="text-neutral-500 text-[13.5px] mb-1.5 font-medium">
               You do not have an account yet? No worries
             </span>
-            <Link href="/onboarding/buyers/two" className="flex items-center justify-center w-full">
+            <Link href="/onboarding/buyers/sign-up/one" className="flex items-center justify-center w-full">
               <span className="text-main text-[14.5px] font-semibold hover:underline">
                 Create an account with us here
               </span>
