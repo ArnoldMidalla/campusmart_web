@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Nav from "../components/nav";
+import AppShell from "../components/AppShell";
 import PageHeader from "../components/PageHeader";
 import { useCartStore } from "../store/useCartStore";
 import { useAuthStore } from "../store/useAuthStore";
@@ -39,7 +40,6 @@ export default function ProfilePage() {
     router.push("/onboarding/role-select");
   };
 
-  // Mock user data
   const user = {
     name: "John Doe",
     email: "john.doe@campus.edu",
@@ -82,7 +82,8 @@ export default function ProfilePage() {
       label: "Sellers page",
       description: "Go to sellers page",
       href: "/sellers",
-    }
+      badge: null,
+    },
   ];
 
   const settingsItems = [
@@ -107,126 +108,137 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
-      <main className="flex flex-col gap-6 max-w-md w-full pb-28 px-6 pt-12">
-        <PageHeader title="Profile" showBack={false} />
+    <>
+      <AppShell>
+        <div className="px-6 pt-0 flex flex-col gap-6">
+          <PageHeader title="Profile" showBack={false} />
 
-        {/* User Profile Card */}
-        <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 flex flex-col gap-4">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <h2 className="text-lg font-semibold text-neutral-800">
-                  {user.name}
-                </h2>
-                {user.verified && (
-                  <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-0.5 rounded-full">
-                    Verified
-                  </span>
-                )}
+          {/* ── Two-column on lg+ ── */}
+          <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-8 lg:items-start">
+
+            {/* LEFT — User card (sticky on desktop) */}
+            <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 flex flex-col gap-4 lg:sticky lg:top-8">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h2 className="text-lg font-semibold text-neutral-800">
+                      {user.name}
+                    </h2>
+                    {user.verified && (
+                      <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-0.5 rounded-full">
+                        Verified
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-neutral-700 mb-1">{user.email}</p>
+                  <p className="text-sm text-neutral-600">{user.phone}</p>
+                  <p className="text-xs text-neutral-500 mt-2">
+                    Member since {user.joinedDate}
+                  </p>
+                </div>
+                <button className="p-2 bg-white rounded-full border border-blue-200 hover:bg-blue-50 transition">
+                  <Edit2 size={18} className="text-blue-600" />
+                </button>
               </div>
-              <p className="text-sm text-neutral-700 mb-1">{user.email}</p>
-              <p className="text-sm text-neutral-600">{user.phone}</p>
-              <p className="text-xs text-neutral-500 mt-2">
-                Member since {user.joinedDate}
-              </p>
             </div>
-            <button className="p-2 bg-white rounded-full border border-blue-200 hover:bg-blue-50 transition">
-              <Edit2 size={18} className="text-blue-600" />
-            </button>
-          </div>
-        </div>
 
-        {/* Quick Access Menu */}
-        <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-neutral-700">Quick Access</p>
-          <div className="flex flex-col gap-2">
-            {menuItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <Link key={item.label} href={item.href}>
-                  <div className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <IconComponent size={18} className="text-blue-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-neutral-800">
-                        {item.label}
-                      </p>
-                      <p className="text-xs text-neutral-600 truncate">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {item.badge && (
-                        <span className="bg-main text-white text-xs font-semibold px-2 py-1 rounded-full">
-                          {item.badge}
-                        </span>
-                      )}
-                      <ChevronRight size={18} className="text-neutral-400" />
-                    </div>
+            {/* RIGHT — Menu groups */}
+            <div className="flex flex-col gap-6 mt-6 lg:mt-0">
+
+              {/* Quick Access */}
+              <div className="flex flex-col gap-3">
+                <p className="text-sm font-medium text-neutral-700">Quick Access</p>
+                <div className="flex flex-col gap-2">
+                  {menuItems.map((item) => {
+                    const IconComponent = item.icon;
+                    return (
+                      <Link key={item.label} href={item.href}>
+                        <div className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition">
+                          <div className="p-2 bg-blue-100 rounded-lg">
+                            <IconComponent size={18} className="text-blue-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-neutral-800">
+                              {item.label}
+                            </p>
+                            <p className="text-xs text-neutral-600 truncate">
+                              {item.description}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {item.badge && (
+                              <span className="bg-main text-white text-xs font-semibold px-2 py-1 rounded-full">
+                                {item.badge}
+                              </span>
+                            )}
+                            <ChevronRight size={18} className="text-neutral-400" />
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="h-px bg-neutral-200" />
+
+              {/* Settings */}
+              <div className="flex flex-col gap-3">
+                <p className="text-sm font-medium text-neutral-700">Settings</p>
+                <div className="flex flex-col gap-2">
+                  {settingsItems.map((item) => {
+                    const IconComponent = item.icon;
+                    return (
+                      <Link key={item.label} href={item.href}>
+                        <div className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition">
+                          <div className="p-2 bg-gray-100 rounded-lg">
+                            <IconComponent size={18} className="text-gray-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-neutral-800">
+                              {item.label}
+                            </p>
+                            <p className="text-xs text-neutral-600 truncate">
+                              {item.description}
+                            </p>
+                          </div>
+                          <ChevronRight size={18} className="text-neutral-400" />
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Danger Zone */}
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-3 p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition"
+                >
+                  <div className="p-2 bg-red-100 rounded-lg">
+                    <LogOut size={18} className="text-red-600" />
                   </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="h-px bg-neutral-200" />
-
-        {/* Settings Menu */}
-        <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-neutral-700">Settings</p>
-          <div className="flex flex-col gap-2">
-            {settingsItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <Link key={item.label} href={item.href}>
-                  <div className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition">
-                    <div className="p-2 bg-gray-100 rounded-lg">
-                      <IconComponent size={18} className="text-gray-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-neutral-800">
-                        {item.label}
-                      </p>
-                      <p className="text-xs text-neutral-600 truncate">
-                        {item.description}
-                      </p>
-                    </div>
-                    <ChevronRight size={18} className="text-neutral-400" />
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-medium text-red-700">Logout</p>
+                    <p className="text-xs text-red-600">Sign out of your account</p>
                   </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+                  <ChevronRight size={18} className="text-red-400" />
+                </button>
+              </div>
 
-        {/* Danger Zone */}
-        <div className="flex flex-col gap-3">
-          <button
-           onClick={handleLogout}
-           className="flex items-center gap-3 p-3 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition">
-            <div className="p-2 bg-red-100 rounded-lg">
-              <LogOut size={18} className="text-red-600" />
-            </div>
-            <div className="flex-1 text-left">
-              <p className="text-sm font-medium text-red-700">Logout</p>
-              <p className="text-xs text-red-600">Sign out of your account</p>
-            </div>
-            <ChevronRight size={18} className="text-red-400" />
-          </button>
-        </div>
+              {/* Footer */}
+              <div className="pt-4 border-t border-neutral-200">
+                <p className="text-xs text-neutral-500 text-center">
+                  Campusmart v1.0.0 • {new Date().getFullYear()}
+                </p>
+              </div>
 
-        {/* Footer Info */}
-        <div className="pt-4 border-t border-neutral-200">
-          <p className="text-xs text-neutral-500 text-center">
-            Campusmart v1.0.0 • {new Date().getFullYear()}
-          </p>
-        </div>
-      </main>
+            </div> {/* end RIGHT col */}
+          </div> {/* end 2-col grid */}
+        </div> {/* end px-6 wrapper */}
+      </AppShell>
       <Nav />
-    </div>
+    </>
   );
 }

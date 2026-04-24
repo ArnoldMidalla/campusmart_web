@@ -24,7 +24,7 @@ export default function AddCartNav({ product, selectedSize }: any) {
   if (!mounted) return null;
 
   return (
-    <main className="fixed bottom-0 left-0 w-dvw flex justify-center pb-6 font-dmSans tracking-tight z-50">
+    <main className="fixed bottom-0 left-0 lg:left-60 xl:left-64 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
       <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm">
         {!isAdded ? (
           <button

@@ -25,9 +25,9 @@ export default function ProductsCard({
   // badge,
 }: ProductsCardProps) {
   return (
-    <Link href={`/productItem/` + id} className="flex justify-center max-w-42">
-      <main className="max-w-38 flex flex-col gap-2">
-        <div className="relative overflow-hidden w-38 h-28 rounded-lg">
+    <Link href={`/productItem/` + id} className="flex justify-center w-full">
+      <main className="w-full flex flex-col gap-2">
+        <div className="relative overflow-hidden w-38 h-28 md:w-full md:h-auto md:aspect-[4/3] rounded-lg">
           <Image
             src={image}
             alt={name}
@@ -57,7 +57,7 @@ export default function ProductsCard({
           <p className="font-dmSans tracking-tight text-sm font-normal leading-3.5 line-clamp-1">
             {name}
           </p>
-          <div className="flex-1 flex justify-between max-w-38 items-center">
+          <div className="flex-1 flex justify-between items-center">
             <p className="font-dmSans tracking-tight text-main font-semibold">
               N{price}
             </p>
