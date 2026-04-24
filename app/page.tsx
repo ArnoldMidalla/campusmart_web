@@ -2,7 +2,9 @@
 
 import { products, featuredStores } from "./components/data";
 import Nav from "./components/nav";
+import AppShell from "./components/AppShell";
 import SearchBar from "./components/SearchBar";
+import CategoryList from "./components/CategoryList";
 import SectionHeader from "./components/SectionHeader";
 import ProductCarousel from "./components/ProductCarousel";
 import FeaturedBanner from "./components/FeaturedBanner";
@@ -11,15 +13,13 @@ import FeaturedStoreCard from "./components/FeaturedStoreCard";
 import { useRequireAuth } from "./hooks/useRequireAuth";
 
 export default function Home() {
-  useRequireAuth(); // Redirects to onboarding if not authenticated
-  
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
-      <main className="flex flex-col max-w-md w-full pb-28">
-        
+    <>
+      <AppShell>
         {/* Section 1: Search & Filter */}
-        <section className="flex flex-col gap-5 bg-white pt-8 pb-2 px-4">
+        <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4">
           <SearchBar />
+          <CategoryList />
         </section>
 
         <SectionDivider />
@@ -48,15 +48,19 @@ export default function Home() {
         {/* Section 5: Featured Store */}
         <section className="flex flex-col gap-3 bg-white py-5">
           <SectionHeader title="Featured Store" href="/stores" />
-          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4">
-             {featuredStores.map((store, index) => (
-                <FeaturedStoreCard key={index} store={store} />
-             ))}
+          {/* Carousel on mobile → grid on md+ */}
+          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4 md:overflow-x-visible md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {featuredStores.map((store, index) => (
+              <div key={index} className="shrink-0 md:shrink md:w-auto">
+                <FeaturedStoreCard store={store} />
+              </div>
+            ))}
           </div>
         </section>
+      </AppShell>
 
-      </main>
+      {/* Mobile bottom nav — hidden on lg+ via its own lg:hidden */}
       <Nav />
-    </div>
+    </>
   );
 }

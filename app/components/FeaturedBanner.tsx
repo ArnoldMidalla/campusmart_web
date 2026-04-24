@@ -65,7 +65,7 @@ export default function FeaturedBanner() {
       >
         <Link href={featured.ctaLink || "/"}>
           <div
-            className={`relative w-full h-44 rounded-lg overflow-hidden bg-gradient-to-r ${featured.backgroundColor} flex items-end justify-between p-4`}
+            className={`relative w-full h-44 md:h-56 lg:h-72 rounded-lg overflow-hidden bg-gradient-to-r ${featured.backgroundColor} flex items-end justify-between p-4`}
           >
             {featured.image && (
               <Image
