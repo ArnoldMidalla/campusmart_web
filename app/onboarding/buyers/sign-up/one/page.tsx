@@ -7,10 +7,6 @@ export default function SignUpOnePage() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
       <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="bg-white px-4">
-          <PageHeader />
-        </section>
-
         <section className="flex flex-col items-center justify-center pt-8 pb-6 px-4">
           <Image
             src="/login.png"
@@ -60,7 +56,7 @@ export default function SignUpOnePage() {
             <span className="text-neutral-500 text-[13.5px] mb-1.5 font-medium">
               Already have an account? Welcome back!
             </span>
-            <Link href="/onboarding/buyers/sign-in/two" className="flex items-center justify-center w-full">
+            <Link href="/onboarding/buyers/sign-in/one" className="flex items-center justify-center w-full">
               <span className="text-main text-[14.5px] font-semibold hover:underline">
                 Log into your account here
               </span>

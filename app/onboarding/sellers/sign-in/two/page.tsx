@@ -32,17 +32,14 @@ export default function SignInPage() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
       <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="bg-white px-4">
-          <PageHeader />
-        </section>
-
+        
         <section className="flex flex-col px-6 mt-12 w-full">
           <h1 className="text-[40px] leading-[1.1] font-bold text-[#1c1c1c] mb-10">
             Welcome back!
             <br />
             Log in to continue
             <br />
-            shopping.
+            earning.
           </h1>
 
           <div className="flex flex-col gap-4">
@@ -134,7 +131,7 @@ export default function SignInPage() {
               You do not have an account yet? No worries
             </span>
             <Link
-              href="/onboarding/sellers/one"
+              href="/onboarding/sellers/sign-up/one"
               className="text-[#13368B] text-[15px] font-semibold hover:underline text-center"
             >
               Create a sellers account with us here

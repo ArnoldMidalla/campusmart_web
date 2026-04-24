@@ -1,4 +1,3 @@
-import PageHeader from "@/app/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,9 +6,7 @@ export default function LoginPage() {
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
       <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="bg-white px-4">
-          <PageHeader />
-        </section>
+        
 
         <section className="flex flex-col items-center justify-center pt-8 pb-6 px-4">
           <Image
@@ -48,7 +45,7 @@ export default function LoginPage() {
           </div>
 
           <div className="p-1 border border-neutral-200 rounded-full w-full mb-6 relative hover:shadow-sm transition-all focus-within:ring-2 focus-within:ring-main/20">
-            <Link href="/onboarding/sellers/two" className="flex items-center justify-center w-full bg-[#13368B] text-white py-3.5 rounded-full font-medium text-[15px] hover:brightness-105 transition-all">
+            <Link href="/onboarding/sellers/sign-in/two" className="flex items-center justify-center w-full bg-[#13368B] text-white py-3.5 rounded-full font-medium text-[15px] hover:brightness-105 transition-all">
               Sign in with email/number
             </Link>
           </div>
@@ -57,7 +54,7 @@ export default function LoginPage() {
             <span className="text-neutral-500 text-[13.5px] mb-1.5 font-medium">
               You do not have an account yet? No worries
             </span>
-            <Link href="/onboarding/buyers/two" className="flex items-center justify-center w-full">
+            <Link href="/onboarding/sellers/sign-up/one" className="flex items-center justify-center w-full">
               <span className="text-[#13368B] text-[14.5px] font-semibold hover:underline">
                 Create an account with us here
               </span>

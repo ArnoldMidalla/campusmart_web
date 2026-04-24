@@ -3,7 +3,6 @@
 import { products, featuredStores } from "./components/data";
 import Nav from "./components/nav";
 import SearchBar from "./components/SearchBar";
-import CategoryList from "./components/CategoryList";
 import SectionHeader from "./components/SectionHeader";
 import ProductCarousel from "./components/ProductCarousel";
 import FeaturedBanner from "./components/FeaturedBanner";
@@ -12,7 +11,7 @@ import FeaturedStoreCard from "./components/FeaturedStoreCard";
 import { useRequireAuth } from "./hooks/useRequireAuth";
 
 export default function Home() {
-  useRequireAuth(); // Redirects to login if not authenticated
+  useRequireAuth(); // Redirects to onboarding if not authenticated
   
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
@@ -21,7 +20,6 @@ export default function Home() {
         {/* Section 1: Search & Filter */}
         <section className="flex flex-col gap-5 bg-white pt-8 pb-2 px-4">
           <SearchBar />
-          <CategoryList />
         </section>
 
         <SectionDivider />
