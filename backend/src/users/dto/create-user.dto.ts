@@ -11,22 +11,22 @@ import {
 
 export class CreateUserDto {
   @IsEmail({}, { message: 'Please provide a valid email address' })
-  email: string;
+  email!: string;
 
   @IsString()
   @MinLength(8, { message: 'Password must be at least 8 characters' })
-  password: string;
+  password!: string;
 
   @IsString()
   @IsNotEmpty({ message: 'First name is required' })
-  firstName: string;
+  firstName!: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Last name is required' })
-  lastName: string;
+  lastName!: string;
 
-  @IsEnum(['BUYER', 'SELLER'], { message: 'Role must be either BUYER or SELLER' })
-  role: string;
+  @IsEnum(UserRole, { message: `Role must be one of: ${Object.values(UserRole).join(', ')}` })
+  role!: UserRole;
 
   @IsUUID('4', { message: 'institutionId must be a valid UUID' })
   @IsOptional()
