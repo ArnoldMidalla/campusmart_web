@@ -48,6 +48,16 @@ async function bootstrap() {
     .setVersion('1.0')
     .build()
 
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('api/docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true, // keeps the token across page refreshes
+      tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
+    },
+  });
+  console.log(`Swagger Docs running on http://localhost:${process.env.PORT ?? 4000}/api/docs`)
+
   await app.listen(process.env.PORT ?? 4000);
   console.log(`Backend running on http://localhost:${process.env.PORT ?? 4000}/api`);
 }

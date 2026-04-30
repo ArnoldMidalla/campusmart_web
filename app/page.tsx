@@ -13,6 +13,7 @@ import FeaturedStoreCard from "./components/FeaturedStoreCard";
 import { useRequireAuth } from "./hooks/useRequireAuth";
 
 export default function Home() {
+  useRequireAuth() // redirects to splash if not authenticated
   return (
     <>
       <AppShell>
