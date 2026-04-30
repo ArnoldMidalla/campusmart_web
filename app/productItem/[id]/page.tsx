@@ -23,6 +23,7 @@ import ProductsCard from "@/app/components/ProductsCard";
 import PageHeader from "@/app/components/PageHeader";
 
 import { useCartStore } from "@/app/store/useCartStore";
+import { useFavouritesStore } from "@/app/store/useFavouritesStore";
 
 export default function ProductItem() {
   const params = useParams();
@@ -37,10 +38,11 @@ export default function ProductItem() {
   };
 
   const addToCart = useCartStore((state) => state.addToCart);
+  const { toggleFavourite, isFavourited } = useFavouritesStore();
 
   const product = products.find((p) => p.id == Number(id));
 
-  const [hearted, setHearted] = useState(false);
+  const isHearted = product ? isFavourited(product.id) : false;
 
   const [mounted, setMounted] = useState(false);
 
@@ -65,10 +67,19 @@ export default function ProductItem() {
           <Share2 size={16} />
         </button>
         <button
-          onClick={() => setHearted(!hearted)}
+          onClick={() =>
+            product &&
+            toggleFavourite({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              image: product.image,
+              category: product.category,
+            })
+          }
           className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
         >
-          {hearted ? (
+          {isHearted ? (
             <Heart size={16} fill="#ff681f" color="#ff681f" />
           ) : (
             <HeartPlus size={16} />

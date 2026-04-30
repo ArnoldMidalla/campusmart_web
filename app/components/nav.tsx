@@ -1,5 +1,5 @@
 "use client";
-import { Home, ShoppingCart, TextSearch, UserRound } from "lucide-react";
+import { Heart, Home, ShoppingCart, TextSearch, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,12 +13,13 @@ export default function Nav() {
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
     { href: "/categories", icon: TextSearch, label: "Categories" },
+    { href: "/favourites", icon: Heart, label: "Favourites" },
     { href: "/cart", icon: ShoppingCart, label: "Cart" },
     { href: "/profile", icon: UserRound, label: "Profile" },
   ];
 
   return (
-    <main className="lg:hidden fixed bottom-0 left-0 w-full flex justify-center pb-6 z-40 font-dmSans text-sm">
+    <main className="lg:hidden fixed bottom-0 left-0 w-full flex justify-center pb-6 z-70 font-dmSans text-sm">
       <div className="backdrop-blur-sm flex gap-4 items-center py-2 px-2 rounded-full border border-neutral-200">
         {navItems.map((item) => {
           const Icon = item.icon;

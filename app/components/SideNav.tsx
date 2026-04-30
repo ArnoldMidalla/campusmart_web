@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, ShoppingCart, TextSearch, UserRound, Store } from "lucide-react";
+import { Heart, Home, ShoppingCart, TextSearch, UserRound, Store } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { href: "/", icon: Home, label: "Home" },
   { href: "/categories", icon: TextSearch, label: "Categories" },
+  { href: "/favourites", icon: Heart, label: "Favourites" },
   { href: "/cart", icon: ShoppingCart, label: "Cart" },
   { href: "/profile", icon: UserRound, label: "Profile" },
 ];

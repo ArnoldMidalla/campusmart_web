@@ -82,15 +82,16 @@ export default function WaitlistPage() {
 
         {/* ── Logo / Brand ── */}
         <header className="flex items-center justify-between mb-10">
-          <div className="flex items-center gap-2">
-            <div
+          <Link href="/" className="flex items-center gap-2">
+            {/* <div
               className="size-9 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md"
               style={{ background: "#ff681f" }}
             >
               C
-            </div>
+            </div> */}
+            <Image src="/favicon.ico" alt="Logo" width={28} height={28} />
             <span className="font-bold text-[17px] tracking-tight">CampusMart</span>
-          </div>
+          </Link>
           <span className="text-[12px] font-semibold px-3 py-1.5 rounded-full text-white"
             style={{ background: "#ff681f" }}>
             Seller Waitlist
