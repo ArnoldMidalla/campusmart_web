@@ -1,6 +1,7 @@
 import PageHeader from "@/app/components/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
+import PrimaryButton from "@/app/components/PrimaryButton";
 
 export default function SignUpOnePage() {
   const imageDimensions = 150;
@@ -43,13 +44,10 @@ export default function SignUpOnePage() {
             <div className="flex-1 h-px bg-neutral-200"></div>
           </div>
 
-          <div className="p-1 border border-neutral-200 rounded-full w-full mb-6 relative hover:shadow-sm transition-all focus-within:ring-2 focus-within:ring-main/20">
-            <Link
-              href="/onboarding/buyers/sign-up/two"
-              className="flex items-center justify-center w-full bg-main text-white py-3.5 rounded-full font-medium text-[15px] hover:brightness-105 transition-all"
-            >
+          <div className="mb-6">
+            <PrimaryButton href="/onboarding/buyers/sign-up/two">
               Sign up with email/number
-            </Link>
+            </PrimaryButton>
           </div>
 
           <div className="flex flex-col items-center justify-center mt-2">

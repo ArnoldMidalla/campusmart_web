@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import PrimaryButton from "@/app/components/PrimaryButton";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -30,19 +31,19 @@ function RoleCard({
       type="button"
       onClick={onClick}
       className={`
-        w-full flex items-center justify-between gap-4 px-5 py-4 rounded-2xl border-2 text-left
+        w-full flex items-center justify-between gap-4 px-5 py-4 rounded-2xl border text-left
         transition-all duration-200 active:scale-[0.98]
         ${
           isSelected
-            ? "border-main bg-orange-50 shadow-md"
+            ? "border-main bg-orange-50/50 shadow-md"
             : "border-neutral-200 bg-white hover:border-neutral-300"
         }
       `}
     >
       {/* Text */}
       <div className="flex flex-col gap-0.5 flex-1">
-        <p className="font-bold text-base text-neutral-900">{title}</p>
-        <p className="text-sm text-neutral-500 leading-snug">{description}</p>
+        <p className="font-bold text-[16px] text-neutral-900">{title}</p>
+        <p className="text-[13px] text-neutral-500 leading-4">{description}</p>
       </div>
 
       {/* Illustration */}
@@ -101,7 +102,7 @@ export default function RoleSelectPage() {
     if (selected === "sell") {
       router.push("/onboarding/sellers/sign-up/one");
     } else {
-      router.push("/onboarding/buyers/sign-up/one");
+      router.push("/onboarding/buyers/sign-up/two");
     }
   };
 
@@ -110,7 +111,7 @@ export default function RoleSelectPage() {
       <main className="flex flex-col max-w-md w-full min-h-dvh px-6 pt-16 pb-10">
 
         {/* Heading */}
-        <h1 className="text-[32px] font-bold leading-tight text-neutral-900 mb-8">
+        <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
           How do you want to use
           <br />
           CampusMart?
@@ -133,21 +134,9 @@ export default function RoleSelectPage() {
 
         {/* Continue CTA */}
         <div className="mt-8">
-          <div
-            className={`p-1 rounded-full border transition-all duration-200 ${
-              selected
-                ? "border-main/30"
-                : "border-neutral-200"
-            }`}
-          >
-            <button
-              onClick={handleContinue}
-              disabled={!selected}
-              className="w-full py-4 rounded-full bg-main text-white font-semibold text-[16px] disabled:opacity-40 transition-all duration-200 active:scale-[0.98] hover:brightness-105"
-            >
-              Continue
-            </button>
-          </div>
+          <PrimaryButton onClick={handleContinue} disabled={!selected}>
+            Continue
+          </PrimaryButton>
         </div>
       </main>
     </div>
