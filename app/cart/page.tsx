@@ -157,7 +157,7 @@ export default function Cart() {
 
       {/* Mobile sticky nav — hidden on lg via lg:hidden inside CheckoutNav */}
       <CheckoutNav text="Checkout" link="checkout" />
-      <Nav />
+      {/* <Nav /> */}
     </>
   );
 }
