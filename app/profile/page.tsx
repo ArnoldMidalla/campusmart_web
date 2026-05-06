@@ -64,13 +64,6 @@ export default function ProfilePage() {
       badge: cart.length > 0 ? `${cart.length}` : null,
     },
     {
-      icon: MessageSquare,
-      label: "Messages",
-      description: "Chat with sellers",
-      href: "#",
-      badge: "2",
-    },
-    {
       icon: Shield,
       label: "Account Security",
       description: "Manage passwords and verification",
