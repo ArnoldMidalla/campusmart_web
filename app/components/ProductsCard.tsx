@@ -1,6 +1,9 @@
+"use client";
+
 import { HeartPlus, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useFavouritesStore } from "../store/useFavouritesStore";
 
 interface ProductsCardProps {
   name: string;
@@ -21,13 +24,21 @@ export default function ProductsCard({
   category,
   image,
   id,
-  hearted,
   // badge,
 }: ProductsCardProps) {
+  const { toggleFavourite, isFavourited } = useFavouritesStore();
+  const isHearted = isFavourited(id);
+
+  const handleHeart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavourite({ id, name, price, image, category });
+  };
+
   return (
-    <Link href={`/productItem/` + id} className="flex justify-center w-full">
+    <Link href={`/productItem/` + id} className="flex justify-center w-38">
       <main className="w-full flex flex-col gap-2">
-        <div className="relative overflow-hidden w-38 h-28 md:w-full md:h-auto md:aspect-[4/3] rounded-lg">
+        <div className="relative overflow-hidden w-full h-28 md:w-full md:h-auto md:aspect-[4/3] rounded-lg">
           <Image
             src={image}
             alt={name}
@@ -41,13 +52,16 @@ export default function ProductsCard({
               {badge.text}
             </div>
           )} */}
-          <div className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-neutral-300">
-            {hearted ? (
+          <button
+            onClick={handleHeart}
+            className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-neutral-300"
+          >
+            {isHearted ? (
               <HeartPlus size={18} fill="#ff681f" color="white" />
             ) : (
               <HeartPlus size={18} />
             )}
-          </div>
+          </button>
         </div>
 
         <div className="flex flex-col gap-0.5 w-full">
