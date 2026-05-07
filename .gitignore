@@ -42,3 +42,6 @@ next-env.d.ts
 
 #Neon
 /.agents/
+
+# local prisma client
+backend/src/generated/prisma/
