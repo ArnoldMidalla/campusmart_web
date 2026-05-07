@@ -24,7 +24,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
             ? (exception.getResponse() as any)?.message ?? exception.message
             : 'Internal server error';
 
-        this.logger.error('Unhandled exception caught by AllExceptionsFilter:', exception);
+        this.logger.log('Exception caught by AllExceptionsFilter:', exception);
 
         response.status(status).json({
             statusCode: status,
