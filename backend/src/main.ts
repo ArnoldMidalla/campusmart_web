@@ -46,6 +46,11 @@ async function bootstrap() {
     .setTitle('CampusMart API')
     .setDescription('API documentation for CampusMart')
     .setVersion('1.0')
+    .addBearerAuth()
+    .addGlobalResponse({
+      status: 500,
+      description: 'Internal Server Error'
+    })
     .build()
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
