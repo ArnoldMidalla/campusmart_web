@@ -28,7 +28,7 @@ export class CreateUserDto {
   @IsEnum(UserRole, { message: `Role must be one of: ${Object.values(UserRole).join(', ')}` })
   role!: UserRole;
 
-  @IsUUID('4', { message: 'institutionId must be a valid UUID' })
+  @IsUUID('all', { message: 'institutionId must be a valid UUID' })
   @IsOptional()
   institutionId?: string;
 }
