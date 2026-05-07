@@ -9,7 +9,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterBuyerDto } from './dto/register-buyer.dto';
 import { RegisterSellerDto } from './dto/register-seller.dto';
