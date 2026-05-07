@@ -17,6 +17,8 @@ import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ApiOperation, ApiTags, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from '@prisma/client';
 
 // 7 days in milliseconds
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -171,9 +173,7 @@ export class AuthController {
   })
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  me(@Req() req: Request) {
-    // JwtStrategy.validate() already fetched the fresh user from DB
-    // and attached it to req.user
-    return req.user;
+  me(@CurrentUser() user: User) {
+    return user;
   }
 }
