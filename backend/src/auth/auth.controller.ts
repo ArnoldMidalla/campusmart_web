@@ -155,6 +155,20 @@ export class AuthController {
     summary: 'Get current user details',
     description: 'Retrieves the details of the currently authenticated user',
   })
+  @ApiResponse({
+    status: 200,
+    description: 'Current user details retrieved successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', format: 'uuid' },
+        email: { type: 'string', format: 'email' },
+        firstName: { type: 'string' },
+        lastName: { type: 'string' },
+        role: { type: 'string', enum: ['BUYER', 'SELLER', 'ADMIN'] },
+      },
+    },
+  })
   @UseGuards(JwtAuthGuard)
   @Get('me')
   me(@Req() req: Request) {
