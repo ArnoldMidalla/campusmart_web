@@ -157,16 +157,6 @@ export class UsersService {
   // Display profile data
   async getPublicProfile(userId: string) {
     this.logger.log(`Searching for user with ID: ${userId}`);
-    // Check if user exists    
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-    });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-    this.logger.log(`User found: ${user.email} (${user.id})`);
-    // Return public profile fields
-    this.logger.log(`Retrieving public profile for user: ${user.email} (${user.id})`);
     const publicProfile = await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -181,7 +171,10 @@ export class UsersService {
         createdAt: true,
       },
     });
-    this.logger.log(`Public profile retrieved for user: ${user.firstName} ${user.lastName}`);
+    
+    if (!publicProfile) {
+      throw new NotFoundException('User not found');
+    }
     return publicProfile;
   }
 }
