@@ -1,5 +1,5 @@
-import { Controller, Get, UseGuards, Patch, Post, Param, Logger } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiTags, ApiResponse, ApiBody, ApiHeader, ApiParam } from "@nestjs/swagger";
+import { Controller, Get, UseGuards, Patch, Post, Param, Logger, Body } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags, ApiResponse, ApiBody, ApiParam } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { CurrentUser } from "../auth/decorators/current-user.decorator";
@@ -41,7 +41,7 @@ export class UsersController {
     })
     @UseGuards(JwtAuthGuard)
     @Patch('me/profile')
-    async updateMyProfile(@CurrentUser() user:User, dto: UpdateProfileDto) {
+    async updateMyProfile(@CurrentUser() user:User, @Body() dto: UpdateProfileDto) {
         const updatedUser = await this.usersService.updateProfile(user.id, dto);
         return updatedUser;
     }
@@ -56,7 +56,7 @@ export class UsersController {
     })
     @UseGuards(JwtAuthGuard)
     @Patch('me/password')
-    async changeMyPassword(@CurrentUser() user:User, dto: ChangePasswordDto) {
+    async changeMyPassword(@CurrentUser() user:User, @Body() dto: ChangePasswordDto) {
         const result = await this.usersService.changePassword(user.id, dto);
         return result;
     }
@@ -71,7 +71,7 @@ export class UsersController {
     })
     @UseGuards(JwtAuthGuard)
     @Post('me/verify')
-    async submitVerification(@CurrentUser() user:User, dto: SubmitVerificationDto) {
+    async submitVerification(@CurrentUser() user:User, @Body() dto: SubmitVerificationDto) {
         const result = await this.usersService.submitVerification(user.id, dto);
         return result;
     }
