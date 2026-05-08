@@ -33,9 +33,24 @@ const dmSans = Jost({
 
 export const metadata: Metadata = {
   title: "Campusmart",
-  description: "Buy and sell on Campusmart",
+  description: "Campusmart - The ultimate marketplace for students. Buy and sell items easily within your campus community.",
   manifest: "/manifest.json",
-  themeColor: "#ff681f", //brand colour
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Campusmart",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ff681f",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -45,12 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* replace placeholders with actual icons */}
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      </head>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${satoshi.variable} antialiased`}
       >
