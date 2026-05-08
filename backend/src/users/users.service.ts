@@ -122,11 +122,7 @@ export class UsersService {
     if (!user.password) {
       throw new ConflictException('Password not set');
     }
-    // Compare current password with stored hash
-    const isMatch = await compare(dto.currentPassword, user.password);
-    if (!isMatch) {
-      throw new ConflictException('Current password is incorrect');
-    }
+    
     // Hash the new password and update the user record
     const newHashedPassword = await hash(dto.newPassword, 12);
     await this.prisma.user.update({
