@@ -1,11 +1,15 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { SubmitVerificationDto } from './dto/submit-verification.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(UsersService.name);
 
   async create(dto: CreateUserDto) {
     const existing = await this.prisma.user.findUnique({
@@ -82,5 +86,102 @@ export class UsersService {
         isActive: true,
       },
     });
+  }
+
+  // Update user profile (excluding password)
+  async updateProfile(userId: string, dto: UpdateProfileDto) {
+    // Check if user exists
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        institutionId: dto.institutionId,
+        email: dto.email,
+      },
+    });
+  }
+
+  // Change user password
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { password: true },
+    });
+    // If user not found, throw an error (shouldn't happen if authenticated)
+    if (!user) {
+      throw new ConflictException('User not found');
+    }
+    // If password is not set, throw an error
+    if (!user.password) {
+      throw new ConflictException('Password not set');
+    }
+    // Compare current password with stored hash
+    const isMatch = await compare(dto.currentPassword, user.password);
+    if (!isMatch) {
+      throw new ConflictException('Current password is incorrect');
+    }
+    // Hash the new password and update the user record
+    const newHashedPassword = await hash(dto.newPassword, 12);
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: newHashedPassword },
+    });
+    return { message: 'Password changed successfully' };    
+  }
+
+  // Submit verification documents for the user
+  async submitVerification(userId: string, dto: SubmitVerificationDto) {
+    // Check if user exists    
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return this.prisma.verificationRequest.create({
+      data: {
+        userId,
+        documentUrl: dto.verificationData,
+        status: 'PENDING',
+      },
+    });
+  }
+
+  // Display profile data
+  async getPublicProfile(userId: string) {
+    this.logger.log(`Searching for user with ID: ${userId}`);
+    // Check if user exists    
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    this.logger.log(`User found: ${user.email} (${user.id})`);
+    // Return public profile fields
+    this.logger.log(`Retrieving public profile for user: ${user.email} (${user.id})`);
+    const publicProfile = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        role: true,
+        verificationStatus: true,
+        trustScore: true,
+        institutionId: true,
+        createdAt: true,
+      },
+    });
+    this.logger.log(`Public profile retrieved for user: ${user.firstName} ${user.lastName}`);
+    return publicProfile;
   }
 }
