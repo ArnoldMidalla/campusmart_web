@@ -3,13 +3,6 @@ import { IsStrongPassword } from "class-validator";
 
 export class ChangePasswordDto {
     @ApiProperty({
-        description: 'Current password of the user',
-        type: String,
-        example: 'CurrentPass123'
-    })
-    currentPassword!: string;
-    
-    @ApiProperty({
         description: 'New password for the user account',
         type: String,
         example: 'NewStrongPass456'
@@ -20,6 +13,6 @@ export class ChangePasswordDto {
         minUppercase: 1,
         minNumbers: 1,
         minSymbols: 0
-    }, { message: 'New password must be strong (at least 8 characters, including uppercase, lowercase, number, and symbol)' })
+    }, { message: 'New password must be strong (at least 8 characters, including uppercase, lowercase and a number)' })
     newPassword!: string;
 }
