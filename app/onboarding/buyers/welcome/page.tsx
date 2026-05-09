@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CornerUpLeft } from "lucide-react";
 import PrimaryButton from "@/app/components/PrimaryButton";
+import { CornerUpLeft } from "lucide-react";
+import Image from "next/image";
 
-export default function SellerSignUpOnePage() {
+export default function LoginPage() {
   const router = useRouter();
 
   return (
@@ -18,32 +19,37 @@ export default function SellerSignUpOnePage() {
           >
             <CornerUpLeft size={18} />
           </button>
+
+          <div className="h-56 relative mb-8">
+            <Image src="/login.png" alt="" fill className="object-contain" />
+          </div>
           <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
-            Start selling on
-            <br />
-            Campus Mart in seconds.
+            Gets you back in.
           </h1>
 
           <div className="mb-8">
-            <PrimaryButton href="/onboarding/sellers/sign-up/two" variant="seller">
-              Sign up with email/number
+            <PrimaryButton href="/onboarding/buyers/sign-in">
+              Sign in with email/number
             </PrimaryButton>
           </div>
 
           <p className="text-neutral-600 text-[12.5px] text-center mb-6 tracking-tight">
-            Or use a social account to get started quickly.
+            Or use a social account to sign in quickly.
           </p>
 
           <div className="flex flex-col justify-center gap-4 mb-6">
-            <button className="flex items-center justify-center w-full tracking-tight bg-white text-[#13368B] py-2.5 border border-[#13368B] rounded-full font-medium text-[14px] hover:brightness-105 transition-all">
+            <button className="flex items-center justify-center w-full tracking-tight bg-white text-main py-2.5 border border-main rounded-full font-medium text-[14px] hover:brightness-105 transition-all">
               Continue with Google
             </button>
           </div>
 
           <p className="text-neutral-600 text-[12.5px] text-center tracking-tight">
-            Already have an account?{" "}
-            <Link href="/onboarding/sellers/sign-in/one" className="text-[#13368B] hover:underline">
-              Login here
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/onboarding/buyers/sign-up"
+              className="text-main hover:underline"
+            >
+              Create one here
             </Link>
           </p>
         </section>

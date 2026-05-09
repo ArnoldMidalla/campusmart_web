@@ -100,9 +100,9 @@ export default function RoleSelectPage() {
     if (!selected) return;
 
     if (selected === "sell") {
-      router.push("/onboarding/sellers/sign-up/one");
+      router.push("/onboarding/sellers/welcome");
     } else {
-      router.push("/onboarding/buyers/sign-up/two");
+      router.push("/onboarding/buyers/welcome");
     }
   };
 
