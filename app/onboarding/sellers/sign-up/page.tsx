@@ -3,14 +3,19 @@
 import { User, Mail, Phone, CreditCard, Lock, CornerUpLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import FormInput from "@/app/components/FormInput";
-import PrimaryButton from "@/app/components/PrimaryButton";
+import Button from "@/app/components/Button";
+import TermsOverlay from "@/app/components/TermsOverlay";
+import PrivacyPolicyOverlay from "@/app/components/PrivacyPolicyOverlay";
 
-export default function SellerSignUpTwoPage() {
+export default function SellerSignUpPage() {
   const router = useRouter();
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
+    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-medium tracking-tighter">
       <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
         <section className="flex flex-col px-6 mt-6 w-full">
           <button
@@ -36,34 +41,56 @@ export default function SellerSignUpTwoPage() {
           </div>
 
           <div className="mb-8">
-            <PrimaryButton variant="seller">Create an Account</PrimaryButton>
+            <Button outerRing roleType="seller">Create an Account</Button>
           </div>
 
           <p className="text-neutral-600 text-[12.5px] text-center mb-6 tracking-tight">
-            By clicking &ldquo;Create an Account&rdquo; you agree with CampusMart{" "}
-            <Link href="#" className="text-[#13368B] hover:underline">
+            By clicking &ldquo;Create an Account&rdquo; you agree with
+            <br />
+            CampusMart{" "}
+            <button
+              type="button"
+              onClick={() => setIsTermsOpen(true)}
+              className="text-[#13368B] hover:underline font-medium"
+            >
               Terms of Service
-            </Link>{" "}
+            </button>{" "}
             and{" "}
-            <Link href="#" className="text-[#13368B] hover:underline">
+            <button
+              type="button"
+              onClick={() => setIsPrivacyOpen(true)}
+              className="text-[#13368B] hover:underline font-medium"
+            >
               Privacy Policy
-            </Link>
+            </button>
           </p>
 
           <div className="flex flex-col justify-center gap-4 mb-6">
-            <button className="flex items-center justify-center w-full tracking-tight bg-white text-[#13368B] py-2.5 border border-[#13368B] rounded-full font-medium text-[14px] hover:brightness-105 transition-all">
+            <Button variant="secondary" roleType="seller">
               Continue with Google
-            </button>
+            </Button>
           </div>
 
           <p className="text-neutral-600 text-[12.5px] text-center tracking-tight">
             Already have an account?{" "}
-            <Link href="/onboarding/sellers/sign-in/two" className="text-[#13368B] hover:underline">
+            <Link href="/onboarding/sellers/sign-in" className="text-[#13368B] hover:underline">
               Login here
             </Link>
           </p>
         </section>
       </main>
+
+      <TermsOverlay
+        isOpen={isTermsOpen}
+        onClose={() => setIsTermsOpen(false)}
+        onAccept={() => setIsTermsOpen(false)}
+      />
+
+      <PrivacyPolicyOverlay
+        isOpen={isPrivacyOpen}
+        onClose={() => setIsPrivacyOpen(false)}
+        onAccept={() => setIsPrivacyOpen(false)}
+      />
     </div>
   );
 }
