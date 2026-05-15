@@ -12,7 +12,7 @@ export default function CategoryList() {
   };
 
   return (
-    <div className="flex justify-between md:justify-start md:flex-wrap md:gap-x-6 md:gap-y-3">
+    <div className="flex justify-between">
       {categories.map((category) => {
         const isActive = pressed === category.name;
 

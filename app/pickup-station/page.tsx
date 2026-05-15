@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Check, Copy, MapPin } from "lucide-react";
-import AppShell from "../components/AppShell";
 import PageHeader from "../components/PageHeader";
 import { usePickupStore, type PickupStation } from "../store/usePickupStore";
 import { useRouter } from "next/navigation";
@@ -139,7 +138,7 @@ export default function PickupStationPage() {
 
   return (
     <>
-      <AppShell noBottomPad>
+      <main className="pb-0 pt-8">
         {/* Page header */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-5">
@@ -165,7 +164,7 @@ export default function PickupStationPage() {
                 <div
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isSelected
-                      ? "border-neutral-300 shadow-sm"
+                      ? "border-neutral-300 shadow-lg"
                       : "border-neutral-200 bg-neutral-50"
                   }`}
                 >
@@ -247,10 +246,10 @@ export default function PickupStationPage() {
             );
           })}
         </div>
-      </AppShell>
+      </main>
 
       {/* Sticky confirm button */}
-      <main className="fixed bottom-0 left-0 lg:left-60 xl:left-64 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
+      <main className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
         <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2">
           <div className="w-full flex justify-center">
             <p className="text-neutral-700 font-medium text-sm truncate px-2">

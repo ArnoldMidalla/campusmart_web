@@ -77,8 +77,8 @@ export default function SellersPage() {
     `₦${n.toLocaleString("en-NG")}`;
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-[#f1f1f1] text-black font-dmSans tracking-tight">
-      <main className="flex flex-col max-w-md w-full pb-32">
+    <>
+      <main className="flex flex-col pb-32">
 
         {/* ── Hero Header ── */}
         <section
@@ -175,6 +175,6 @@ export default function SellersPage() {
       </main>
 
       <SellersNav />
-    </div>
+    </>
   );
 }

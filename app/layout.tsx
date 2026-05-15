@@ -68,7 +68,11 @@ export default function RootLayout({
       >
         <ServiceWorkerRegister />
         <PWAInstallPrompt />
-        {children}
+        <div className="flex justify-center min-h-dvh bg-neutral-50">
+          <div className="w-full max-w-md bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
+            {children}
+          </div>
+        </div>
         {/* vercel analytics to monitor metrics. cos why not */}
         <Analytics />
       </body>

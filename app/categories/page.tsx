@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
 import Nav from "../components/nav";
-import AppShell from "../components/AppShell";
 import ProductsCard from "../components/ProductsCard";
 import { products, categories } from "../components/data";
 import CategoryItem from "../components/CategoryItem";
@@ -33,7 +32,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <AppShell>
+      <main className="pb-28 pt-8">
         {/* Search Input */}
         <div className="flex flex-col gap-4 px-4">
           <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between pl-4 bg-white">
@@ -117,7 +116,7 @@ export default function SearchPage() {
 
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
+          <div className="grid grid-cols-2 gap-4 px-4">
             {filteredProducts.map((product) => (
               <ProductsCard
                 key={product.id}
@@ -144,7 +143,7 @@ export default function SearchPage() {
             </div>
           </div>
         )}
-      </AppShell>
+      </main>
       <Nav />
     </>
   );

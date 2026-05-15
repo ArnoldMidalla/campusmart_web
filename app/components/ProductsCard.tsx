@@ -38,7 +38,7 @@ export default function ProductsCard({
   return (
     <Link href={`/productItem/` + id} className="flex justify-center w-38">
       <main className="w-full flex flex-col gap-2">
-        <div className="relative overflow-hidden w-full h-28 md:w-full md:h-auto md:aspect-[4/3] rounded-lg">
+        <div className="relative overflow-hidden w-full h-28 rounded-lg">
           <Image
             src={image}
             alt={name}

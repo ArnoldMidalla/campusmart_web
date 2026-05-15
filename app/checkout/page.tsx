@@ -16,7 +16,6 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 import { useEffect, useState } from "react";
-import AppShell from "../components/AppShell";
 import { useRouter } from "next/navigation";
 
 // ── Payment logos from /public ────────────────────────────────────────────────
@@ -62,7 +61,7 @@ export default function Checkout() {
 
   return (
     <>
-      <AppShell noBottomPad>
+      <main className="pb-0 pt-8">
         {/* Page header */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-5">
@@ -71,15 +70,14 @@ export default function Checkout() {
           <Divider />
         </div>
 
-        {/* ── Two-column on lg+ ── */}
-        <div className="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-8 lg:items-start lg:px-6">
+        <div className="flex flex-col gap-6">
 
           {/* LEFT — Form content */}
           <div className="flex flex-col gap-6">
 
             {/* Items thumbnail row */}
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center px-5 lg:px-0">
+              <div className="flex justify-between items-center px-5">
                 <p className="font-semibold">Items in your order ({cart.length})</p>
                 <Link href="/cart" className="flex items-center">
                   <p className="text-xs text-black/70 tracking-normal">View all</p>
@@ -87,7 +85,7 @@ export default function Checkout() {
                 </Link>
               </div>
 
-              <div className="flex gap-2 overflow-x-scroll px-5 lg:px-0 no-scrollbar">
+              <div className="flex gap-2 overflow-x-scroll px-5 no-scrollbar">
                 {cart.map((cartItem) => (
                   <div key={`${cartItem.id}-${cartItem.size}`} className="flex flex-col items-center gap-1">
                     {/* Thumbnail with optional stock badge */}
@@ -130,8 +128,7 @@ export default function Checkout() {
 
             <Divider />
 
-            {/* ── Order Summary (mobile/tablet — hidden on desktop; desktop uses aside) ── */}
-            <div className="lg:hidden px-5 flex flex-col gap-2">
+            <div className="px-5 flex flex-col gap-2">
               <p className="font-semibold">Order summary</p>
               <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between text-black/70">
@@ -153,12 +150,10 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="lg:hidden">
-              <Divider />
-            </div>
+            <Divider />
 
             {/* Shipping */}
-            <div className="px-5 lg:px-0 flex flex-col gap-2">
+            <div className="px-5 flex flex-col gap-2">
               <p className="font-semibold">Shipping method</p>
               <div className="flex justify-between text-sm items-center gap-2">
                 <div className="flex gap-1 items-center shrink-0">
@@ -177,7 +172,7 @@ export default function Checkout() {
             <Divider />
 
             {/* Payment */}
-            <div className="px-5 lg:px-0 flex flex-col gap-3 pb-38">
+            <div className="px-5 flex flex-col gap-3 pb-38">
               <p className="font-semibold">Payment choices</p>
               <div className="flex flex-col gap-3">
                 {options.map((option) => (
@@ -218,41 +213,10 @@ export default function Checkout() {
 
           </div>
 
-          {/* RIGHT — Sticky order summary (desktop only) */}
-          <aside className="hidden lg:flex flex-col gap-4 sticky top-8 bg-white border border-neutral-100 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-semibold text-base">Order Summary</h2>
-
-            <div className="flex flex-col gap-2 text-sm">
-              <div className="flex justify-between text-neutral-600">
-                <span>Cost of items</span>
-                <span className="font-medium text-neutral-900">₦{totalPrice.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-neutral-600 items-center">
-                <span>Coupon code</span>
-                <button className="flex items-center gap-0.5 text-black/70">
-                  <span className="text-sm">Enter here</span>
-                  <ChevronRight size={13} strokeWidth={1.9} />
-                </button>
-              </div>
-              <div className="h-px bg-neutral-100 my-1" />
-              <div className="flex justify-between font-bold text-base">
-                <span>Amount to Pay</span>
-                <span className="text-main">₦{totalPrice.toLocaleString()}</span>
-              </div>
-            </div>
-
-            <button
-              disabled={cart.length === 0}
-              className="w-full py-3.5 rounded-2xl bg-main text-white font-semibold text-sm disabled:opacity-40 transition-all hover:brightness-105 active:scale-[0.98]"
-            >
-              Proceed to Pay →
-            </button>
-          </aside>
         </div>
-      </AppShell>
+      </main>
 
-      {/* ── Sticky bottom nav (mobile) ── */}
-      <main className="fixed bottom-0 left-0 lg:left-60 xl:left-64 right-0 flex flex-col gap-2 items-center pb-6 font-dmSans tracking-tight z-50">
+      <main className="fixed bottom-0 left-0 right-0 flex flex-col gap-2 items-center pb-6 font-dmSans tracking-tight z-50">
         <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2">
           <p className="text-xs line-clamp-1">Items can only be returned within{" "}
             <span className="text-main font-semibold">24 hours</span>{" "}

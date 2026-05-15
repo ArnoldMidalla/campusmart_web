@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Nav from "../components/nav";
-import AppShell from "../components/AppShell";
 import PageHeader from "../components/PageHeader";
 import { useCartStore } from "../store/useCartStore";
 import { useAuthStore } from "../store/useAuthStore";
@@ -102,15 +101,14 @@ export default function ProfilePage() {
 
   return (
     <>
-      <AppShell>
-        <div className="px-6 pt-0 flex flex-col gap-6">
+      <main className="pb-28 pt-8 px-6">
           <PageHeader title="Profile" showBack={false} />
 
           {/* ── Two-column on lg+ ── */}
-          <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-8 lg:items-start">
+          <div className="flex flex-col gap-6">
 
             {/* LEFT — User card (sticky on desktop) */}
-            <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 flex flex-col gap-4 lg:sticky lg:top-8">
+            <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200 p-6 flex flex-col gap-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
@@ -136,7 +134,7 @@ export default function ProfilePage() {
             </div>
 
             {/* RIGHT — Menu groups */}
-            <div className="flex flex-col gap-6 mt-6 lg:mt-0">
+            <div className="flex flex-col gap-6 mt-6">
 
               {/* Quick Access */}
               <div className="flex flex-col gap-3">
@@ -229,8 +227,7 @@ export default function ProfilePage() {
 
             </div> {/* end RIGHT col */}
           </div> {/* end 2-col grid */}
-        </div> {/* end px-6 wrapper */}
-      </AppShell>
+      </main>
       <Nav />
     </>
   );

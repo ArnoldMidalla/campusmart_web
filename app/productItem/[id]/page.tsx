@@ -89,9 +89,9 @@ export default function ProductItem() {
     );
 
     return (
-      <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
-        <main className="flex flex-col gap-2 max-w-md w-full pb-28">
-          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full max-w-md">
+      <>
+        <main className="flex flex-col gap-2 pb-28">
+          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full">
             <PageHeader rightItems={rightItems} />
           </div>
 
@@ -249,7 +249,7 @@ export default function ProductItem() {
         </main>
 
         <AddCartNav product={product} selectedSize={pressed} />
-      </div>
+      </>
     );
   } else {
   }

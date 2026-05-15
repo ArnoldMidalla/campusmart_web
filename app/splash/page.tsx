@@ -20,8 +20,8 @@ export default function SplashScreen() {
   }, [isAuthenticated, user, router]);
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi tracking-tight overflow-hidden">
-      <main className="flex flex-col max-w-md w-full items-center justify-center min-h-dvh px-6">
+    <>
+      <main className="flex flex-col items-center justify-center min-h-dvh px-6">
 
         {/* Logo mark */}
         <div className="flex flex-col items-center gap-3 animate-[fadeUp_0.6s_ease_forwards]">
@@ -64,6 +64,6 @@ export default function SplashScreen() {
           }
         }
       `}</style>
-    </div>
+    </>
   );
 }

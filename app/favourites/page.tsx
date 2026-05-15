@@ -9,7 +9,6 @@ import SectionHeader from "../components/SectionHeader";
 import ProductCarousel from "../components/ProductCarousel";
 import { products } from "../components/data";
 import Nav from "../components/nav";
-import AppShell from "../components/AppShell";
 import Link from "next/link";
 import { Heart } from "lucide-react";
 
@@ -26,7 +25,7 @@ export default function Favourites() {
 
   return (
     <>
-      <AppShell noBottomPad>
+      <main className="pb-0 pt-8">
         {/* ── Page header ── */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-5">
@@ -36,7 +35,7 @@ export default function Favourites() {
         </div>
 
         {/* ── Two-column on lg+ ── */}
-        <div className="lg:grid lg:grid-cols-[3fr_2fr] lg:gap-8 lg:items-start lg:px-6">
+        <div className="flex flex-col gap-8">
 
           {/* LEFT — Favourite items */}
           <div className="flex flex-col gap-4">
@@ -60,7 +59,7 @@ export default function Favourites() {
               </div>
             )}
 
-            <div className="flex flex-col gap-4 px-5 lg:px-0">
+            <div className="flex flex-col gap-4 px-5">
               {favourites.map((item) => (
                 <div className="flex flex-col gap-4" key={item.id}>
                   <div className="flex gap-4">
@@ -111,45 +110,8 @@ export default function Favourites() {
             </section>
           </div>
 
-          {/* RIGHT — Summary panel (visible on lg+) */}
-          <aside className="hidden lg:flex flex-col gap-4 sticky top-8 bg-white border border-neutral-100 rounded-2xl p-6 shadow-sm">
-            <h2 className="font-semibold text-base">Favourites Summary</h2>
-
-            <div className="flex flex-col gap-2 text-sm">
-              <div className="flex justify-between text-neutral-600">
-                <span>
-                  Saved item{favourites.length !== 1 ? "s" : ""} ({favourites.length})
-                </span>
-                <span className="font-medium text-neutral-900">
-                  ₦{favourites.reduce((t, f) => t + f.price, 0).toLocaleString()}
-                </span>
-              </div>
-              <div className="h-px bg-neutral-100 my-1" />
-              <div className="flex justify-between font-bold text-base">
-                <span>Total value</span>
-                <span className="text-main">
-                  ₦{favourites.reduce((t, f) => t + f.price, 0).toLocaleString()}
-                </span>
-              </div>
-            </div>
-
-            <Link
-              href="/cart"
-              className={`w-full py-3.5 rounded-2xl text-center font-semibold text-sm transition-all hover:brightness-105 active:scale-[0.98] ${
-                favourites.length === 0
-                  ? "bg-neutral-100 text-neutral-400 pointer-events-none"
-                  : "bg-main text-white"
-              }`}
-            >
-              Add All to Cart →
-            </Link>
-
-            <p className="text-xs text-neutral-400 text-center">
-              Items saved for later on CampusMart
-            </p>
-          </aside>
         </div>
-      </AppShell>
+      </main>
 
       <Nav />
     </>

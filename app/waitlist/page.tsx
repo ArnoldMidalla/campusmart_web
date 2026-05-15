@@ -65,7 +65,7 @@ export default function WaitlistPage() {
   }
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-[#fafafa] text-black font-satoshi tracking-tight overflow-x-hidden">
+    <>
       {/* Decorative blobs */}
       <div
         aria-hidden
@@ -78,7 +78,7 @@ export default function WaitlistPage() {
         style={{ background: "radial-gradient(circle, #ff681f 0%, transparent 70%)" }}
       />
 
-      <main className="flex flex-col max-w-md w-full pb-16 px-5 pt-10">
+      <main className="flex flex-col pb-16 px-5 pt-10">
 
         {/* ── Logo / Brand ── */}
         <header className="flex items-center justify-between mb-10">
@@ -292,6 +292,6 @@ export default function WaitlistPage() {
           </p>
         </footer>
       </main>
-    </div>
+    </>
   );
 }

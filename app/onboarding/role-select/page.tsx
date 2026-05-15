@@ -107,8 +107,8 @@ export default function RoleSelectPage() {
   };
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi tracking-tight">
-      <main className="flex flex-col max-w-md w-full min-h-dvh px-6 pt-16 pb-10">
+    <>
+      <main className="flex flex-col min-h-dvh px-6 pt-16 pb-10">
 
         {/* Heading */}
         <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
@@ -139,6 +139,6 @@ export default function RoleSelectPage() {
           </PrimaryButton>
         </div>
       </main>
-    </div>
+    </>
   );
 }

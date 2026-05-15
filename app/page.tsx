@@ -2,7 +2,6 @@
 
 import { products, featuredStores } from "./components/data";
 import Nav from "./components/nav";
-import AppShell from "./components/AppShell";
 import SearchBar from "./components/SearchBar";
 import CategoryList from "./components/CategoryList";
 import SectionHeader from "./components/SectionHeader";
@@ -16,7 +15,7 @@ export default function Home() {
   useRequireAuth() // redirects to splash if not authenticated
   return (
     <>
-      <AppShell>
+      <main className="pb-28 pt-8">
         {/* Section 1: Search & Filter */}
         <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4">
           <SearchBar />
@@ -49,18 +48,18 @@ export default function Home() {
         {/* Section 5: Featured Store */}
         <section className="flex flex-col gap-3 bg-white py-5">
           <SectionHeader title="Featured Store" href="/stores" />
-          {/* Carousel on mobile → grid on md+ */}
-          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4 md:overflow-x-visible md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {/* Carousel layout */}
+          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4">
             {featuredStores.map((store, index) => (
-              <div key={index} className="shrink-0 md:shrink md:w-auto">
+              <div key={index} className="shrink-0">
                 <FeaturedStoreCard store={store} />
               </div>
             ))}
           </div>
         </section>
-      </AppShell>
+      </main>
 
-      {/* Mobile bottom nav — hidden on lg+ via its own lg:hidden */}
+      {/* Mobile bottom nav */}
       <Nav />
     </>
   );
