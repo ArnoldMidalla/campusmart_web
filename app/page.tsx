@@ -47,9 +47,8 @@ export default function Home() {
         <SectionDivider />
 
         {/* Section 5: Featured Store */}
-        <section className="flex flex-col gap-3 bg-white py-5">
+        {/**<section className="flex flex-col gap-3 bg-white py-5">
           <SectionHeader title="Featured Store" href="/stores" />
-          {/* Carousel on mobile → grid on md+ */}
           <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4 md:overflow-x-visible md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {featuredStores.map((store, index) => (
               <div key={index} className="shrink-0 md:shrink md:w-auto">
@@ -58,6 +57,49 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <SectionDivider />
+
+        {/* Section 6: Campus Essentials */}
+        <section className="flex flex-col gap-3 bg-white py-5">
+          <SectionHeader title="Campus Essentials" href="/categories" />
+          <ProductCarousel products={products.slice(0, 5)} />
+        </section>
+
+        <SectionDivider />
+
+        {/* Section 7: Study & Creative Picks */}
+        <section className="flex flex-col gap-3 bg-white py-5">
+          <SectionHeader title="Study & Creative Picks" href="/favourites" />
+          <ProductCarousel products={products.slice(1, 6)} />
+        </section>
+
+        <SectionDivider />
+
+        {/* Section 8: Home Calm Zone */}
+        <section className="flex flex-col gap-3 bg-white py-5">
+          <SectionHeader title="Home Calm Zone" href="/cart" />
+          <ProductCarousel products={products.slice(2, 6)} />
+        </section>
+
+        <SectionDivider />
+
+        {/* Section 9: Weekend Drop */}
+        <section className="flex flex-col gap-3 bg-white py-5">
+          <SectionHeader title="Weekend Drop" href="/pickup-station" />
+          <ProductCarousel products={products.slice(0, 4)} />
+        </section>
+
+        <SectionDivider />
+
+        {/* Section 10: Fresh Finds */}
+        <section className="flex flex-col gap-3 bg-white py-5">
+          <SectionHeader title="Fresh Finds" href="/new" />
+          <ProductCarousel products={products.slice(3, 6)} />
+        </section>
+
+        <SectionDivider />
+
       </AppShell>
 
       {/* Mobile bottom nav — hidden on lg+ via its own lg:hidden */}
