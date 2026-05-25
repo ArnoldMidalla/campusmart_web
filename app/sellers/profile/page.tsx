@@ -78,6 +78,13 @@ export default function ProfilePage() {
       description: "Manage passwords and verification",
       href: "#",
       badge: null,
+    },
+    {
+      icon: Link2,
+      label: "Buyers page",
+      description: "Go to buyers page",
+      href: "/",
+      badge: null,
     }
   ];
 
