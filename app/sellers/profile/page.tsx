@@ -12,8 +12,7 @@ import {
   Bell,
   HelpCircle,
   ChevronRight,
-  Edit2,
-  Link2,
+  Edit2
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -31,6 +30,7 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
+    // eslint-disable-next-line
     setMounted(true);
   }, []);
 

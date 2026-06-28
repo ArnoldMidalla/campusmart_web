@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 
 export default function Nav() {
   const pathname = usePathname();
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) =>
+    path === "/" ? pathname === "/" : pathname.startsWith(path);
   const baseIcon = "p-2 rounded-full border border-neutral-200 transition-all";
   const activeIcon = "bg-main text-white py-2 px-4";
   const inactiveIcon = "bg-white text-black";
@@ -15,7 +16,7 @@ export default function Nav() {
     { href: "/categories", icon: TextSearch, label: "Categories" },
     { href: "/favourites", icon: Heart, label: "Favourites" },
     { href: "/cart", icon: ShoppingCart, label: "Cart" },
-    { href: "/profile", icon: UserRound, label: "Profile" },
+    { href: "/profile", icon: UserRound, label: "Account" },
   ];
 
   return (

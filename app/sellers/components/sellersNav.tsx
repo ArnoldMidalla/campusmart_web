@@ -1,5 +1,5 @@
 "use client";
-import { ClipboardList, Home, Package, ShoppingCart, TextSearch, UserRound, Wallet } from "lucide-react";
+import { ClipboardList, Home, Package, UserRound, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

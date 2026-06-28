@@ -143,7 +143,7 @@ export default function WaitlistPage() {
             <section className="bg-white rounded-3xl border border-neutral-100 shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)] p-5">
               <h2 className="text-[18px] font-bold text-[#1c1c1c] mb-1">Reserve your spot</h2>
               <p className="text-[13px] text-neutral-500 font-medium mb-5">
-                We'll notify you the moment doors open.
+                We&apos;ll notify you the moment doors open.
               </p>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -261,10 +261,10 @@ export default function WaitlistPage() {
               </svg>
             </div>
             <div>
-              <h2 className="text-[28px] font-bold text-[#1c1c1c] mb-2">You're on the list! 🎉</h2>
+              <h2 className="text-[28px] font-bold text-[#1c1c1c] mb-2">You&apos;re on the list! 🎉</h2>
               <p className="text-[15px] text-neutral-500 font-medium leading-relaxed">
-                We've saved your spot, <strong className="text-[#1c1c1c]">{name.split(" ")[0]}</strong>.<br />
-                We'll email <strong className="text-[#1c1c1c]">{email}</strong> when we're ready to go live.
+                We&apos;ve saved your spot, <strong className="text-[#1c1c1c]">{name.split(" ")[0]}</strong>.<br />
+                We&apos;ll email <strong className="text-[#1c1c1c]">{email}</strong> when we&apos;re ready to go live.
               </p>
             </div>
             <div className="w-full p-4 bg-orange-50 border border-orange-100 rounded-2xl text-[13.5px] text-[#ff681f] font-semibold">

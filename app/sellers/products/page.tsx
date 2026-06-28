@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
-import { Plus } from "lucide-react";
 import SellersNav from "@/app/sellers/components/sellersNav";
 import { useProductsStore, type ProductStatus } from "@/app/store/useProductsStore";
 import SearchBar from "@/app/components/SearchBar";
@@ -18,19 +16,13 @@ const TABS: FilterTab[] = ["All", "In Stock", "Out of Stock", "Draft"];
 
 export default function ProductsPage() {
   const { products } = useProductsStore();
-  const [query, setQuery] = useState("");
   const [activeTab, setActiveTab] = useState<FilterTab>("All");
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
-      const matchesTab = activeTab === "All" || p.status === activeTab;
-      const matchesQuery =
-        !query ||
-        p.name.toLowerCase().includes(query.toLowerCase()) ||
-        p.category.toLowerCase().includes(query.toLowerCase());
-      return matchesTab && matchesQuery;
+      return activeTab === "All" || p.status === activeTab;
     });
-  }, [products, activeTab, query]);
+  }, [products, activeTab]);
 
   return (
     <div className="relative flex justify-center max-w-dvw min-h-dvh bg-[#f1f1f1] text-black font-dmSans tracking-tight">
