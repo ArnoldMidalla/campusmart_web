@@ -90,7 +90,7 @@ export default function ProductItem() {
 
     return (
       <>
-        <main className="flex flex-col md:grid md:grid-cols-2 md:gap-8 gap-2 pb-28 md:pb-12 md:px-8 md:pt-28">
+        <main className="flex flex-col md:grid md:grid-cols-2 md:gap-8 gap-2 pb-28 md:pb-12 md:px-8 lg:px-12 md:pt-28">
           <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full md:w-[calc(100%-2rem)] md:max-w-7xl">
             <PageHeader rightItems={rightItems} />
           </div>

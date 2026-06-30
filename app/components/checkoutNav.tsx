@@ -22,7 +22,7 @@ export default function CheckoutNav({
   if (!mounted) return null;
   return (
     <main className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50 md:relative md:pb-0 md:px-0">
-      <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-6 md:flex-col md:items-start md:gap-4">
+      <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md gap-2 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-6 md:flex-col md:items-start md:gap-4">
         <div className="w-full flex justify-center md:justify-start">
           <p className="text-main font-semibold text-lg">N{totalPrice}</p>
         </div>

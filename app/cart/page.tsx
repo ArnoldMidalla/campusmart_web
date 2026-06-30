@@ -74,7 +74,7 @@ export default function Cart() {
       <main className="pb-28 pt-8 md:ml-64">
         {/* ── Page header ── */}
         <div className="flex flex-col gap-2 pb-4">
-          <div className="px-5">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-12">
             <PageHeader 
               title={`My Cart (${cart.length})`}
               rightItems={
@@ -100,15 +100,15 @@ export default function Cart() {
           <div className="w-full h-0.5 rounded-full bg-neutral-200" />
         </div>
 
-        <div className="flex flex-col gap-8 md:flex-row md:px-8 md:items-start md:pt-4">
+        <div className="flex flex-col gap-8 md:flex-row md:px-8 lg:px-12 md:items-start md:pt-4">
 
           {/* LEFT — Cart items */}
           <div className="flex flex-col gap-4 md:w-2/3">
             {cart.length === 0 && (
-              <p className="text-sm text-center px-5">Your cart is empty</p>
+              <p className="text-sm text-center px-4 sm:px-6 md:px-0">Your cart is empty</p>
             )}
 
-            <div className="flex flex-col gap-4 px-5">
+            <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-0">
               {cart.map((item) => (
                 <div className="flex flex-col gap-4" key={`${item.id}-${item.size}`}>
                   <div className="flex gap-4">

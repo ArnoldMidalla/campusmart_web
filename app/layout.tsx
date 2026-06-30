@@ -69,7 +69,7 @@ export default function RootLayout({
         <ServiceWorkerRegister />
         <PWAInstallPrompt />
         <div className="flex justify-center min-h-dvh bg-neutral-50">
-          <div className="w-full max-w-md sm:max-w-none bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
+          <div className="w-full bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
             {children}
           </div>
         </div>

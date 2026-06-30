@@ -64,20 +64,20 @@ export default function Checkout() {
       <main className="pb-0 pt-8">
         {/* Page header */}
         <div className="flex flex-col gap-2 pb-4">
-          <div className="px-5">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-12">
             <PageHeader title="Order confirmation" />
           </div>
           <Divider />
         </div>
 
-        <div className="flex flex-col gap-6 md:flex-row md:px-8 md:items-start md:pt-4">
+        <div className="flex flex-col gap-6 md:flex-row md:px-8 lg:px-12 md:items-start md:pt-4">
 
           {/* LEFT — Form content */}
           <div className="flex flex-col gap-6 md:w-2/3">
 
             {/* Items thumbnail row */}
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center px-5">
+              <div className="flex justify-between items-center px-4 sm:px-6 md:px-0">
                 <p className="font-semibold">Items in your order ({cart.length})</p>
                 <Link href="/cart" className="flex items-center">
                   <p className="text-xs text-black/70 tracking-normal">View all</p>
@@ -85,7 +85,7 @@ export default function Checkout() {
                 </Link>
               </div>
 
-              <div className="flex gap-2 overflow-x-scroll px-5 no-scrollbar">
+              <div className="flex gap-2 overflow-x-scroll px-4 sm:px-6 md:px-0 no-scrollbar">
                 {cart.map((cartItem) => (
                   <div key={`${cartItem.id}-${cartItem.size}`} className="flex flex-col items-center gap-1">
                     {/* Thumbnail with optional stock badge */}
@@ -128,7 +128,7 @@ export default function Checkout() {
 
             <Divider />
 
-            <div className="px-5 flex flex-col gap-2">
+            <div className="px-4 sm:px-6 md:px-0 flex flex-col gap-2">
               <p className="font-semibold">Order summary</p>
               <div className="flex flex-col gap-2 text-sm">
                 <div className="flex justify-between text-black/70">
@@ -153,7 +153,7 @@ export default function Checkout() {
             <Divider />
 
             {/* Shipping */}
-            <div className="px-5 flex flex-col gap-2">
+            <div className="px-4 sm:px-6 md:px-0 flex flex-col gap-2">
               <p className="font-semibold">Shipping method</p>
               <div className="flex justify-between text-sm items-center gap-2">
                 <div className="flex gap-1 items-center shrink-0">
@@ -172,7 +172,7 @@ export default function Checkout() {
             <Divider />
 
             {/* Payment */}
-            <div className="px-5 flex flex-col gap-3 pb-38">
+            <div className="px-4 sm:px-6 md:px-0 flex flex-col gap-3 pb-38">
               <p className="font-semibold">Payment choices</p>
               <div className="flex flex-col gap-3">
                 {options.map((option) => (
@@ -216,12 +216,12 @@ export default function Checkout() {
           {/* RIGHT - Summary */}
           <div className="w-full md:w-1/3 md:sticky md:top-8 mt-4 md:mt-0">
             <main className="fixed bottom-0 left-0 right-0 flex flex-col gap-2 items-center pb-6 font-dmSans tracking-tight z-50 md:relative md:pb-0 md:px-0">
-              <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-4">
+              <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md gap-2 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-4">
                 <p className="text-xs line-clamp-1">Items can only be returned within{" "}
                   <span className="text-main font-semibold">24 hours</span>{" "}
                   of picking-up</p>
               </div>
-              <div className="backdrop-blur-xs flex justify-center items-center py-2 px-3 rounded-full border border-neutral-200 w-[88%] bg-white/30 max-w-sm gap-3 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-6 md:flex-col md:items-start">
+              <div className="backdrop-blur-xs flex justify-center items-center py-2 px-3 rounded-full border border-neutral-200 w-[95%] sm:w-[88%] bg-white/30 max-w-sm sm:max-w-md gap-3 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-6 md:flex-col md:items-start">
                 <p className="text-main font-bold text-base whitespace-nowrap shrink-0">
                   ₦{totalPrice.toLocaleString()}
                 </p>
