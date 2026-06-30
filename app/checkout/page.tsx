@@ -70,10 +70,10 @@ export default function Checkout() {
           <Divider />
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 md:flex-row md:px-8 md:items-start md:pt-4">
 
           {/* LEFT — Form content */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 md:w-2/3">
 
             {/* Items thumbnail row */}
             <div className="flex flex-col gap-2">
@@ -213,28 +213,31 @@ export default function Checkout() {
 
           </div>
 
-        </div>
-      </main>
+          {/* RIGHT - Summary */}
+          <div className="w-full md:w-1/3 md:sticky md:top-8 mt-4 md:mt-0">
+            <main className="fixed bottom-0 left-0 right-0 flex flex-col gap-2 items-center pb-6 font-dmSans tracking-tight z-50 md:relative md:pb-0 md:px-0">
+              <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-4">
+                <p className="text-xs line-clamp-1">Items can only be returned within{" "}
+                  <span className="text-main font-semibold">24 hours</span>{" "}
+                  of picking-up</p>
+              </div>
+              <div className="backdrop-blur-xs flex justify-center items-center py-2 px-3 rounded-full border border-neutral-200 w-[88%] bg-white/30 max-w-sm gap-3 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-6 md:flex-col md:items-start">
+                <p className="text-main font-bold text-base whitespace-nowrap shrink-0">
+                  ₦{totalPrice.toLocaleString()}
+                </p>
+                <button
+                  className="w-full h-10 rounded-full bg-main border border-transparent disabled:opacity-40 transition-all duration-300 hover:brightness-105 active:scale-[0.98]"
+                  onClick={() => router.push("/order-confirmation")}
+                  disabled={cart.length === 0}
+                >
+                  <p className="font-medium text-sm text-white">
+                    Proceed to Pay ({totalQty})
+                  </p>
+                </button>
+              </div>
+            </main>
+          </div>
 
-      <main className="fixed bottom-0 left-0 right-0 flex flex-col gap-2 items-center pb-6 font-dmSans tracking-tight z-50">
-        <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2">
-          <p className="text-xs line-clamp-1">Items can only be returned within{" "}
-            <span className="text-main font-semibold">24 hours</span>{" "}
-            of picking-up</p>
-        </div>
-        <div className="backdrop-blur-xs flex justify-center items-center py-2 px-3 rounded-full border border-neutral-200 w-[88%] bg-white/30 max-w-sm gap-3">
-          <p className="text-main font-bold text-base whitespace-nowrap shrink-0">
-            ₦{totalPrice.toLocaleString()}
-          </p>
-          <button
-            className="w-full h-10 rounded-full bg-main border border-transparent disabled:opacity-40 transition-all duration-300 hover:brightness-105 active:scale-[0.98]"
-            onClick={() => router.push("/order-confirmation")}
-            disabled={cart.length === 0}
-          >
-            <p className="font-medium text-sm text-white">
-              Proceed to Pay ({totalQty})
-            </p>
-          </button>
         </div>
       </main>
     </>

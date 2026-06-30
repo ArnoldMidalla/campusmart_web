@@ -15,9 +15,9 @@ export default function Home() {
   useRequireAuth() // redirects to splash if not authenticated
   return (
     <>
-      <main className="pb-28 pt-8">
+      <main className="pb-28 pt-8 md:ml-64">
         {/* Section 1: Search & Filter */}
-        <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4">
+        <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4 md:px-8">
           <SearchBar />
           <CategoryList />
         </section>
@@ -49,7 +49,7 @@ export default function Home() {
         <section className="flex flex-col gap-3 bg-white py-5">
           <SectionHeader title="Featured Store" href="/stores" />
           {/* Carousel layout */}
-          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4">
+          <div className="flex gap-4 md:gap-6 overflow-x-scroll pb-2 no-scrollbar px-4 md:px-8">
             {featuredStores.map((store, index) => (
               <div key={index} className="shrink-0">
                 <FeaturedStoreCard store={store} />

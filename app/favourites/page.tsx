@@ -25,7 +25,7 @@ export default function Favourites() {
 
   return (
     <>
-      <main className="pb-0 pt-8">
+      <main className="pb-0 pt-8 md:ml-64">
         {/* ── Page header ── */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-5">

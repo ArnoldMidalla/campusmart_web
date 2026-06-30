@@ -90,12 +90,12 @@ export default function ProductItem() {
 
     return (
       <>
-        <main className="flex flex-col gap-2 pb-28">
-          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full">
+        <main className="flex flex-col md:grid md:grid-cols-2 md:gap-8 gap-2 pb-28 md:pb-12 md:px-8 md:pt-28">
+          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full md:w-[calc(100%-2rem)] md:max-w-7xl">
             <PageHeader rightItems={rightItems} />
           </div>
 
-          <div className="w-full h-[50vh] relative overflow-hidden">
+          <div className="w-full h-[50vh] md:h-[70vh] md:sticky md:top-28 md:rounded-2xl relative overflow-hidden">
             <Image
               src={product.image}
               alt={product.name}
@@ -104,7 +104,7 @@ export default function ProductItem() {
             />
           </div>
 
-          <div className="flex flex-col gap-2 px-6 pt-6">
+          <div className="flex flex-col gap-2 px-6 pt-6 md:px-0 md:pt-0">
             <p className="text-lg font-semibold">{product.name}</p>
             <p className="text-black/50 text-sm leading-4">
               {product.productDetails}
@@ -160,6 +160,10 @@ export default function ProductItem() {
                 <p className="text-sm font-medium">{product.size}</p>
               </section>
             )}
+
+            <div className="mt-4 md:mt-2 md:mb-6">
+              <AddCartNav product={product} selectedSize={pressed} />
+            </div>
 
             {/* reviews */}
             <div className="w-full flex justify-between mt-4">
@@ -247,8 +251,6 @@ export default function ProductItem() {
             </div>
           </div>
         </main>
-
-        <AddCartNav product={product} selectedSize={pressed} />
       </>
     );
   } else {

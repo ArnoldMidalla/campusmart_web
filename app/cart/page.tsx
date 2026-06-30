@@ -71,7 +71,7 @@ export default function Cart() {
 
   return (
     <>
-      <main className="pb-28 pt-8">
+      <main className="pb-28 pt-8 md:ml-64">
         {/* ── Page header ── */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-5">
@@ -100,10 +100,10 @@ export default function Cart() {
           <div className="w-full h-0.5 rounded-full bg-neutral-200" />
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 md:flex-row md:px-8 md:items-start md:pt-4">
 
           {/* LEFT — Cart items */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 md:w-2/3">
             {cart.length === 0 && (
               <p className="text-sm text-center px-5">Your cart is empty</p>
             )}
@@ -178,11 +178,14 @@ export default function Cart() {
             </section>
           </div>
 
+          {/* RIGHT - Summary */}
+          <div className="w-full md:w-1/3 md:sticky md:top-8 mt-4 md:mt-0">
+            <CheckoutNav text="Checkout" link="checkout" />
+          </div>
+
         </div>
       </main>
 
-      {/* Mobile sticky nav */}
-      <CheckoutNav text="Checkout" link="checkout" />
       {/* <Nav /> */}
     </>
   );
