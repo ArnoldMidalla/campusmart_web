@@ -34,8 +34,8 @@ export default function SearchPage() {
     <>
       <main className="pb-28 pt-8 md:ml-64">
         {/* Search Input */}
-        <div className="flex flex-col gap-4 px-4 md:px-8">
-          <div className="border border-neutral-200 shadow-lg/5 flex w-full md:max-w-xl md:mx-auto h-12 rounded-full justify-between pl-4 bg-white">
+        <div className="flex flex-col gap-4 px-4 sm:px-6 md:px-8">
+          <div className="border border-neutral-200 shadow-lg/5 flex w-full sm:max-w-md sm:mx-auto md:max-w-xl h-12 rounded-full justify-between pl-4 bg-white">
             <input
               type="text"
               placeholder="Search on Campusmart..."
@@ -77,7 +77,7 @@ export default function SearchPage() {
         </div>
 
         {/* Sorting Options */}
-        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-4 md:px-8">
+        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-4 sm:px-6 md:px-8">
           {SORT_OPTIONS.map((option) => (
             <button
               key={option.value}
@@ -94,7 +94,7 @@ export default function SearchPage() {
         </div>
 
         {/* Results Info */}
-        <div className="flex justify-between items-center px-4 md:px-8">
+        <div className="flex justify-between items-center px-4 sm:px-6 md:px-8">
           <p className="text-sm text-neutral-600">
             {filteredProducts.length} result
             {filteredProducts.length !== 1 ? "s" : ""}
@@ -116,7 +116,7 @@ export default function SearchPage() {
 
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 md:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 sm:px-6 md:px-8">
             {filteredProducts.map((product) => (
               <ProductsCard
                 key={product.id}

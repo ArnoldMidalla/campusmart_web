@@ -20,7 +20,7 @@ export default function Nav() {
   ];
 
   return (
-    <main className="fixed bottom-0 left-0 w-full flex justify-center pb-6 z-70 font-dmSans text-sm md:absolute md:top-0 md:h-full md:w-64 md:border-r md:border-neutral-200 md:bg-white md:z-40 md:justify-start md:pb-0">
+    <main className="fixed bottom-0 left-0 w-full flex justify-center pb-6 z-70 font-dmSans text-sm md:fixed md:top-0 md:h-screen md:w-64 md:border-r md:border-neutral-200 md:bg-white md:z-40 md:justify-start md:pb-0">
       <div className="backdrop-blur-sm flex gap-4 items-center py-2 px-2 rounded-full border border-neutral-200 md:sticky md:top-0 md:h-screen md:flex-col md:w-full md:px-4 md:pt-8 md:border-none md:gap-2 md:items-start md:rounded-none">
         {navItems.map((item) => {
           const Icon = item.icon;
