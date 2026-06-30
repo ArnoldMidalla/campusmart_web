@@ -7,7 +7,7 @@ import PageHeader from "../../../components/PageHeader";
 export default function ActiveSessionsPage() {
   return (
     <>
-      <main className="pb-36 pt-8 px-6">
+      <main className="pb-36 pt-8 px-6 md:ml-64">
         <PageHeader title="Active Sessions" showBack={true} />
 
         {/* ── CURRENT SESSION ── */}

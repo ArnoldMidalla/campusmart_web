@@ -165,7 +165,7 @@ export default function AccountSecurityPage() {
     <>
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} duration={3500} />
 
-      <main className="pb-28 pt-8 px-6">
+      <main className="pb-28 pt-8 px-6 md:ml-64">
         <PageHeader title="Account Security" showBack={true} />
 
         <PageHero icon={ShieldCheck} title="Keep your Account Safe and Secure" />
