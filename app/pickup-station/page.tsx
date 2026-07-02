@@ -164,7 +164,7 @@ export default function PickupStationPage() {
                 <div
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isSelected
-                      ? "border-neutral-300 shadow-lg"
+                      ? "border-neutral-300 shadow-lg/7"
                       : "border-neutral-200 bg-neutral-50"
                   }`}
                 >

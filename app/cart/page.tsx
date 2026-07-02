@@ -71,7 +71,7 @@ export default function Cart() {
 
   return (
     <>
-      <main className="pb-28 pt-8 md:ml-64">
+      <main className="pb-28 pt-8">
         {/* ── Page header ── */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-4 sm:px-6 md:px-8 lg:px-12">
