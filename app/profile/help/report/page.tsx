@@ -185,7 +185,7 @@ export default function ReportPage() {
     <>
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} duration={4000} />
 
-      <main className="pb-36 pt-8 px-6">
+      <main className="pb-36 pt-8 px-6 md:ml-64">
         <PageHeader title="Report a Problem" showBack={true} />
 
         <PageHero icon={AlertTriangle} title="Help us fix issues by reporting them" />

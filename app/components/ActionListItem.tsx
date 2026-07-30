@@ -74,6 +74,14 @@ export default function ActionListItem({
     );
   }
 
+  if (!onClick) {
+    return (
+      <div className={baseClass}>
+        {content}
+      </div>
+    );
+  }
+
   return (
     <button onClick={onClick} className={baseClass}>
       {content}

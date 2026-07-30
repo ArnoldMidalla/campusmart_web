@@ -341,7 +341,7 @@ export default function NotificationsPage() {
 
   return (
     <>
-      <main className="pb-28 pt-8 px-6">
+      <main className="pb-28 pt-8 px-6 md:ml-64">
         <PageHeader title="Notifications" showBack={true} />
 
         {/* Hero */}

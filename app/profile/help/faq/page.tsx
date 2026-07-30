@@ -77,7 +77,7 @@ export default function FAQPage() {
 
   return (
     <>
-      <main className="pb-36 pt-8 px-5">
+      <main className="pb-36 pt-8 px-5 md:ml-64">
         <PageHeader title="FAQs" showBack={true} />
 
         {/* Search */}

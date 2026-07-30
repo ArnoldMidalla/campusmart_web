@@ -3,9 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Bell, Package, ClipboardList, TrendingUp, TrendingDown } from "lucide-react";
-import SellersNav from "./components/sellersNav";
 import { useSellerStore } from "@/app/store/useSellerStore";
-import { useRequireAuth } from "../hooks/useRequireAuth";
+import { useAuthStore } from "@/app/store/useAuthStore";
 
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 
@@ -41,6 +40,7 @@ function StatCard({ label, value, change, className = "" }: StatCardProps) {
 
 // ─── Best Performing Card ─────────────────────────────────────────────────────
 
+// TODO: Wire to real data. Replace static image, product name, and order count.
 function BestPerformingCard() {
   return (
     <div className="relative w-full h-56 rounded-2xl overflow-hidden">
@@ -69,24 +69,20 @@ function BestPerformingCard() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SellersPage() {
-  useRequireAuth("/onboarding/sellers/sign-in"); // Redirects to login if not authenticated
+  const { isOnline, setIsOnline, stats } = useSellerStore();
+  const { user } = useAuthStore();
   
-  const { isOnline, setIsOnline, sellerName, stats } = useSellerStore();
+  const sellerName = user?.firstName || user?.email?.split('@')[0] || "Seller";
 
   const formatCurrency = (n: number) =>
     `₦${n.toLocaleString("en-NG")}`;
 
   return (
-    <>
-      <main className="flex flex-col pb-32">
+      <main className="flex flex-col w-full max-w-md pb-32">
 
         {/* ── Hero Header ── */}
         <section
-          className="flex flex-col gap-5 px-5 pt-10 pb-8"
-          style={{
-            background:
-              "linear-gradient(160deg, #1a2e6e 0%, #1e3a8a 40%, #1e4d8c 70%, #1a5276 100%)",
-          }}
+          className="flex flex-col gap-5 px-5 pt-10 pb-8 bg-[linear-gradient(160deg,#1a2e6e_0%,#1e3a8a_40%,#1e4d8c_70%,#1a5276_100%)]"
         >
           {/* Top row */}
           <div className="flex items-start justify-between">
@@ -130,7 +126,7 @@ export default function SellersPage() {
             <button
               onClick={() => setIsOnline(false)}
               className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${
-                !isOnline ? "bg-[#1a1a2e] text-white shadow" : "text-white/60"
+                !isOnline ? "bg-seller-darker text-white shadow" : "text-white/60"
               }`}
             >
               Offline
@@ -138,7 +134,7 @@ export default function SellersPage() {
             <button
               onClick={() => setIsOnline(true)}
               className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${
-                isOnline ? "bg-white text-[#1a2e6e] shadow" : "text-white/60"
+                isOnline ? "bg-white text-seller-dark shadow" : "text-white/60"
               }`}
             >
               Go Online
@@ -158,14 +154,14 @@ export default function SellersPage() {
         <section className="flex flex-col gap-3 px-4 pt-2 pb-6 border-t border-neutral-100">
           <Link
             href="/sellers/addProduct"
-            className="bg-white flex items-center justify-center gap-2 w-full py-3.5 rounded-full shadow-md text-[#1a2e6e] font-semibold text-sm hover:bg-[#1a2e6e]/5 transition"
+            className="bg-white flex items-center justify-center gap-2 w-full py-3.5 rounded-full shadow-md text-seller-dark font-semibold text-sm hover:bg-seller-dark/5 transition"
           >
             <Package size={18} />
             Add Product
           </Link>
           <Link
             href="/sellers/orders"
-            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full border border-[#1a2e6e] text-[#1a2e6e] font-semibold text-sm hover:bg-[#1a2e6e]/5 transition"
+            className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full border border-seller-dark text-seller-dark font-semibold text-sm hover:bg-seller-dark/5 transition"
           >
             <ClipboardList size={18} />
             View Orders
@@ -173,8 +169,5 @@ export default function SellersPage() {
         </section>
 
       </main>
-
-      <SellersNav />
-    </>
   );
 }

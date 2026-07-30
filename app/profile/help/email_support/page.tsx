@@ -64,7 +64,7 @@ export default function EmailSupportPage() {
     <>
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} duration={4000} />
 
-      <main className="pb-36 pt-8 px-6">
+      <main className="pb-36 pt-8 px-6 md:ml-64">
         <PageHeader title="Email Support" showBack={true} />
 
         {/* Hero */}

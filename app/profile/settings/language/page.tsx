@@ -88,7 +88,7 @@ export default function LanguageSelectPage() {
       {/* In-app toast container */}
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} duration={3000} />
 
-      <main className="pb-28 pt-8 px-6">
+      <main className="pb-28 pt-8 px-6 md:ml-64">
         <PageHeader title="Select Language" showBack={true} />
 
         {/* Search bar */}

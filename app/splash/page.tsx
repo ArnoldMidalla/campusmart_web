@@ -22,7 +22,6 @@ export default function SplashScreen() {
   return (
     <>
       <main className="flex flex-col items-center justify-center min-h-dvh px-6">
-
         {/* Logo mark */}
         <div className="flex flex-col items-center gap-3 animate-[fadeUp_0.6s_ease_forwards]">
           {/* 2×2 icon grid — mirrors the design */}
@@ -51,19 +50,6 @@ export default function SplashScreen() {
           for everyone, by students.
         </p>
       </main>
-
-      <style jsx>{`
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </>
   );
 }

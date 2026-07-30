@@ -25,7 +25,7 @@ export default function OrderConfirmationPage() {
   if (!mounted) return null;
 
   const favouriteProducts = products.filter((p) =>
-    favourites.some((f: FavouriteItem) => f.id === p.id)
+    favourites.some((f: FavouriteItem) => f.id === String(p.id))
   );
 
   // Fallback: show all products if no favourites

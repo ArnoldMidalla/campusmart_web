@@ -29,7 +29,7 @@ export default function EmailVerificationPage() {
     <>
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} duration={3500} />
 
-      <main className="pb-28 pt-8 px-6">
+      <main className="pb-28 pt-8 px-6 md:ml-64">
         <PageHeader title="Email Verification" showBack={true} />
 
         {/* Hero — verified state */}

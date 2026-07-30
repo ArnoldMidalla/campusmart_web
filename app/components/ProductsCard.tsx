@@ -10,7 +10,7 @@ interface ProductsCardProps {
   price: number;
   category: string;
   image: string;
-  id: number;
+  id: string;
   hearted?: boolean;
   badge?: {
     text: string;
@@ -35,8 +35,9 @@ export default function ProductsCard({
     toggleFavourite({ id, name, price, image, category });
   };
 
+
   return (
-    <Link href={`/productItem/` + id} className="flex justify-center w-38">
+    <Link href={`/productItem/` + id} className="flex justify-center w-full">
       <main className="w-full flex flex-col gap-2">
         <div className="relative overflow-hidden w-full h-28 rounded-lg">
           <Image
@@ -52,6 +53,9 @@ export default function ProductsCard({
               {badge.text}
             </div>
           )} */}
+          
+
+          {/* Heart Button */}
           <button
             onClick={handleHeart}
             className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-neutral-300"

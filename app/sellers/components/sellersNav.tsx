@@ -7,7 +7,7 @@ export default function SellersNav() {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
   const baseIcon = "p-2 rounded-full border border-neutral-200 transition-all";
-  const activeIcon = "bg-[#13368B] text-white py-2 px-4";
+  const activeIcon = "bg-seller-main text-white py-2 px-4";
   const inactiveIcon = "bg-white text-black";
 
   const navItems = [

@@ -40,7 +40,7 @@ export default function FormInput({
 
   return (
     <div
-      className={`relative flex items-center transition-all duration-200 bg-[#f5f5f5] border border-transparent rounded-[12px] px-4 py-3 focus-within:bg-white focus-within:border-[#344054] focus-within:border-opacity-40 focus-within:shadow-sm ${className}`}
+      className={`relative flex items-center transition-all duration-200 bg-background-muted border border-transparent rounded-[12px] px-4 py-3 focus-within:bg-white focus-within:border-border-muted focus-within:border-opacity-40 focus-within:shadow-sm ${className}`}
     >
       <Icon className="text-neutral-500 mr-3 shrink-0" size={20} />
 

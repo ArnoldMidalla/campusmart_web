@@ -38,7 +38,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <main className="pb-28 pt-8 px-6">
+      <main className="pb-28 pt-8 px-6 md:ml-64">
         <PageHeader title="Profile" showBack={false} />
 
         <div className="flex flex-col gap-6">

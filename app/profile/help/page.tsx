@@ -10,7 +10,7 @@ import { quickHelp } from "../../lib/data";
 export default function HelpPage() {
   return (
     <>
-      <main className="pb-28 pt-8 px-6">
+      <main className="pb-28 pt-8 px-6 md:ml-64">
         <PageHeader title="Help & Support" showBack={true} />
 
         <PageHero icon={HelpCircle} title="How can we help you today?" />

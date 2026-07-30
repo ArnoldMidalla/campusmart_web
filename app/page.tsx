@@ -12,12 +12,12 @@ import FeaturedStoreCard from "./components/FeaturedStoreCard";
 import { useRequireAuth } from "./hooks/useRequireAuth";
 
 export default function Home() {
-  useRequireAuth() // redirects to splash if not authenticated
+  // useRequireAuth() // redirects to splash if not authenticated
   return (
     <>
-      <main className="pb-28 pt-8">
+      <main className="pb-28 pt-8 md:ml-64">
         {/* Section 1: Search & Filter */}
-        <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4">
+        <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4 sm:px-6 md:px-8 lg:px-12">
           <SearchBar />
           <CategoryList />
         </section>
@@ -49,7 +49,7 @@ export default function Home() {
         <section className="flex flex-col gap-3 bg-white py-5">
           <SectionHeader title="Featured Store" href="/stores" />
           {/* Carousel layout */}
-          <div className="flex gap-4 overflow-x-scroll pb-2 no-scrollbar px-4">
+          <div className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-8 overflow-x-scroll pb-2 no-scrollbar px-4 sm:px-6 md:px-8 lg:px-12">
             {featuredStores.map((store, index) => (
               <div key={index} className="shrink-0">
                 <FeaturedStoreCard store={store} />
