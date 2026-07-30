@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import PrimaryButton from "@/app/components/PrimaryButton";
+import Button from "@/app/components/Button";
 import { CornerUpLeft } from "lucide-react";
 import Image from "next/image";
 
@@ -10,9 +10,8 @@ export default function LoginPage() {
   const router = useRouter();
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi font-medium tracking-tighter">
-      <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="flex flex-col px-6 mt-6 w-full">
+    <div className="flex flex-col md:px-8 pt-8 pb-12 w-full flex-1">
+      <section className="flex flex-col px-6 mt-6 w-full">
           <button
             onClick={() => router.back()}
             className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition shrink-0 mb-4"
@@ -28,9 +27,9 @@ export default function LoginPage() {
           </h1>
 
           <div className="mb-8">
-            <PrimaryButton href="/onboarding/buyers/sign-in">
+            <Button href="/onboarding/buyers/sign-in" outerRing roleType="buyer">
               Sign in with email/number
-            </PrimaryButton>
+            </Button>
           </div>
 
           <p className="text-neutral-600 text-[12.5px] text-center mb-6 tracking-tight">
@@ -52,8 +51,7 @@ export default function LoginPage() {
               Create one here
             </Link>
           </p>
-        </section>
-      </main>
+      </section>
     </div>
   );
 }

@@ -10,5 +10,5 @@ export function useRequireAuth(redirectTo = "/splash") {
     if (!isAuthenticated) {
       router.replace(redirectTo);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router, redirectTo]);
 }

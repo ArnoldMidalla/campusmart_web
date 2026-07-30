@@ -75,7 +75,7 @@ export default function Modal({
             <div className="size-10 flex items-center justify-center">
               {headerIcon}
             </div>
-            {title && <h2 className="text-[20px] font-bold text-[#1c1c1c]">{title}</h2>}
+            {title && <h2 className="text-[20px] font-bold text-foreground-dark">{title}</h2>}
             <button
               onClick={onClose}
               className="size-10 flex items-center justify-center rounded-full bg-neutral-100 text-neutral-500 hover:bg-neutral-200 transition-colors"

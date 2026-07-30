@@ -1,53 +1,48 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password?: string;
-  role: "BUYER" | "SELLER";
-};
+import { authApi, User } from "@/lib/api/auth";
 
 type AuthStore = {
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
+  setUser: (user: User) => void;
+  clearAuth: () => void;
 };
 
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       user: null,
-      token: null,
       isAuthenticated: false,
 
       login: async (email, password) => {
-        // TODO: replace with real API call
-        // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        //   method: "POST",
-        //   body: JSON.stringify({ email, password }),
-        // });
-        // const { user, token } = await res.json();
-
-        // Mock for now
-        const mockUser: User = {
-          id: "mock-uuid",
-          firstName: "John",
-          lastName: "Doe",
-          email,
-          password,
-          role: email.includes("seller") ? "SELLER" : "BUYER",
-        };
-        const mockToken = "mock-jwt-token";
-
-        set({ user: mockUser, token: mockToken, isAuthenticated: true });
+        // DEVELOPMENT MOCK: bypass real backend auth
+        document.cookie = `auth_token=dev-mock-token; path=/; max-age=${60 * 60 * 24 * 7}`;
+        set({ 
+          user: { id: "dev123", email: email || "dev@example.com", role: "SELLER" } as any, 
+          isAuthenticated: true 
+        });
+        
+        // Uncomment below for production
+        // const response = await authApi.login({ email, password });
+        // set({ user: response.user, isAuthenticated: true });
       },
 
-      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+      logout: async () => {
+        try {
+          await authApi.logout();
+        } catch (error) {
+          console.error("Logout failed:", error);
+        } finally {
+          document.cookie = "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          set({ user: null, isAuthenticated: false });
+        }
+      },
+
+      setUser: (user: User) => set({ user, isAuthenticated: true }),
+      clearAuth: () => set({ user: null, isAuthenticated: false }),
     }),
     { name: "campus-mart-auth" }
   )

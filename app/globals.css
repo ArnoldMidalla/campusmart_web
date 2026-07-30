@@ -1,14 +1,35 @@
 @import "tailwindcss";
 
 :root {
+  /* Base Colors */
   --background: #ffffff;
+  --background-muted: #f5f5f5;
+  --background-subtle: #f1f1f1;
   --foreground: #171717;
+  --foreground-dark: #1c1c1c;
+  --border-muted: #344054;
+  
+  /* Buyer Theme (Main) */
   --main: #ff681f;
-  /* The dark blue for Featured Store */
-  /* --storeBlue: "#0F2868"; */
-  /* The pastel yellow for Featured Store */
-  /* --storeYellow: "#FDE69F";
-  --bgGray: "#F6F6F6"; */
+  --main-light: #ff8c52;
+  --main-pale: #FDE8D8;
+  --main-subtle: #fff0e6;
+  
+  /* Seller Theme (Accents) */
+  --seller-main: #13368B;
+  --seller-hover: #0f2a6e;
+  --seller-dark: #1a2e6e;
+  --seller-darker: #1a1a2e;
+  --seller-card: #1e2235;
+  --seller-icon: #2d3250;
+  
+  /* Featured Store Specific */
+  --store-blue: #0F2868;
+  --store-yellow: #FDE69F;
+  --bg-gray: #F6F6F6;
+  
+  /* Utility / Feedback */
+  --error: #ff3b30;
 }
 
 @theme{
@@ -17,14 +38,36 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-muted: var(--background-muted);
+  --color-background-subtle: var(--background-subtle);
+  
   --color-foreground: var(--foreground);
+  --color-foreground-dark: var(--foreground-dark);
+  
+  --color-border-muted: var(--border-muted);
+  
   --color-main: var(--main);
-  /* --color-storeBlue: var(--storeBlue);
-  --color-storeYellow: var(--storeYellow);
-  --color-bgGray: var(--bgGray); */
+  --color-main-light: var(--main-light);
+  --color-main-pale: var(--main-pale);
+  --color-main-subtle: var(--main-subtle);
+  
+  --color-seller-main: var(--seller-main);
+  --color-seller-hover: var(--seller-hover);
+  --color-seller-dark: var(--seller-dark);
+  --color-seller-darker: var(--seller-darker);
+  --color-seller-card: var(--seller-card);
+  --color-seller-icon: var(--seller-icon);
+  
+  --color-store-blue: var(--store-blue);
+  --color-store-yellow: var(--store-yellow);
+  --color-bg-gray: var(--bg-gray);
+  
+  --color-error: var(--error);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-dmSans: var(--font-dm-sans);
+  --font-jost: var(--font-jost);
+  --font-dmSans: var(--font-jost);
   --font-googleSans: var(--font-google-sans);
 }
 
@@ -50,5 +93,16 @@ body {
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

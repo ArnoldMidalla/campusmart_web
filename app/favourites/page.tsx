@@ -60,8 +60,8 @@ export default function Favourites() {
             )}
 
             <div className="flex flex-col gap-4 px-5">
-              {favourites.map((item) => (
-                <div className="flex flex-col gap-4" key={item.id}>
+              {Array.from(new Map(favourites.map(item => [String(item.id), item])).values()).map((item) => (
+                <div className="flex flex-col gap-4" key={String(item.id)}>
                   <div className="flex gap-4">
                     <Link
                       href={`/productItem/${item.id}`}

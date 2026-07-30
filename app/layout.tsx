@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Jost, Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-// @ts-ignore
 import "./globals.css";
-import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
+
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 import { Analytics } from "@vercel/analytics/next";
+import Providers from "./providers";
+import AuthProvider from "./components/AuthProvider";
 
 const satoshi = localFont({
   src: [
@@ -27,8 +28,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const dmSans = Jost({
-  variable: "--font-dm-sans",
+const jost = Jost({
+  variable: "--font-jost",
   subsets: ["latin"],
 });
 
@@ -37,6 +38,15 @@ export const metadata: Metadata = {
   description:
     "Campusmart - The ultimate marketplace for students. Buy and sell items easily within your campus community.",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -64,13 +74,16 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${satoshi.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jost.variable} ${satoshi.variable} antialiased`}
       >
-        <ServiceWorkerRegister />
         <PWAInstallPrompt />
         <div className="flex justify-center min-h-dvh bg-neutral-50">
           <div className="w-full bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
-            {children}
+            <Providers>
+              <AuthProvider>
+                {children}
+              </AuthProvider>
+            </Providers>
           </div>
         </div>
         {/* vercel analytics to monitor metrics. cos why not */}

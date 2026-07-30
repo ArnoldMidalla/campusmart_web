@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { MoreVertical } from "lucide-react";
-import { useProductsStore, type ProductStatus, type SellerProduct } from "@/app/store/useProductsStore";
+import { type ProductStatus, type SellerProduct } from "@/app/store/useProductsStore";
+import { useUpdateListing, useDeleteListing } from "@/lib/api/hooks/useSellerListings";
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
 
@@ -25,21 +26,22 @@ export function StatusBadge({ status }: { status: ProductStatus }) {
 // ─── Product Card ─────────────────────────────────────────────────────────────
 
 export default function SellerProductCard({ product }: { product: SellerProduct }) {
-  const { updateProduct, removeProduct } = useProductsStore();
+  const { mutate: updateProduct } = useUpdateListing();
+  const { mutate: removeProduct } = useDeleteListing();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuActions: { label: string; action: () => void }[] = [
     {
       label: "Mark In Stock",
-      action: () => { updateProduct(product.id, { status: "In Stock" }); setMenuOpen(false); },
+      action: () => { updateProduct({ id: product.id, updates: { status: "In Stock" } }); setMenuOpen(false); },
     },
     {
       label: "Mark Out of Stock",
-      action: () => { updateProduct(product.id, { status: "Out of Stock" }); setMenuOpen(false); },
+      action: () => { updateProduct({ id: product.id, updates: { status: "Out of Stock" } }); setMenuOpen(false); },
     },
     {
       label: "Move to Draft",
-      action: () => { updateProduct(product.id, { status: "Draft" }); setMenuOpen(false); },
+      action: () => { updateProduct({ id: product.id, updates: { status: "Draft" } }); setMenuOpen(false); },
     },
     {
       label: "Delete",

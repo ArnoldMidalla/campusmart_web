@@ -104,8 +104,8 @@ function Disable2FASheet({
       <div className="px-6 pt-4 pb-8 flex flex-col gap-5">
         <PageHero
           icon={AlertTriangle}
-          iconColor="text-[#ff681f]"
-          iconBg="bg-[#fff0e6]"
+          iconColor="text-main"
+          iconBg="bg-main-subtle"
           title="Disable Two-Factor Authentication?"
           subtitle="This will make your account less secure. You'll only need your password to sign in."
           className="mt-4 mb-2"
@@ -118,7 +118,7 @@ function Disable2FASheet({
         <div className="flex flex-col gap-3 mt-4">
           <button
             onClick={() => { onDisable(); onClose(); }}
-            className="w-full bg-[#ff3b30] text-white rounded-2xl py-3.5 font-semibold text-[15px] hover:brightness-105 transition-all"
+            className="w-full bg-error text-white rounded-2xl py-3.5 font-semibold text-[15px] hover:brightness-105 transition-all"
           >
             Yes, Disable 2FA
           </button>

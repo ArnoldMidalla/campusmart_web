@@ -5,9 +5,9 @@ import { useState, useEffect } from "react";
 import {
   LogOut,
   Settings,
-  Heart,
+  Landmark,
   Package,
-  MessageSquare,
+  Grid,
   Shield,
   Bell,
   HelpCircle,
@@ -19,14 +19,14 @@ import { useRouter } from "next/navigation";
 import PageHeader from "@/app/components/PageHeader";
 import { useCartStore } from "@/app/store/useCartStore";
 import { useSellerStore } from "@/app/store/useSellerStore";
-import SellersNav from "../components/sellersNav";
+
 import { useAuthStore } from "@/app/store/useAuthStore";
 
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false);
-  const { logout } = useAuthStore();
+  const { logout, user: authUser } = useAuthStore();
   const { cart } = useCartStore();
-  const { sellerName, sellerEmail, sellerPhone, isOnline } = useSellerStore();
+  const { isOnline } = useSellerStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -43,9 +43,9 @@ export default function ProfilePage() {
 
   // Mock user data
   const user = {
-    name: sellerName,
-    email: sellerEmail,
-    phone: sellerPhone,
+    name: authUser?.firstName || authUser?.email?.split('@')[0] || "Seller",
+    email: authUser?.email || "seller@example.com",
+    phone: "+234 701 234 5678",
     verified: isOnline,
     joinedDate: "January 2024",
   };
@@ -59,14 +59,14 @@ export default function ProfilePage() {
       badge: null,
     },
     {
-      icon: Heart,
+      icon: Landmark,
       label: "Earnings",
       description: "View your sales and payouts",
       href: "/sellers/earnings",
       badge: cart.length > 0 ? `${cart.length}` : null,
     },
     {
-      icon: MessageSquare,
+      icon: Grid,
       label: "Inventory",
       description: "Manage your product inventory",
       href: "/sellers/products",
@@ -103,8 +103,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
-      <main className="flex flex-col gap-6 max-w-md w-full pb-28 px-6 pt-12">
+    <main className="flex flex-col gap-6 max-w-md w-full pb-28 px-6 pt-12">
         <PageHeader title="Profile" showBack={false} />
 
         {/* User Profile Card */}
@@ -219,8 +218,6 @@ export default function ProfilePage() {
             Campusmart v1.0.0 • {new Date().getFullYear()}
           </p>
         </div>
-      </main>
-      <SellersNav />
-    </div>
+    </main>
   );
 }

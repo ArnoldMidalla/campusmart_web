@@ -2,9 +2,11 @@
 
 import { useState, useMemo } from "react";
 import { Bell } from "lucide-react";
-import SellersNav from "@/app/sellers/components/sellersNav";
-import { useOrdersStore, type OrderStatus } from "@/app/store/useOrdersStore";
+
+import { type OrderStatus } from "@/app/store/useOrdersStore";
+import { useSellerOrders } from "@/lib/api/hooks/useSellerOrders";
 import { useSellerStore } from "@/app/store/useSellerStore";
+import { useAuthStore } from "@/app/store/useAuthStore";
 import OrderCard from "@/app/sellers/components/OrderCard";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -14,8 +16,9 @@ const TABS: OrderStatus[] = ["Awaiting drop-off", "Dropped off", "Completed"];
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function OrdersPage() {
-  const { orders } = useOrdersStore();
-  const { sellerName } = useSellerStore();
+  const { data: orders = [], isLoading, isError } = useSellerOrders();
+  const { user } = useAuthStore();
+  const sellerName = user?.firstName || user?.email?.split('@')[0] || "Seller";
   const [activeTab, setActiveTab] = useState<OrderStatus>("Awaiting drop-off");
 
   const filtered = useMemo(
@@ -24,8 +27,7 @@ export default function OrdersPage() {
   );
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-[#f1f1f1] text-black font-dmSans tracking-tight">
-      <main className="flex flex-col max-w-md w-full pb-32">
+    <main className="flex flex-col max-w-md w-full pb-32">
 
         {/* ── Header ── */}
         <div className="bg-white px-4 pt-10 pb-4 flex flex-col gap-4">
@@ -48,7 +50,7 @@ export default function OrdersPage() {
                 onClick={() => setActiveTab(tab)}
                 className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   activeTab === tab
-                    ? "bg-[#13368B] text-white"
+                    ? "bg-seller-main text-white"
                     : "text-neutral-500 hover:text-neutral-800"
                 }`}
               >
@@ -60,7 +62,15 @@ export default function OrdersPage() {
 
         {/* ── Order list ── */}
         <div className="flex flex-col gap-3 px-4 pt-4 mt-1">
-          {filtered.length === 0 ? (
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-24 gap-2 text-neutral-400">
+              <p className="text-sm font-medium">Loading orders…</p>
+            </div>
+          ) : isError ? (
+            <div className="flex flex-col items-center justify-center py-24 gap-2 text-red-400">
+              <p className="text-sm font-medium">Failed to load orders. Please try again.</p>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 gap-2 text-neutral-400">
               <p className="text-sm font-medium">No orders here</p>
               <p className="text-xs">Orders in this status will appear here</p>
@@ -70,10 +80,6 @@ export default function OrdersPage() {
           )}
         </div>
 
-      </main>
-
-      <SellersNav />
-    </div>
+    </main>
   );
 }
- 

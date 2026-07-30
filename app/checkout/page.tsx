@@ -15,6 +15,7 @@ import { usePickupStore } from "../store/usePickupStore";
 import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
+import Modal from "../components/Modal";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -46,12 +47,33 @@ function Divider() {
 
 export default function Checkout() {
   const router = useRouter();
-  const { cart, increaseQty, decreaseQty } = useCartStore();
+  const { cart, increaseQty, decreaseQty, checkout } = useCartStore();
   const totalPrice = useCartStore((state) => state.getTotalPrice());
   const { selectedStation } = usePickupStore();
   const [mounted, setMounted] = useState(false);
   const [payMethod, setPayMethod] = useState<number>();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showCouponModal, setShowCouponModal] = useState(false);
   const totalQty = cart.reduce((s, i) => s + i.quantity, 0);
+
+  const handleCheckout = async () => {
+    if (!payMethod) {
+      setError("Please select a payment method");
+      return;
+    }
+    
+    setIsProcessing(true);
+    try {
+      await checkout(payMethod, selectedStation?.id?.toString());
+      router.push("/order-confirmation");
+    } catch (error) {
+      console.error(error);
+      setError("Checkout failed. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -137,7 +159,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex justify-between text-black/70 items-center">
                   <span>Coupon codes</span>
-                  <button className="flex items-center text-black/70 gap-0.5">
+                  <button onClick={() => setShowCouponModal(true)} className="flex items-center text-black/70 gap-0.5">
                     <span className="text-sm">Enter here</span>
                     <ChevronRight size={14} strokeWidth={1.9} />
                   </button>
@@ -227,11 +249,11 @@ export default function Checkout() {
                 </p>
                 <button
                   className="w-full h-10 rounded-full bg-main border border-transparent disabled:opacity-40 transition-all duration-300 hover:brightness-105 active:scale-[0.98]"
-                  onClick={() => router.push("/order-confirmation")}
-                  disabled={cart.length === 0}
+                  onClick={handleCheckout}
+                  disabled={cart.length === 0 || isProcessing}
                 >
                   <p className="font-medium text-sm text-white">
-                    Proceed to Pay ({totalQty})
+                    {isProcessing ? "Processing..." : `Proceed to Pay (${totalQty})`}
                   </p>
                 </button>
               </div>
@@ -240,6 +262,34 @@ export default function Checkout() {
 
         </div>
       </main>
+
+      <Modal isOpen={!!error} onClose={() => setError(null)} title="Error">
+        <div className="flex flex-col gap-4">
+          <p className="text-sm text-neutral-600">{error}</p>
+          <button 
+            onClick={() => setError(null)} 
+            className="w-full py-3 bg-main text-white font-medium rounded-xl hover:bg-main-light transition active:scale-95"
+          >
+            OK
+          </button>
+        </div>
+      </Modal>
+
+      <Modal isOpen={showCouponModal} onClose={() => setShowCouponModal(false)} title="Coupon Code">
+        <div className="flex flex-col gap-4">
+          <input 
+            type="text" 
+            placeholder="Enter coupon code" 
+            className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-main/30 outline-none" 
+          />
+          <button 
+            onClick={() => setShowCouponModal(false)} 
+            className="w-full py-3 bg-main text-white font-medium rounded-xl hover:bg-main-light transition active:scale-95"
+          >
+            Apply Code
+          </button>
+        </div>
+      </Modal>
     </>
   );
 }

@@ -73,9 +73,9 @@ const typeConfig: Record<
     dismissColor: "text-neutral-400 hover:text-neutral-600",
   },
   dark: {
-    cardBg: "bg-[#1e2235] border border-[#2d3250]",
+    cardBg: "bg-seller-card border border-seller-icon",
     bar: "bg-yellow-400",
-    iconBg: "bg-[#2d3250]",
+    iconBg: "bg-seller-icon",
     Icon: Moon,
     iconColor: "text-yellow-400",
     titleColor: "text-white",

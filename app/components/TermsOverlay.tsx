@@ -41,7 +41,7 @@ export default function TermsOverlay({ isOpen, onClose, onAccept }: TermsOverlay
         </div>
 
         {/* Quick Summary Box */}
-        <div className="bg-[#f5f5f5] rounded-2xl p-5 mb-6">
+        <div className="bg-background-muted rounded-2xl p-5 mb-6">
           <h3 className="text-neutral-500 font-bold text-[12px] uppercase tracking-wider mb-4">
             Quick Summary (Read this first)
           </h3>

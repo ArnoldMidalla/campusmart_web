@@ -31,7 +31,7 @@ function DarkModeSheet({
     <BottomSheet isOpen={isOpen} onClose={onCancel}>
       <div className="px-6 pt-4 pb-8 flex flex-col items-center gap-5">
         {/* Icon */}
-        <div className="size-16 rounded-full bg-[#1e2235] flex items-center justify-center">
+        <div className="size-16 rounded-full bg-seller-card flex items-center justify-center">
           <Moon size={28} className="text-yellow-400" fill="#facc15" />
         </div>
 
@@ -72,7 +72,7 @@ function DarkModeSheet({
           {/* Dark */}
           <button
             onClick={() => setPick("dark")}
-            className={`relative flex-1 rounded-2xl border-2 p-4 flex flex-col items-start gap-2 transition-all bg-[#1e2235] ${
+            className={`relative flex-1 rounded-2xl border-2 p-4 flex flex-col items-start gap-2 transition-all bg-seller-card ${
               pick === "dark" ? "border-main" : "border-neutral-700"
             }`}
           >
@@ -95,7 +95,7 @@ function DarkModeSheet({
         {/* Confirm */}
         <button
           onClick={() => onConfirm(pick)}
-          className="w-full bg-[#1e2235] text-white rounded-full py-3.5 font-semibold text-[15px] hover:opacity-90 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-seller-card text-white rounded-full py-3.5 font-semibold text-[15px] hover:opacity-90 transition-all flex items-center justify-center gap-2"
         >
           {pick === "dark" ? <>🌙 Enable Dark Mode</> : <><Sun size={16} /> Stay in Light Mode</>}
         </button>
@@ -161,7 +161,7 @@ export default function SettingsPage() {
                 const rightElement = isDarkMode ? (
                   <span
                     className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                      darkMode ? "bg-[#1e2235] text-yellow-400" : "bg-neutral-100 text-neutral-500"
+                      darkMode ? "bg-seller-card text-yellow-400" : "bg-neutral-100 text-neutral-500"
                     }`}
                   >
                     {darkMode ? "On" : "Off"}

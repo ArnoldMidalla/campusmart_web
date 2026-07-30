@@ -40,9 +40,9 @@ export default function ProductItem() {
   const addToCart = useCartStore((state) => state.addToCart);
   const { toggleFavourite, isFavourited } = useFavouritesStore();
 
-  const product = products.find((p) => p.id == Number(id));
+  const product = products.find((p) => String(p.id) === String(id));
 
-  const isHearted = product ? isFavourited(product.id) : false;
+  const isHearted = product ? isFavourited(String(product.id)) : false;
 
   const [mounted, setMounted] = useState(false);
 
@@ -70,7 +70,7 @@ export default function ProductItem() {
           onClick={() =>
             product &&
             toggleFavourite({
-              id: product.id,
+              id: String(product.id),
               name: product.name,
               price: product.price,
               image: product.image,
@@ -245,7 +245,7 @@ export default function ProductItem() {
                   price={productsMap.price}
                   name={productsMap.name}
                   key={productsMap.id}
-                  id={productsMap.id}
+                  id={String(productsMap.id)}
                 />
               ))}
             </div>

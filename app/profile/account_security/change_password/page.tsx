@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Nav from "../../../components/nav";
 import PageHeader from "../../../components/PageHeader";
 import FormInput from "../../../components/FormInput";
-import PrimaryButton from "../../../components/PrimaryButton";
+import Button from "../../../components/Button";
 import { useToast, ToastContainer } from "../../../components/Toast";
 
 import { passwordRequirements as requirements } from "../../../lib/data";
@@ -176,13 +176,14 @@ export default function ChangePasswordPage() {
       {/* Sticky bottom action bar */}
       <div className="fixed bottom-0 left-0 w-full flex justify-center pb-6 z-50">
         <div className="w-full max-w-md px-6">
-          <PrimaryButton
-            onClick={handleSubmit}
-            disabled={!canSubmit}
+          <Button
             type="button"
+            disabled={!canSubmit}
+            onClick={handleSubmit}
+            className="w-full"
           >
             {loading ? "Updating…" : "Update Password"}
-          </PrimaryButton>
+          </Button>
         </div>
       </div>
     </>

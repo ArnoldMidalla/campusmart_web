@@ -17,7 +17,7 @@ export default function ProductCarousel({ products, hearted }: Props) {
             price={product.price}
             category={product.category}
             image={product.image}
-            id={product.id}
+            id={String(product.id)}
             badge={product.badge}
             hearted={hearted}
           />

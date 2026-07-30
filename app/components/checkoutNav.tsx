@@ -12,8 +12,9 @@ export default function CheckoutNav({
   const router = useRouter();
   const { cart } = useCartStore();
   const totalPrice = useCartStore((state) => state.getTotalPrice());
+  const totalQty = cart.reduce((s, i) => s + i.quantity, 0);
 
-    const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -21,10 +22,10 @@ export default function CheckoutNav({
 
   if (!mounted) return null;
   return (
-    <main className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50 md:relative md:pb-0 md:px-0">
+    <nav className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50 md:relative md:pb-0 md:px-0">
       <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md gap-2 md:w-full md:max-w-none md:bg-white md:border md:border-neutral-200 md:rounded-2xl md:p-6 md:flex-col md:items-start md:gap-4">
         <div className="w-full flex justify-center md:justify-start">
-          <p className="text-main font-semibold text-lg">N{totalPrice}</p>
+          <p className="text-main font-semibold text-lg">₦{totalPrice}</p>
         </div>
         <button
           className="w-full h-10 rounded-full border bg-main border-neutral-200 disabled:opacity-40 transition-all duration-300"
@@ -32,10 +33,10 @@ export default function CheckoutNav({
           disabled={cart.length <= 0}
         >
           <p className="font-medium text-sm text-white">
-            {text} ({cart.length})
+            {text} ({totalQty})
           </p>
         </button>
       </div>
-    </main>
+    </nav>
   );
 }

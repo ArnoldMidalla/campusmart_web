@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const PICKUP_STATIONS: PickupStation[] = [
   {
-    id: 1,
+    id: "1",
     name: "Ireti Bakare Complex - Unilag",
     address: "Unilag Main Shopping Complex, Dan Fodio St, University of Lagos Campus, Yaba, Lagos.",
     contactName: "Ireti Bakare",
@@ -16,7 +16,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 8am - 6pm", "Sat: 9am - 5pm"],
   },
   {
-    id: 2,
+    id: "2",
     name: "Gate Plaza - Unilag",
     address: "Main Gate Area, University of Lagos, Akoka, Yaba, Lagos.",
     contactName: "Emeka Chukwu",
@@ -24,7 +24,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 7am - 7pm", "Sat: 8am - 4pm"],
   },
   {
-    id: 3,
+    id: "3",
     name: "Faculty of Science Hub",
     address: "Faculty of Science Building, University of Lagos, Yaba, Lagos.",
     contactName: "Amaka Osei",
@@ -32,7 +32,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 9am - 5pm", "Sat: Closed"],
   },
   {
-    id: 4,
+    id: "4",
     name: "Student Union Hub",
     address: "Student Union Building, University of Lagos, Akoka, Lagos.",
     contactName: "Tunde Adeyemi",
@@ -40,7 +40,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Sat: 8am - 8pm", "Sun: 10am - 4pm"],
   },
   {
-    id: 5,
+    id: "5",
     name: "Yaba Tech Station",
     address: "Yaba College of Technology, Herbert Macaulay Way, Yaba, Lagos.",
     contactName: "Ngozi Eze",
@@ -48,7 +48,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 8am - 5pm", "Sat: 9am - 1pm"],
   },
   {
-    id: 6,
+    id: "6",
     name: "Moremi Hall Pickup Point",
     address: "Moremi Hall of Residence, University of Lagos, Yaba, Lagos.",
     contactName: "Fatima Bello",
@@ -56,7 +56,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 7am - 9pm", "Sat - Sun: 9am - 6pm"],
   },
   {
-    id: 7,
+    id: "7",
     name: "Mariere Hall Pickup Point",
     address: "Mariere Hall, University of Lagos Campus, Yaba, Lagos.",
     contactName: "David Okonkwo",
@@ -64,7 +64,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 8am - 7pm", "Sat: 9am - 3pm"],
   },
   {
-    id: 8,
+    id: "8",
     name: "Babs Fafunwa Multipurpose Centre",
     address: "Babs Fafunwa Complex, University of Lagos, Akoka, Yaba, Lagos.",
     contactName: "Chisom Nwachukwu",
@@ -72,7 +72,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 9am - 6pm", "Sat: 10am - 2pm"],
   },
   {
-    id: 9,
+    id: "9",
     name: "Engineering Faculty Station",
     address: "Faculty of Engineering, University of Lagos, Yaba, Lagos.",
     contactName: "Seun Ajayi",

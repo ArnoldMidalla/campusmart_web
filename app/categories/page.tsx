@@ -120,7 +120,7 @@ export default function SearchPage() {
             {filteredProducts.map((product) => (
               <ProductsCard
                 key={product.id}
-                id={product.id}
+                id={String(product.id)}
                 name={product.name}
                 price={product.price}
                 category={product.category}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import PrimaryButton from "@/app/components/PrimaryButton";
+import Button from "@/app/components/Button";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -108,37 +108,37 @@ export default function RoleSelectPage() {
 
   return (
     <>
-      <main className="flex flex-col min-h-dvh px-6 pt-16 pb-10">
+      <div className="flex flex-col px-6 pt-16 md:pt-12 pb-10 flex-1">
 
-        {/* Heading */}
-        <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
-          How do you want to use
-          <br />
-          CampusMart?
-        </h1>
+          {/* Heading */}
+          <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
+            How do you want to use
+            <br />
+            CampusMart?
+          </h1>
 
-        {/* Role cards */}
-        <div className="flex flex-col gap-4 flex-1">
-          {ROLES.map(({ role, title, description, imageSrc }) => (
-            <RoleCard
-              key={role}
-              role={role}
-              title={title}
-              description={description}
-              imageSrc={imageSrc}
-              isSelected={selected === role}
-              onClick={() => setSelected(role)}
-            />
-          ))}
-        </div>
+          {/* Role cards */}
+          <div className="flex flex-col gap-4 flex-1">
+            {ROLES.map(({ role, title, description, imageSrc }) => (
+              <RoleCard
+                key={role}
+                role={role}
+                title={title}
+                description={description}
+                imageSrc={imageSrc}
+                isSelected={selected === role}
+                onClick={() => setSelected(role)}
+              />
+            ))}
+          </div>
 
-        {/* Continue CTA */}
-        <div className="mt-8">
-          <PrimaryButton onClick={handleContinue} disabled={!selected}>
-            Continue
-          </PrimaryButton>
-        </div>
-      </main>
+          {/* Continue CTA */}
+          <div className="mt-8">
+            <Button onClick={handleContinue} disabled={!selected} outerRing roleType="buyer">
+              Continue
+            </Button>
+          </div>
+      </div>
     </>
   );
 }

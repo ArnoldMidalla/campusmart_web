@@ -40,7 +40,7 @@ export default function Cart() {
   const handleDeleteSelected = () => {
     selectedItems.forEach((key) => {
       const [idStr, size] = key.split('|');
-      removeFromCart(Number(idStr), size);
+      removeFromCart(idStr, size);
     });
     setSelectedItems(new Set());
   };
@@ -48,8 +48,7 @@ export default function Cart() {
   const handleFavoriteSelected = () => {
     selectedItems.forEach((key) => {
       const [idStr, size] = key.split('|');
-      const id = Number(idStr);
-      const item = cart.find((i) => i.id === id && i.size === size);
+      const item = cart.find((i) => i.id === idStr && i.size === size);
       if (item) {
         addFavourite({
           id: item.id,

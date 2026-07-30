@@ -24,11 +24,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variants = {
       primary: {
         buyer: "bg-main text-white hover:brightness-105",
-        seller: "bg-[#13368B] text-white hover:brightness-105",
+        seller: "bg-seller-main text-white hover:brightness-105",
       },
       secondary: {
         buyer: "bg-white text-main border border-main hover:bg-neutral-50",
-        seller: "bg-white text-[#13368B] border border-[#13368B] hover:bg-neutral-50",
+        seller: "bg-white text-seller-main border border-seller-main hover:bg-neutral-50",
       },
       outline: {
         buyer: "bg-white text-neutral-700 border border-neutral-200 hover:bg-neutral-50",

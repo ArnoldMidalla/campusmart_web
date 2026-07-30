@@ -10,9 +10,8 @@ export default function SellerWelcomePage() {
   const router = useRouter();
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-medium tracking-tighter">
-      <main className="flex flex-col max-w-md w-full justify-start pt-8 pb-12 overflow-y-auto">
-        <section className="flex flex-col px-6 mt-6 w-full">
+    <div className="flex flex-col md:px-8 pt-8 pb-12 w-full flex-1">
+      <section className="flex flex-col px-6 mt-6 w-full">
           <button
             onClick={() => router.back()}
             className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition shrink-0 mb-4"
@@ -45,12 +44,11 @@ export default function SellerWelcomePage() {
 
           <p className="text-neutral-600 text-[12.5px] text-center tracking-tight">
             Don&apos;t have an account?{" "}
-            <Link href="/onboarding/sellers/sign-up" className="text-[#13368B] hover:underline">
+            <Link href="/onboarding/sellers/sign-up" className="text-seller-main hover:underline">
               Create one here
             </Link>
           </p>
-        </section>
-      </main>
+      </section>
     </div>
   );
 }
