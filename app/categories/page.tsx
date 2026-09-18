@@ -35,7 +35,7 @@ export default function SearchPage() {
       <main className="pb-28 pt-8">
         {/* Search Input */}
         <div className="flex flex-col gap-4 px-4 sm:px-6">
-          <div className="border border-neutral-200 shadow-lg/5 flex w-full sm:max-w-md sm:mx-auto md:max-w-xl h-12 rounded-full justify-between pl-4 bg-white">
+          <div className="border border-neutral-200 shadow-lg/5 flex w-full sm:max-w-md sm:mx-auto h-12 rounded-full justify-between pl-4 bg-white">
             <input
               type="text"
               placeholder="Search on Campusmart..."
