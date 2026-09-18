@@ -78,7 +78,7 @@ export default function RootLayout({
       >
         <PWAInstallPrompt />
         <div className="flex justify-center min-h-dvh bg-neutral-50">
-          <div className="w-full bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
+          <div className="w-full max-w-md bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
             <Providers>
               <AuthProvider>
                 {children}

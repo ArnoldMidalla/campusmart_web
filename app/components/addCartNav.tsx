@@ -30,8 +30,8 @@ export default function AddCartNav({
   if (!mounted) return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50 md:relative md:pb-0 md:justify-start">
-      <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md md:w-full md:max-w-none md:bg-transparent md:border-none md:px-0">
+    <nav className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
+      <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md">
         {!isAdded ? (
           <button
             disabled={!selectedSize && product.size.length > 1}

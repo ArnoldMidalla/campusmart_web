@@ -140,7 +140,7 @@ export default function PhoneVerificationPage() {
     <>
       <ToastContainer toasts={toast.toasts} onDismiss={toast.dismiss} duration={3500} />
 
-      <main className="pb-36 pt-8 px-6 md:ml-64">
+      <main className="pb-36 pt-8 px-6">
         <PageHeader title="Phone Verification" showBack={true} />
 
         {/* Hero */}
