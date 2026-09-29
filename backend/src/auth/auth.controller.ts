@@ -10,6 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
+import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { RegisterBuyerDto } from './dto/register-buyer.dto';
 import { RegisterSellerDto } from './dto/register-seller.dto';
@@ -54,6 +55,8 @@ export class AuthController {
     },
   })
   @Post('register/buyer')
+  @Throttle({ default: { limit: 5, ttl: 60_000 } }) // 5 registration attempts per minute
+  @HttpCode(HttpStatus.CREATED)
   async registerBuyer(
     @Body() dto: RegisterBuyerDto,
     @Res({ passthrough: true }) res: Response,
@@ -82,6 +85,8 @@ export class AuthController {
     },
   })
   @Post('register/seller')
+  @Throttle({ default: { limit: 5, ttl: 60_000 } }) // 5 registration attempts per minute
+  @HttpCode(HttpStatus.CREATED)
   async registerSeller(
     @Body() dto: RegisterSellerDto,
     @Res({ passthrough: true }) res: Response,
@@ -113,6 +118,7 @@ export class AuthController {
   })
   @UseGuards(LocalAuthGuard)
   @Post('login')
+  @Throttle({ default: { limit: 5, ttl: 60_000 } }) // 5 login attempts per minute
   @HttpCode(HttpStatus.OK)
   async login(
     @Req() req: Request,
@@ -141,6 +147,7 @@ export class AuthController {
     },
   })
   @Post('logout')
+  @Throttle({ default: { limit: 10, ttl: 60_000 } }) // 10 logout attempts per minute
   @HttpCode(HttpStatus.OK)
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('access_token', {

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
@@ -10,6 +11,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: process.env.NODE_ENV === 'production' ? ['error', 'warn'] : ['log', 'error', 'warn', 'debug', 'verbose'],
   });
+
+  app.use(helmet()); // Basic security headers
+  app.getHttpAdapter().getInstance().set('trust proxy', 1); // Trust the first proxy (for secure cookies behind a reverse proxy)
 
   // Parse cookies from incoming requests — required for HTTP-only JWT cookie
   app.use(cookieParser());
