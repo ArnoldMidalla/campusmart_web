@@ -1,5 +1,5 @@
 "use client";
-import { ClipboardList, Home, Package, ShoppingCart, TextSearch, UserRound, Wallet } from "lucide-react";
+import { ClipboardList, Home, Package, UserRound, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -7,7 +7,7 @@ export default function SellersNav() {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
   const baseIcon = "p-2 rounded-full border border-neutral-200 transition-all";
-  const activeIcon = "bg-[#13368B] text-white py-2 px-4";
+  const activeIcon = "bg-seller-main text-white py-2 px-4";
   const inactiveIcon = "bg-white text-black";
 
   const navItems = [

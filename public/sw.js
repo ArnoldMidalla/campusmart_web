@@ -1,16 +1,14 @@
-const CACHE_NAME = "campus-mart-v1";
+const CACHE_NAME = "campusmart-v2";
+const OFFLINE_URL = "/offline";
 
 const STATIC_ASSETS = [
   "/",
-  "/search",
-  "/cart",
   "/manifest.json",
-  // to be replaced with main icons
-  // "/icons/icon-192.png",
-  // "/icons/icon-512.png"
+  "/favicon.ico",
+  OFFLINE_URL,
 ];
 
-// Install
+// Install - Cache essential assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
@@ -18,7 +16,7 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
-// Activate
+// Activate - Clean up old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -30,45 +28,59 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch
+// Fetch - Strategy: Stale-While-Revalidate with Offline Fallback
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const request = event.request;
   const url = new URL(request.url);
 
-  // IMAGE REQUESTS — CACHE FIRST
+  // 1. STATIC ASSETS & IMAGES — Cache First / Stale-While-Revalidate
   if (
     request.destination === "image" ||
-    url.pathname.match(/\.(png|jpg|jpeg|webp|svg)$/)
+    request.destination === "font" ||
+    request.destination === "style" ||
+    request.destination === "script" ||
+    url.pathname.match(/\.(png|jpg|jpeg|webp|svg|ico|woff2)$/)
   ) {
     event.respondWith(
       caches.match(request).then((cached) => {
-        if (cached) return cached;
+        const networked = fetch(request)
+          .then((response) => {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+            return response;
+          })
+          .catch(() => cached);
 
-        return fetch(request).then((response) => {
-          const clone = response.clone();
-          caches.open("campus-mart-images").then((cache) => {
-            cache.put(request, clone);
-          });
-          return response;
-        });
+        return cached || networked;
       })
     );
     return;
   }
 
-  // 🌐 PAGE / API REQUESTS — NETWORK FIRST
+  // 2. PAGES — Network First with Offline Fallback
   event.respondWith(
     fetch(request)
       .then((response) => {
-        const clone = response.clone();
-        caches.open("campus-mart-pages").then((cache) => {
-          cache.put(request, clone);
-        });
+        // Only cache successful responses
+        if (response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+        }
         return response;
       })
-      .catch(() => caches.match(request))
+      .catch(async () => {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+
+        // If it's a page request and not in cache, show offline page
+        if (request.mode === "navigate") {
+          return caches.match(OFFLINE_URL);
+        }
+
+        return null;
+      })
   );
 });
 

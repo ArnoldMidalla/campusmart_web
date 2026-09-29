@@ -59,7 +59,7 @@ function ImageSlot({
     <button
       type="button"
       onClick={onAdd}
-      className={`w-24 h-24 rounded-xl border-2 border-dashed border-neutral-300 flex flex-col items-center justify-center gap-1 shrink-0 transition hover:border-[#13368B] hover:bg-[#13368B]/5 ${
+      className={`w-24 h-24 rounded-xl border-2 border-dashed border-neutral-300 flex flex-col items-center justify-center gap-1 shrink-0 transition hover:border-seller-main hover:bg-seller-main/5 ${
         isFirst ? "bg-white" : "bg-neutral-50"
       }`}
     >
@@ -93,7 +93,7 @@ function SelectField({
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full appearance-none bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-[#13368B]/30 focus:border-[#13368B] transition pr-10"
+          className="w-full appearance-none bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition pr-10"
         >
           {options.map((o) => (
             <option key={o} value={o}>
@@ -183,8 +183,7 @@ export default function AddProductPage() {
   };
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-[#f1f1f1] text-black font-dmSans tracking-tight">
-      <main className="flex flex-col max-w-md w-full pb-10">
+    <main className="flex flex-col max-w-md w-full pb-10">
 
         {/* ── Header ── */}
         <div className="bg-white px-4 pt-10 pb-4 sticky top-0 z-10 border-b border-neutral-100">
@@ -246,7 +245,7 @@ export default function AddProductPage() {
             </div>
           </section>
 
-          <div className="h-2 bg-[#f1f1f1]" />
+          <div className="h-2 bg-background-subtle" />
 
           {/* ── Product Name ── */}
           <section className=" px-4 py-5 flex flex-col gap-1.5">
@@ -256,11 +255,11 @@ export default function AddProductPage() {
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
               placeholder="Enter the name of your product"
-              className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#13368B]/30 focus:border-[#13368B] transition"
+              className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition"
             />
           </section>
 
-          <div className="h-2 bg-[#f1f1f1]" />
+          <div className="h-2 bg-background-subtle" />
 
           {/* ── Description ── */}
           <section className=" px-4 py-5 flex flex-col gap-1.5">
@@ -270,11 +269,11 @@ export default function AddProductPage() {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter a detailed description of your product"
               rows={5}
-              className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#13368B]/30 focus:border-[#13368B] transition resize-none"
+              className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition resize-none"
             />
           </section>
 
-          <div className="h-2 bg-[#f1f1f1]" />
+          <div className="h-2 bg-background-subtle" />
 
           {/* ── Price & Quantity ── */}
           <section className=" px-4 py-5 grid grid-cols-2 gap-4">
@@ -290,7 +289,7 @@ export default function AddProductPage() {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="0"
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl pl-7 pr-3 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#13368B]/30 focus:border-[#13368B] transition"
+                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl pl-7 pr-3 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition"
                 />
               </div>
             </div>
@@ -320,7 +319,7 @@ export default function AddProductPage() {
             </div>
           </section>
 
-          <div className="h-2 bg-[#f1f1f1]" />
+          <div className="h-2 bg-background-subtle" />
 
           {/* ── Category & Condition ── */}
           <section className=" px-4 py-5 grid grid-cols-2 gap-4">
@@ -338,7 +337,7 @@ export default function AddProductPage() {
             />
           </section>
 
-          <div className="h-2 bg-[#f1f1f1]" />
+          <div className="h-2 bg-background-subtle" />
 
           {/* ── Pickup Location & Availability ── */}
           <section className=" px-4 py-5 grid grid-cols-2 gap-4">
@@ -362,14 +361,13 @@ export default function AddProductPage() {
           {/* <section className="bg-white px-4 py-5">
             <button
               type="submit"
-              className="w-full py-4 rounded-full bg-[#13368B] text-white font-bold text-sm hover:bg-[#0f2a6e] active:scale-[0.98] transition-all shadow-md"
+              className="w-full py-4 rounded-full bg-seller-main text-white font-bold text-sm hover:bg-seller-hover active:scale-[0.98] transition-all shadow-md"
             >
               List Product
             </button>
           </section> */}
 
         </form>
-      </main>
-    </div>
+    </main>
   );
 }

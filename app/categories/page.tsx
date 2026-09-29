@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
 import Nav from "../components/nav";
-import AppShell from "../components/AppShell";
 import ProductsCard from "../components/ProductsCard";
 import { products, categories } from "../components/data";
 import CategoryItem from "../components/CategoryItem";
@@ -33,10 +32,10 @@ export default function SearchPage() {
 
   return (
     <>
-      <AppShell>
+      <main className="pb-28 pt-8">
         {/* Search Input */}
-        <div className="flex flex-col gap-4 px-4">
-          <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between pl-4 bg-white">
+        <div className="flex flex-col gap-4 px-4 sm:px-6">
+          <div className="border border-neutral-200 shadow-lg/5 flex w-full sm:max-w-md sm:mx-auto h-12 rounded-full justify-between pl-4 bg-white">
             <input
               type="text"
               placeholder="Search on Campusmart..."
@@ -78,7 +77,7 @@ export default function SearchPage() {
         </div>
 
         {/* Sorting Options */}
-        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-4">
+        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-4 sm:px-6">
           {SORT_OPTIONS.map((option) => (
             <button
               key={option.value}
@@ -95,7 +94,7 @@ export default function SearchPage() {
         </div>
 
         {/* Results Info */}
-        <div className="flex justify-between items-center px-4">
+        <div className="flex justify-between items-center px-4 sm:px-6">
           <p className="text-sm text-neutral-600">
             {filteredProducts.length} result
             {filteredProducts.length !== 1 ? "s" : ""}
@@ -117,11 +116,11 @@ export default function SearchPage() {
 
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-4 sm:px-6">
             {filteredProducts.map((product) => (
               <ProductsCard
                 key={product.id}
-                id={product.id}
+                id={String(product.id)}
                 name={product.name}
                 price={product.price}
                 category={product.category}
@@ -144,7 +143,7 @@ export default function SearchPage() {
             </div>
           </div>
         )}
-      </AppShell>
+      </main>
       <Nav />
     </>
   );

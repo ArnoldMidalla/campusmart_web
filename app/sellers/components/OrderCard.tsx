@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { MoreVertical } from "lucide-react";
-import { useOrdersStore, type OrderStatus, type SellerOrder } from "@/app/store/useOrdersStore";
+import { type OrderStatus, type SellerOrder } from "@/app/store/useOrdersStore";
+import { useUpdateOrderStatus } from "@/lib/api/hooks/useSellerOrders";
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
 
@@ -25,7 +26,7 @@ export function OrderStatusBadge({ status }: { status: OrderStatus }) {
 // ─── Order Card ───────────────────────────────────────────────────────────────
 
 export default function OrderCard({ order }: { order: SellerOrder }) {
-  const { updateOrderStatus } = useOrdersStore();
+  const { mutate: updateOrderStatus } = useUpdateOrderStatus();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuActions: { label: string; status: OrderStatus }[] = [
@@ -67,7 +68,10 @@ export default function OrderCard({ order }: { order: SellerOrder }) {
                   {menuActions.map((a) => (
                     <button
                       key={a.label}
-                      onClick={() => { updateOrderStatus(order.id, a.status); setMenuOpen(false); }}
+                      onClick={() => {
+                        updateOrderStatus({ id: order.id, status: a.status });
+                        setMenuOpen(false);
+                      }}
                       className={`w-full text-left px-4 py-2.5 text-sm hover:bg-neutral-50 transition ${
                         order.status === a.status ? "text-[#13368B] font-semibold" : "text-neutral-700"
                       }`}

@@ -11,7 +11,7 @@ export interface Product {
   category: string;
   image: string;
   avgRating: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**

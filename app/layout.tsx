@@ -1,20 +1,22 @@
 import type { Metadata, Viewport } from "next";
 import { Jost, Geist, Geist_Mono } from "next/font/google";
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 import "./globals.css";
-import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
+
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import { Analytics } from "@vercel/analytics/next";
+import Providers from "./providers";
+import AuthProvider from "./components/AuthProvider";
 
 const satoshi = localFont({
-  // src: './localFonts/Satoshi-Medium.otf',
   src: [
-  // { path: './localFonts/Satoshi-Light.otf', weight: '300', style: 'normal' },
-  { path: './localFonts/Satoshi-Medium.otf', weight: '500', style: 'normal' },
-  { path: './localFonts/Satoshi-Bold.otf', weight: '700', style: 'normal' },
-],
-  variable: '--font-satoshi', // This creates a CSS variable
-  display: 'swap',           // Ensures text is visible during load
-})
+    // { path: './localFonts/Satoshi-Light.otf', weight: '300', style: 'normal' },
+    { path: "./localFonts/Satoshi-Medium.otf", weight: "500", style: "normal" },
+    { path: "./localFonts/Satoshi-Bold.otf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-satoshi", // This creates a CSS variable
+  display: "swap", // Ensures text is visible during load
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,16 +28,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const dmSans = Jost({
-  variable: "--font-dm-sans",
+const jost = Jost({
+  variable: "--font-jost",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Campusmart",
-  description: "Buy and sell on Campusmart",
+  description:
+    "Campusmart - The ultimate marketplace for students. Buy and sell items easily within your campus community.",
   manifest: "/manifest.json",
-  themeColor: "#ff681f", //brand colour
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Campusmart",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ff681f",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -45,18 +72,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* replace placeholders with actual icons */}
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      </head>
+      <head />
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dmSans.variable} ${satoshi.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jost.variable} ${satoshi.variable} antialiased`}
       >
-        <ServiceWorkerRegister />
-        <PWAInstallPrompt/>
-        {children}
+        <PWAInstallPrompt />
+        <div className="flex justify-center min-h-dvh bg-neutral-50">
+          <div className="w-full max-w-md bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
+            <Providers>
+              <AuthProvider>
+                {children}
+              </AuthProvider>
+            </Providers>
+          </div>
+        </div>
+        {/* vercel analytics to monitor metrics. cos why not */}
+        <Analytics />
       </body>
     </html>
   );

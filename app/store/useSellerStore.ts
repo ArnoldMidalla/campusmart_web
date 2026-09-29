@@ -17,11 +17,7 @@ export type SellerStore = {
   isOnline: boolean;
   setIsOnline: (value: boolean) => void;
 
-  // Seller identity
-  sellerName: string;
-  setSellerName: (name: string) => void;
-  sellerEmail?: string;
-  sellerPhone?: string;
+
 
   // Dashboard stats (would be fetched from API in production)
   stats: SellerStats;
@@ -36,10 +32,7 @@ export const useSellerStore = create<SellerStore>()(
       isOnline: false,
       setIsOnline: (value) => set({ isOnline: value }),
 
-      sellerName: "Alexander",
-      setSellerName: (name) => set({ sellerName: name }),
-      sellerEmail: "alexander.seller@campusmart.com",
-      sellerPhone: "+234 701 234 5678",
+
 
       stats: {
         views: 1204,
@@ -54,6 +47,7 @@ export const useSellerStore = create<SellerStore>()(
     }),
     {
       name: "campus-mart-seller",
+      partialize: (state) => ({ isOnline: state.isOnline }),
     }
   )
 );

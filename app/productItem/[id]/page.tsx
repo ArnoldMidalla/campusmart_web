@@ -40,9 +40,9 @@ export default function ProductItem() {
   const addToCart = useCartStore((state) => state.addToCart);
   const { toggleFavourite, isFavourited } = useFavouritesStore();
 
-  const product = products.find((p) => p.id == Number(id));
+  const product = products.find((p) => String(p.id) === String(id));
 
-  const isHearted = product ? isFavourited(product.id) : false;
+  const isHearted = product ? isFavourited(String(product.id)) : false;
 
   const [mounted, setMounted] = useState(false);
 
@@ -70,7 +70,7 @@ export default function ProductItem() {
           onClick={() =>
             product &&
             toggleFavourite({
-              id: product.id,
+              id: String(product.id),
               name: product.name,
               price: product.price,
               image: product.image,
@@ -89,9 +89,9 @@ export default function ProductItem() {
     );
 
     return (
-      <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-dmSans tracking-tight">
-        <main className="flex flex-col gap-2 max-w-md w-full pb-28">
-          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full max-w-md">
+      <>
+        <main className="flex flex-col gap-2 pb-28">
+          <div className="fixed top-0 z-50 pt-8 px-6 pb-2 w-full">
             <PageHeader rightItems={rightItems} />
           </div>
 
@@ -241,7 +241,7 @@ export default function ProductItem() {
                   price={productsMap.price}
                   name={productsMap.name}
                   key={productsMap.id}
-                  id={productsMap.id}
+                  id={String(productsMap.id)}
                 />
               ))}
             </div>
@@ -249,7 +249,7 @@ export default function ProductItem() {
         </main>
 
         <AddCartNav product={product} selectedSize={pressed} />
-      </div>
+      </>
     );
   } else {
   }

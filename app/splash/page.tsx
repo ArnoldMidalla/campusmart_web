@@ -20,9 +20,8 @@ export default function SplashScreen() {
   }, [isAuthenticated, user, router]);
 
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-white text-black font-satoshi tracking-tight overflow-hidden">
-      <main className="flex flex-col max-w-md w-full items-center justify-center min-h-dvh px-6">
-
+    <>
+      <main className="flex flex-col items-center justify-center min-h-dvh px-6">
         {/* Logo mark */}
         <div className="flex flex-col items-center gap-3 animate-[fadeUp_0.6s_ease_forwards]">
           {/* 2×2 icon grid — mirrors the design */}
@@ -51,19 +50,6 @@ export default function SplashScreen() {
           for everyone, by students.
         </p>
       </main>
-
-      <style jsx>{`
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-    </div>
+    </>
   );
 }

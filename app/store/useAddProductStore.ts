@@ -62,7 +62,11 @@ export const useAddProductStore = create<AddProductStore>()((set) => ({
     set((state) => ({ images: [...state.images, ...newImages] })),
 
   removeImage: (id) =>
-    set((state) => ({ images: state.images.filter((img) => img.id !== id) })),
+    set((state) => {
+      const img = state.images.find((img) => img.id === id);
+      if (img?.url) URL.revokeObjectURL(img.url);
+      return { images: state.images.filter((img) => img.id !== id) };
+    }),
 
   setProductName: (v) => set({ productName: v }),
   setDescription: (v) => set({ description: v }),
@@ -76,5 +80,9 @@ export const useAddProductStore = create<AddProductStore>()((set) => ({
   setPickupLocation: (v) => set({ pickupLocation: v }),
   setAvailability: (v) => set({ availability: v }),
 
-  resetForm: () => set({ ...defaultForm }),
+  resetForm: () =>
+    set((state) => {
+      state.images.forEach((img) => URL.revokeObjectURL(img.url));
+      return { ...defaultForm };
+    }),
 }));

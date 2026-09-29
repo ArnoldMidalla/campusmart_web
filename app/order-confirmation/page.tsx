@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Info } from "lucide-react";
-import AppShell from "../components/AppShell";
 import PageHeader from "../components/PageHeader";
 import SectionHeader from "../components/SectionHeader";
 import ProductCarousel from "../components/ProductCarousel";
@@ -26,14 +25,14 @@ export default function OrderConfirmationPage() {
   if (!mounted) return null;
 
   const favouriteProducts = products.filter((p) =>
-    favourites.some((f: FavouriteItem) => f.id === p.id)
+    favourites.some((f: FavouriteItem) => f.id === String(p.id))
   );
 
   // Fallback: show all products if no favourites
   const favouritesToShow = favouriteProducts.length > 0 ? favouriteProducts : products;
 
   return (
-    <AppShell>
+    <main className="pb-28 pt-8">
       {/* Page header */}
       <div className="flex flex-col gap-2 pb-6">
         <div className="px-5">
@@ -96,6 +95,6 @@ export default function OrderConfirmationPage() {
         <SectionHeader title="Favourites" href="/favourites" linkText="See all" />
         <ProductCarousel products={favouritesToShow} hearted={true} />
       </section>
-    </AppShell>
+    </main>
   );
 }

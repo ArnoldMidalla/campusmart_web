@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { Check, Copy, MapPin } from "lucide-react";
-import AppShell from "../components/AppShell";
 import PageHeader from "../components/PageHeader";
 import { usePickupStore, type PickupStation } from "../store/usePickupStore";
 import { useRouter } from "next/navigation";
 
 const PICKUP_STATIONS: PickupStation[] = [
   {
-    id: 1,
+    id: "1",
     name: "Ireti Bakare Complex - Unilag",
     address: "Unilag Main Shopping Complex, Dan Fodio St, University of Lagos Campus, Yaba, Lagos.",
     contactName: "Ireti Bakare",
@@ -17,7 +16,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 8am - 6pm", "Sat: 9am - 5pm"],
   },
   {
-    id: 2,
+    id: "2",
     name: "Gate Plaza - Unilag",
     address: "Main Gate Area, University of Lagos, Akoka, Yaba, Lagos.",
     contactName: "Emeka Chukwu",
@@ -25,7 +24,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 7am - 7pm", "Sat: 8am - 4pm"],
   },
   {
-    id: 3,
+    id: "3",
     name: "Faculty of Science Hub",
     address: "Faculty of Science Building, University of Lagos, Yaba, Lagos.",
     contactName: "Amaka Osei",
@@ -33,7 +32,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 9am - 5pm", "Sat: Closed"],
   },
   {
-    id: 4,
+    id: "4",
     name: "Student Union Hub",
     address: "Student Union Building, University of Lagos, Akoka, Lagos.",
     contactName: "Tunde Adeyemi",
@@ -41,7 +40,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Sat: 8am - 8pm", "Sun: 10am - 4pm"],
   },
   {
-    id: 5,
+    id: "5",
     name: "Yaba Tech Station",
     address: "Yaba College of Technology, Herbert Macaulay Way, Yaba, Lagos.",
     contactName: "Ngozi Eze",
@@ -49,7 +48,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 8am - 5pm", "Sat: 9am - 1pm"],
   },
   {
-    id: 6,
+    id: "6",
     name: "Moremi Hall Pickup Point",
     address: "Moremi Hall of Residence, University of Lagos, Yaba, Lagos.",
     contactName: "Fatima Bello",
@@ -57,7 +56,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 7am - 9pm", "Sat - Sun: 9am - 6pm"],
   },
   {
-    id: 7,
+    id: "7",
     name: "Mariere Hall Pickup Point",
     address: "Mariere Hall, University of Lagos Campus, Yaba, Lagos.",
     contactName: "David Okonkwo",
@@ -65,7 +64,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 8am - 7pm", "Sat: 9am - 3pm"],
   },
   {
-    id: 8,
+    id: "8",
     name: "Babs Fafunwa Multipurpose Centre",
     address: "Babs Fafunwa Complex, University of Lagos, Akoka, Yaba, Lagos.",
     contactName: "Chisom Nwachukwu",
@@ -73,7 +72,7 @@ const PICKUP_STATIONS: PickupStation[] = [
     openingHours: ["Mon - Fri: 9am - 6pm", "Sat: 10am - 2pm"],
   },
   {
-    id: 9,
+    id: "9",
     name: "Engineering Faculty Station",
     address: "Faculty of Engineering, University of Lagos, Yaba, Lagos.",
     contactName: "Seun Ajayi",
@@ -139,7 +138,7 @@ export default function PickupStationPage() {
 
   return (
     <>
-      <AppShell noBottomPad>
+      <main className="pb-0 pt-8">
         {/* Page header */}
         <div className="flex flex-col gap-2 pb-4">
           <div className="px-5">
@@ -165,7 +164,7 @@ export default function PickupStationPage() {
                 <div
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isSelected
-                      ? "border-neutral-300 shadow-sm"
+                      ? "border-neutral-300 shadow-lg/7"
                       : "border-neutral-200 bg-neutral-50"
                   }`}
                 >
@@ -247,10 +246,10 @@ export default function PickupStationPage() {
             );
           })}
         </div>
-      </AppShell>
+      </main>
 
       {/* Sticky confirm button */}
-      <main className="fixed bottom-0 left-0 lg:left-60 xl:left-64 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
+      <main className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
         <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2">
           <div className="w-full flex justify-center">
             <p className="text-neutral-700 font-medium text-sm truncate px-2">

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type PickupStation = {
-  id: number;
+  id: string;
   name: string;
   address: string;
   contactName: string;
