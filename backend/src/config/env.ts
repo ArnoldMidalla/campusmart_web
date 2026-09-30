@@ -28,6 +28,9 @@ export const envSchema = z.object({
   MAIL_PASS: required,
   MAIL_FROM: required,
 
+  // Resend (transactional email) — TODO(resend): uncomment once we own a verified domain
+  // RESEND_API_KEY: required,
+
   // Paystack (payments)
   PAYSTACK_SECRET_KEY: required,
   PAYSTACK_ENABLED: z.stringbool().default(true),
