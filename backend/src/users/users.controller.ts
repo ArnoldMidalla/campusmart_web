@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags, ApiResponse, ApiBody, ApiParam } 
 import { UsersService } from "./users.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { CurrentUser } from "../auth/decorators/current-user.decorator";
-import { User } from "@prisma/client";
+import { User } from "../generated/prisma/client";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 import { ChangePasswordDto } from "./dto/change-password.dto";
 import { SubmitVerificationDto } from "./dto/submit-verification.dto";
