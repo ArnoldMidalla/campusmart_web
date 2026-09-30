@@ -5,7 +5,7 @@ import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { RolesGuard } from "../auth/guards/roles.guard";
 import { CreateInstitutionDto } from "./dto/create-institution.dto";
 import { Roles } from "../auth/decorators/roles.decorator";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "../generated/prisma/enums";
 import { InstitutionsService } from "./institutions.service";
 
 
