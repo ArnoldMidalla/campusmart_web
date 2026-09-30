@@ -19,7 +19,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { ApiOperation, ApiTags, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { User } from '@prisma/client';
+import { User } from '../generated/prisma/client';
 
 // 7 days in milliseconds
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
