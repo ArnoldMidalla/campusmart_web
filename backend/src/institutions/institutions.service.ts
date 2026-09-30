@@ -1,4 +1,4 @@
-import { Logger, Injectable } from "@nestjs/common";
+import { Logger, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateInstitutionDto } from "./dto/create-institution.dto";
 
@@ -20,7 +20,7 @@ export class InstitutionsService {
             where: { id },
         });
         if (!institution) {
-            return null;
+            throw new NotFoundException(`Institution with ID ${id} not found`);
         }
         return institution;
     }

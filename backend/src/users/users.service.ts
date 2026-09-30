@@ -116,7 +116,7 @@ export class UsersService {
     });
     // If user not found, throw an error (shouldn't happen if authenticated)
     if (!user) {
-      throw new ConflictException('User not found');
+      throw new NotFoundException('User not found');
     }
     // If password is not set, throw an error
     if (!user.password) {

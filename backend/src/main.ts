@@ -45,27 +45,31 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
-  // Swagger API docs available at /api/docs
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle('CampusMart API')
-    .setDescription('API documentation for CampusMart')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .addGlobalResponse({
-      status: 500,
-      description: 'Internal Server Error'
-    })
-    .build()
+  // Swagger API docs at /api/docs, raw OpenAPI JSON at /api/docs-json (for type generation).
+  // Not mounted in production.
+  if (process.env.NODE_ENV !== 'production') {
+    const swaggerConfig = new DocumentBuilder()
+      .setTitle('CampusMart API')
+      .setDescription('API documentation for CampusMart')
+      .setVersion('1.0')
+      .addCookieAuth('access_token')
+      .addGlobalResponse({
+        status: 500,
+        description: 'Internal Server Error'
+      })
+      .build()
 
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api/docs', app, document, {
-    swaggerOptions: {
-      persistAuthorization: true, // keeps the token across page refreshes
-      tagsSorter: 'alpha',
-      operationsSorter: 'alpha',
-    },
-  });
-  console.log(`Swagger Docs running on http://localhost:${process.env.PORT ?? 4000}/api/docs`)
+    const document = SwaggerModule.createDocument(app, swaggerConfig);
+    SwaggerModule.setup('api/docs', app, document, {
+      jsonDocumentUrl: 'api/docs-json',
+      swaggerOptions: {
+        persistAuthorization: true, // keeps the token across page refreshes
+        tagsSorter: 'alpha',
+        operationsSorter: 'alpha',
+      },
+    });
+    console.log(`Swagger Docs running on http://localhost:${process.env.PORT ?? 4000}/api/docs`)
+  }
 
   await app.listen(process.env.PORT ?? 4000);
   console.log(`Backend running on http://localhost:${process.env.PORT ?? 4000}/api`);

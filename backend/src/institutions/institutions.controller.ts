@@ -1,6 +1,5 @@
-import { Controller, Get, Param, UseGuards, Body, Post } from "@nestjs/common";
+import { Controller, Get, Param, UseGuards, Body, Post, ParseUUIDPipe } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { PrismaService } from "../prisma/prisma.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { RolesGuard } from "../auth/guards/roles.guard";
 import { CreateInstitutionDto } from "./dto/create-institution.dto";
@@ -29,7 +28,7 @@ export class InstitutionsController {
         description: 'Returns the institution with the specified ID',
     })
     @Get(':id')
-    async getInstitutionById(@Param('id') id: string) {
+    async getInstitutionById(@Param('id', new ParseUUIDPipe()) id: string) {
         return await this.institutionsService.getInstitutionById(id);
     }
 
