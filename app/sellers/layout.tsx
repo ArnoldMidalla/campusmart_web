@@ -6,7 +6,7 @@ export default function SellersLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-background-subtle text-black font-dmSans tracking-tight">
+    <div className="relative flex justify-center max-w-dvw min-h-dvh bg-surface-muted text-foreground font-dmSans tracking-tight">
       {children}
       <SellersNav />
     </div>

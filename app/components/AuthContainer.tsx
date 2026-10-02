@@ -36,12 +36,12 @@ export default function AuthContainer({
       <section className="flex flex-col px-6 mt-6 w-full">
         <button
           onClick={() => router.back()}
-          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition shrink-0 mb-4"
+          className="size-8 bg-card rounded-full border border-border-default flex justify-center items-center shadow-lg hover:bg-surface-muted transition shrink-0 mb-4"
         >
           <CornerUpLeft size={18} />
         </button>
         
-        <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
+        <h1 className="text-[28px] leading-[1.1] font-bold text-foreground mb-6">
           {title}
         </h1>
 
@@ -61,7 +61,7 @@ export default function AuthContainer({
         </div>
 
         {type === "register" ? (
-          <p className="text-neutral-600 text-[12.5px] text-center mb-6 tracking-tight">
+          <p className="text-foreground-muted text-[12.5px] text-center mb-6 tracking-tight">
             By clicking &ldquo;Create an Account&rdquo; you agree with
             <br />
             CampusMart{" "}
@@ -82,7 +82,7 @@ export default function AuthContainer({
             </button>
           </p>
         ) : (
-          <p className="text-neutral-600 text-[12.5px] text-center mb-6 tracking-tight">
+          <p className="text-foreground-muted text-[12.5px] text-center mb-6 tracking-tight">
             Forgotten your password?{" "}
             <Link href="#" className={`${mainTextColor} hover:underline`}>
               Recover it here
@@ -96,7 +96,7 @@ export default function AuthContainer({
           </Button>
         </div>
 
-        <p className="text-neutral-600 text-[12.5px] text-center tracking-tight">
+        <p className="text-foreground-muted text-[12.5px] text-center tracking-tight">
           {type === "login" ? (
             <>
               Don&apos;t have an account?{" "}

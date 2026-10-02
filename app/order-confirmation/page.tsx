@@ -62,19 +62,19 @@ export default function OrderConfirmationPage() {
           <h1 className="font-bold text-xl tracking-tight">
             Order placed successfully!
           </h1>
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-foreground-muted">
             Order no: {orderNo}
           </p>
         </div>
 
-        <p className="text-sm text-neutral-500 text-center">
+        <p className="text-sm text-foreground-muted text-center">
           You will be notified when your package is ready for pick up
         </p>
 
         {/* Return policy notice */}
         <div className="w-full flex gap-2 items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-2.5 mt-1">
           <Info size={15} color="#ff681f" className="shrink-0" />
-          <p className="text-xs text-black/70 leading-relaxed">
+          <p className="text-xs text-foreground/70 leading-relaxed">
             Items can only be returned within{" "}
             <span className="text-main font-semibold">24 hours</span>{" "}
             of picking up

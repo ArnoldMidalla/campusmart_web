@@ -19,7 +19,7 @@ export default function HelpPage() {
 
           {/* ── QUICK HELP ── */}
           <section className="flex flex-col gap-4">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Quick Help
             </p>
 
@@ -33,7 +33,7 @@ export default function HelpPage() {
                   href={item.href}
                 />
                 {i < quickHelp.length - 1 && (
-                  <div className="h-px bg-neutral-100 mt-2 mb-2" />
+                  <div className="h-px bg-surface-muted mt-2 mb-2" />
                 )}
               </div>
             ))}
@@ -41,7 +41,7 @@ export default function HelpPage() {
 
           {/* ── MORE ── */}
           <section className="flex flex-col gap-3">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               More
             </p>
 

@@ -45,8 +45,8 @@ export default function Favourites() {
                   <Heart size={36} className="text-main" strokeWidth={1.5} />
                 </div>
                 <div className="text-center">
-                  <p className="font-semibold text-neutral-800">No favourites yet</p>
-                  <p className="text-sm text-neutral-500 mt-1">
+                  <p className="font-semibold text-foreground">No favourites yet</p>
+                  <p className="text-sm text-foreground-muted mt-1">
                     Heart items you love and they&apos;ll appear here.
                   </p>
                 </div>
@@ -77,7 +77,7 @@ export default function Favourites() {
 
                     <div className="flex flex-col justify-between flex-1">
                       <div>
-                        <p className="text-xs text-neutral-700">{item.category}</p>
+                        <p className="text-xs text-foreground">{item.category}</p>
                         <Link href={`/productItem/${item.id}`}>
                           <h2 className="font-medium text-sm leading-tight hover:text-main transition-colors">
                             {item.name}
@@ -90,7 +90,7 @@ export default function Favourites() {
 
                         <button
                           onClick={() => removeFavourite(item.id)}
-                          className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-red-500 transition-colors"
+                          className="flex items-center gap-1.5 text-xs text-foreground-muted hover:text-red-500 transition-colors"
                         >
                           <Trash2 size={15} strokeWidth={2} />
                           <span>Remove</span>
@@ -104,7 +104,7 @@ export default function Favourites() {
             </div>
 
             {/* Suggestions */}
-            <section className="flex flex-col gap-3 bg-white py-1">
+            <section className="flex flex-col gap-3 bg-card py-1">
               <SectionHeader title="New in Stock" href="/new" />
               <ProductCarousel products={products} />
             </section>

@@ -27,8 +27,8 @@ export default function InfoBanner({
             <span className={`text-[10px] font-bold ${isWarning ? "text-main" : "text-red-500"}`}>!</span>
           </div>
           <div>
-            <p className="text-[15px] font-semibold text-neutral-800 mb-0.5">{title}</p>
-            <p className="text-sm text-neutral-500 leading-relaxed">{text}</p>
+            <p className="text-[15px] font-semibold text-foreground mb-0.5">{title}</p>
+            <p className="text-sm text-foreground-muted leading-relaxed">{text}</p>
           </div>
         </>
       ) : (
@@ -37,7 +37,7 @@ export default function InfoBanner({
           <div className={`size-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${iconColor}`}>
             <span className={`text-[10px] font-bold ${isWarning ? "text-main" : "text-red-500"}`}>!</span>
           </div>
-          <p className="text-xs text-neutral-500 leading-relaxed">{text}</p>
+          <p className="text-xs text-foreground-muted leading-relaxed">{text}</p>
         </>
       )}
     </div>

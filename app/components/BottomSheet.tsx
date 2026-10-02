@@ -67,7 +67,7 @@ export default function BottomSheet({
       {/* ── Sheet panel ── */}
       <div
         className={cn(
-          "relative w-full max-w-md bg-white rounded-t-[28px] shadow-2xl",
+          "relative w-full max-w-md bg-card rounded-t-[28px] shadow-2xl",
           "transition-transform duration-300 ease-out",
           visible ? "translate-y-0" : "translate-y-full",
           className

@@ -36,14 +36,14 @@ function RoleCard({
         ${
           isSelected
             ? "border-main bg-orange-50/50 shadow-md"
-            : "border-neutral-200 bg-white hover:border-neutral-300"
+            : "border-border-default bg-card hover:border-border-default"
         }
       `}
     >
       {/* Text */}
       <div className="flex flex-col gap-0.5 flex-1">
-        <p className="font-bold text-[16px] text-neutral-900">{title}</p>
-        <p className="text-[13px] text-neutral-500 leading-4">{description}</p>
+        <p className="font-bold text-[16px] text-foreground">{title}</p>
+        <p className="text-[13px] text-foreground-muted leading-4">{description}</p>
       </div>
 
       {/* Illustration */}
@@ -111,7 +111,7 @@ export default function RoleSelectPage() {
       <div className="flex flex-col px-6 pt-16 md:pt-12 pb-10 flex-1">
 
           {/* Heading */}
-          <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
+          <h1 className="text-[28px] leading-[1.1] font-bold text-foreground mb-6">
             How do you want to use
             <br />
             CampusMart?

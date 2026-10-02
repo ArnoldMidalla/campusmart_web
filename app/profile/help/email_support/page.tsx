@@ -72,7 +72,7 @@ export default function EmailSupportPage() {
           <div className="size-16 rounded-full bg-orange-100 flex items-center justify-center">
             <Mail size={28} className="text-main" />
           </div>
-          <p className="text-lg font-semibold text-neutral-800 text-center">
+          <p className="text-lg font-semibold text-foreground text-center">
             We&apos;ll respond within 24 hours
           </p>
         </div>
@@ -81,22 +81,22 @@ export default function EmailSupportPage() {
 
           {/* Subject */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-neutral-700">Subject</label>
+            <label className="text-sm font-medium text-foreground">Subject</label>
             <input
               id="email-subject"
               type="text"
               placeholder="What do you need help with?"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full bg-neutral-100 rounded-2xl px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none focus:ring-2 focus:ring-main/30 transition"
+              className="w-full bg-surface-muted rounded-2xl px-4 py-3.5 text-sm text-foreground placeholder-neutral-400 outline-none focus:ring-2 focus:ring-main/30 transition"
             />
           </div>
 
           {/* Order Number */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-neutral-700">
+            <label className="text-sm font-medium text-foreground">
               Order Number{" "}
-              <span className="text-neutral-400 font-normal">(optional)</span>
+              <span className="text-foreground-muted font-normal">(optional)</span>
             </label>
             <input
               id="email-order"
@@ -104,13 +104,13 @@ export default function EmailSupportPage() {
               placeholder="#ORD-"
               value={orderNo}
               onChange={(e) => setOrderNo(e.target.value)}
-              className="w-full bg-neutral-100 rounded-2xl px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none focus:ring-2 focus:ring-main/30 transition"
+              className="w-full bg-surface-muted rounded-2xl px-4 py-3.5 text-sm text-foreground placeholder-neutral-400 outline-none focus:ring-2 focus:ring-main/30 transition"
             />
           </div>
 
           {/* Message */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-neutral-700">Message</label>
+            <label className="text-sm font-medium text-foreground">Message</label>
             <div className="relative">
               <textarea
                 id="email-message"
@@ -119,10 +119,10 @@ export default function EmailSupportPage() {
                 placeholder="I ordered a product last week but received the wrong item. The order was supposed to be a blue shirt but I got a red one instead."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full bg-neutral-100 rounded-2xl px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none resize-none focus:ring-2 focus:ring-main/30 transition pb-7"
+                className="w-full bg-surface-muted rounded-2xl px-4 py-3.5 text-sm text-foreground placeholder-neutral-400 outline-none resize-none focus:ring-2 focus:ring-main/30 transition pb-7"
               />
               {/* Char count */}
-              <span className="absolute bottom-3 right-4 text-xs text-neutral-400">
+              <span className="absolute bottom-3 right-4 text-xs text-foreground-muted">
                 {charCount}/{MAX_CHARS}
               </span>
             </div>
@@ -141,7 +141,7 @@ export default function EmailSupportPage() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={files.length >= 3}
-            className="flex items-center justify-center gap-2 w-full border border-neutral-200 rounded-2xl py-3.5 text-sm font-medium text-main hover:bg-orange-50 transition-all disabled:opacity-40 disabled:pointer-events-none"
+            className="flex items-center justify-center gap-2 w-full border border-border-default rounded-2xl py-3.5 text-sm font-medium text-main hover:bg-orange-50 transition-all disabled:opacity-40 disabled:pointer-events-none"
           >
             <Paperclip size={16} />
             {files.length >= 3 ? "Max 3 files attached" : "Attach files"}

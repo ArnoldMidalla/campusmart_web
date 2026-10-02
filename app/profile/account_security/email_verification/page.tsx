@@ -37,8 +37,8 @@ export default function EmailVerificationPage() {
           <div className="size-16 rounded-full bg-green-100 flex items-center justify-center">
             <CheckCircle2 size={32} className="text-green-500" />
           </div>
-          <p className="text-lg font-bold text-neutral-800">Email Verified</p>
-          <p className="text-sm text-neutral-500">Your email address has been verified</p>
+          <p className="text-lg font-bold text-foreground">Email Verified</p>
+          <p className="text-sm text-foreground-muted">Your email address has been verified</p>
         </div>
 
         <div className="flex flex-col gap-7">
@@ -49,7 +49,7 @@ export default function EmailVerificationPage() {
               <Mail size={18} className="text-main" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-neutral-800">{VERIFIED_EMAIL}</p>
+              <p className="text-sm font-semibold text-foreground">{VERIFIED_EMAIL}</p>
               <p className="text-xs font-medium text-green-500">
                 ● Verified on {VERIFIED_DATE}
               </p>
@@ -58,7 +58,7 @@ export default function EmailVerificationPage() {
 
           {/* Actions */}
           <section className="flex flex-col gap-4">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Actions
             </p>
 
@@ -74,8 +74,8 @@ export default function EmailVerificationPage() {
                     <Icon size={18} className="text-main" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-neutral-800">{action.label}</p>
-                    <p className="text-xs text-neutral-500">{action.description}</p>
+                    <p className="text-sm font-medium text-foreground">{action.label}</p>
+                    <p className="text-xs text-foreground-muted">{action.description}</p>
                   </div>
                 </button>
               );
@@ -86,10 +86,10 @@ export default function EmailVerificationPage() {
           <div className="flex items-start gap-3 bg-orange-50 border border-orange-200 rounded-2xl px-4 py-4">
             <AlertCircle size={18} className="text-main shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-neutral-800 mb-1">
+              <p className="text-sm font-semibold text-foreground mb-1">
                 Why verify your email?
               </p>
-              <p className="text-xs text-neutral-500 leading-relaxed">
+              <p className="text-xs text-foreground-muted leading-relaxed">
                 A verified email helps us secure your account and send important updates about your
                 orders and transactions.
               </p>

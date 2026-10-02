@@ -4,6 +4,7 @@ import { CircleMinus, CirclePlus } from "lucide-react";
 import { useCartStore } from "@/app/store/useCartStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import BottomFloatingBar, { BottomFloatingBarContainer } from "./BottomFloatingBar";
 
 export default function AddCartNav({
   product,
@@ -30,12 +31,12 @@ export default function AddCartNav({
   if (!mounted) return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
-      <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md">
+    <BottomFloatingBar>
+      <BottomFloatingBarContainer>
         {!isAdded ? (
           <button
             disabled={!selectedSize && product.size.length > 1}
-            className="w-full h-10 rounded-full bg-main disabled:opacity-60 border border-neutral-200 transition-all duration-300"
+            className="w-full h-10 rounded-full bg-main disabled:opacity-60 border border-border-default transition-all duration-300"
             onClick={() =>
               addToCart({
                 id: String(product.id),
@@ -56,7 +57,7 @@ export default function AddCartNav({
           </button>
         ) : (
           <div className="w-full flex gap-4">
-            <div className="w-28 px-2 h-10 rounded-full border bg-white border-main flex justify-between items-center">
+            <div className="w-28 px-2 h-10 rounded-full border bg-card border-main flex justify-between items-center">
               <button
                 onClick={() => decreaseQty(String(product.id), size)}
                 disabled={quantity <= 0}
@@ -70,14 +71,14 @@ export default function AddCartNav({
             </div>
 
             <button
-              className="w-full h-10 rounded-full border bg-main border-neutral-200"
+              className="w-full h-10 rounded-full border bg-main border-border-default"
               onClick={() => router.push("/cart")}
             >
               <p className="font-medium text-sm text-white">View cart</p>
             </button>
           </div>
         )}
-      </div>
-    </nav>
+      </BottomFloatingBarContainer>
+    </BottomFloatingBar>
   );
 }

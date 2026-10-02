@@ -35,8 +35,8 @@ export default function CallUsPage() {
               <Phone size={16} className="text-main" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-neutral-800">Working Hours</p>
-              <p className="text-xs text-neutral-500">Monday – Sunday: 12:00 AM – 11:59 PM</p>
+              <p className="text-sm font-medium text-foreground">Working Hours</p>
+              <p className="text-xs text-foreground-muted">Monday – Sunday: 12:00 AM – 11:59 PM</p>
             </div>
             <span
               className={`text-xs font-semibold px-3 py-1 rounded-full shrink-0 ${
@@ -49,7 +49,7 @@ export default function CallUsPage() {
 
           {/* Phone lines */}
           <section className="flex flex-col gap-1">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-3">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase mb-3">
               Phone Lines
             </p>
 
@@ -67,7 +67,7 @@ export default function CallUsPage() {
                     <Icon size={18} className={line.iconColor} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-neutral-800">{line.label}</p>
+                    <p className="text-sm font-medium text-foreground">{line.label}</p>
                     <p className={`text-sm font-medium ${line.numColor}`}>{line.number}</p>
                   </div>
                 </a>

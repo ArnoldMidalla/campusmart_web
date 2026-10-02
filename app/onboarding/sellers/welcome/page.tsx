@@ -14,7 +14,7 @@ export default function SellerWelcomePage() {
       <section className="flex flex-col px-6 mt-6 w-full">
           <button
             onClick={() => router.back()}
-            className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition shrink-0 mb-4"
+            className="size-8 bg-card rounded-full border border-border-default flex justify-center items-center shadow-lg hover:bg-surface-muted transition shrink-0 mb-4"
           >
             <CornerUpLeft size={18} />
           </button>
@@ -22,7 +22,7 @@ export default function SellerWelcomePage() {
           <div className="h-56 relative mb-8">
             <Image src="/login.png" alt="" fill className="object-contain" />
           </div>
-          <h1 className="text-[28px] leading-[1.1] font-bold text-black mb-6">
+          <h1 className="text-[28px] leading-[1.1] font-bold text-foreground mb-6">
             Gets you back in.
           </h1>
 
@@ -32,7 +32,7 @@ export default function SellerWelcomePage() {
             </Button>
           </div>
 
-          <p className="text-neutral-600 text-[12.5px] text-center mb-6 tracking-tight">
+          <p className="text-foreground-muted text-[12.5px] text-center mb-6 tracking-tight">
             Or use a social account to sign in quickly.
           </p>
 
@@ -42,7 +42,7 @@ export default function SellerWelcomePage() {
             </Button>
           </div>
 
-          <p className="text-neutral-600 text-[12.5px] text-center tracking-tight">
+          <p className="text-foreground-muted text-[12.5px] text-center tracking-tight">
             Don&apos;t have an account?{" "}
             <Link href="/onboarding/sellers/sign-up" className="text-seller-main hover:underline">
               Create one here

@@ -44,7 +44,7 @@ export default function SplashScreen() {
         </div>
 
         {/* Bottom tagline */}
-        <p className="absolute bottom-10 text-neutral-400 text-[13px] font-medium text-center leading-relaxed">
+        <p className="absolute bottom-10 text-foreground-muted text-[13px] font-medium text-center leading-relaxed">
           The marketplace
           <br />
           for everyone, by students.

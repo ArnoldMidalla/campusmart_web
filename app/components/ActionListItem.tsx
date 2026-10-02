@@ -40,22 +40,22 @@ export default function ActionListItem({
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-neutral-800">{label}</p>
+        <p className="text-sm font-medium text-foreground">{label}</p>
         {description && (
           typeof description === 'string' ? (
-            <p className="text-xs text-neutral-500">{description}</p>
+            <p className="text-xs text-foreground-muted">{description}</p>
           ) : (
             description
           )
         )}
       </div>
-      {rightElement !== undefined ? rightElement : <ChevronRight size={18} className="text-neutral-400 shrink-0" />}
+      {rightElement !== undefined ? rightElement : <ChevronRight size={18} className="text-foreground-muted shrink-0" />}
     </>
   );
 
-  const baseClass = `flex items-center gap-3 transition w-full text-left ${
+  const baseClass = `flex items-center gap-3 transition-all duration-150 active:scale-[0.98] active:opacity-80 w-full text-left ${
     variant === "card"
-      ? "p-3 rounded-xl border border-neutral-200 hover:bg-neutral-50"
+      ? "p-3 rounded-xl border border-border-default hover:bg-surface-muted"
       : "py-1"
   } ${className}`;
 

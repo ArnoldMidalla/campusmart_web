@@ -7,7 +7,7 @@ export default function SearchBar() {
   const router = useRouter();
 
   return (
-    <div className="border border-neutral-200 shadow-lg/5 flex w-full h-12 rounded-full justify-between items-center pl-4 pr-2">
+    <div className="border border-border-default shadow-lg/5 flex w-full h-12 rounded-full justify-between items-center pl-4 pr-2">
       <input
         type="search"
         placeholder="Search on Campusmart"

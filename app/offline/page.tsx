@@ -31,15 +31,15 @@ export default function OfflinePage() {
         <div className="w-24 h-24 bg-main/10 rounded-full flex items-center justify-center animate-pulse">
           <WifiOff className="w-12 h-12 text-main" />
         </div>
-        <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full border-4 border-white shadow-sm flex items-center justify-center">
+        <div className="absolute -top-2 -right-2 w-8 h-8 bg-card rounded-full border-4 border-white shadow-sm flex items-center justify-center">
           <div className="w-3 h-3 bg-red-500 rounded-full animate-ping" />
         </div>
       </div>
 
-      <h1 className="text-3xl font-bold text-neutral-900 mb-3 tracking-tighter">
+      <h1 className="text-3xl font-bold text-foreground mb-3 tracking-tighter">
         You're Offline
       </h1>
-      <p className="text-neutral-500 max-w-xs mb-10 leading-relaxed font-medium">
+      <p className="text-foreground-muted max-w-xs mb-10 leading-relaxed font-medium">
         It looks like your internet connection is taking a break. Please check your network and try again.
       </p>
 
@@ -54,14 +54,14 @@ export default function OfflinePage() {
 
         <Link
           href="/"
-          className="flex items-center justify-center gap-2 bg-neutral-100 text-neutral-700 py-4 rounded-2xl font-bold transition-all hover:bg-neutral-200"
+          className="flex items-center justify-center gap-2 bg-surface-muted text-foreground py-4 rounded-2xl font-bold transition-all hover:bg-neutral-200"
         >
           <Home className="w-5 h-5" />
           Back to Home
         </Link>
       </div>
 
-      <p className="absolute bottom-10 text-neutral-400 text-sm font-medium">
+      <p className="absolute bottom-10 text-foreground-muted text-sm font-medium">
         {isOnline ? "Connection restored! You can refresh now." : "Waiting for connection..."}
       </p>
     </div>

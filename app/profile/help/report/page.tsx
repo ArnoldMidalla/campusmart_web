@@ -33,7 +33,7 @@ function SelectField({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-medium text-neutral-700">
+      <label htmlFor={id} className="text-sm font-medium text-foreground">
         {label}
       </label>
       <div className="relative">
@@ -44,9 +44,9 @@ function SelectField({
           className={`w-full appearance-none rounded-2xl px-4 py-3.5 text-sm outline-none transition pr-10 ${
             value
               ? accent
-                ? "bg-white border-2 border-main text-neutral-800 font-medium"
-                : "bg-neutral-100 text-neutral-800"
-              : "bg-neutral-100 text-neutral-400"
+                ? "bg-card border-2 border-main text-foreground font-medium"
+                : "bg-surface-muted text-foreground"
+              : "bg-surface-muted text-foreground-muted"
           }`}
         >
           <option value="" disabled>
@@ -61,7 +61,7 @@ function SelectField({
         <ChevronDown
           size={16}
           className={`absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none ${
-            accent && value ? "text-main" : "text-neutral-400"
+            accent && value ? "text-main" : "text-foreground-muted"
           }`}
         />
       </div>
@@ -91,7 +91,7 @@ function ScreenshotSlot({
           <img
             src={previewUrl}
             alt="screenshot"
-            className="size-24 rounded-2xl object-cover border border-neutral-200"
+            className="size-24 rounded-2xl object-cover border border-border-default"
           />
           <button
             onClick={onRemove}
@@ -103,9 +103,9 @@ function ScreenshotSlot({
       ) : (
         <button
           onClick={onPick}
-          className="size-24 rounded-2xl border-2 border-dashed border-neutral-300 flex items-center justify-center hover:bg-neutral-50 transition-all"
+          className="size-24 rounded-2xl border-2 border-dashed border-border-default flex items-center justify-center hover:bg-surface-muted transition-all"
         >
-          <span className="text-neutral-400 text-2xl font-light">+</span>
+          <span className="text-foreground-muted text-2xl font-light">+</span>
         </button>
       )}
     </div>
@@ -126,7 +126,7 @@ function Toggle({ enabled, onToggle }: { enabled: boolean; onToggle: () => void 
       }`}
     >
       <span
-        className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300 ${
+        className={`inline-block h-5 w-5 transform rounded-full bg-card shadow-md transition-transform duration-300 ${
           enabled ? "translate-x-6" : "translate-x-1"
         }`}
       />
@@ -215,7 +215,7 @@ export default function ReportPage() {
 
           {/* Description */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-neutral-700">
+            <label className="text-sm font-medium text-foreground">
               Describe the Problem
             </label>
             <div className="relative">
@@ -226,9 +226,9 @@ export default function ReportPage() {
                 placeholder="Tell us what happened and how to reproduce the issue…"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full bg-neutral-100 rounded-2xl px-4 py-3.5 text-sm text-neutral-800 placeholder-neutral-400 outline-none resize-none focus:ring-2 focus:ring-main/30 transition pb-7"
+                className="w-full bg-surface-muted rounded-2xl px-4 py-3.5 text-sm text-foreground placeholder-neutral-400 outline-none resize-none focus:ring-2 focus:ring-main/30 transition pb-7"
               />
-              <span className="absolute bottom-3 right-4 text-xs text-neutral-400">
+              <span className="absolute bottom-3 right-4 text-xs text-foreground-muted">
                 {description.length}/{MAX_CHARS}
               </span>
             </div>
@@ -236,9 +236,9 @@ export default function ReportPage() {
 
           {/* Screenshots */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-neutral-700">
+            <label className="text-sm font-medium text-foreground">
               Screenshots{" "}
-              <span className="text-neutral-400 font-normal">(optional)</span>
+              <span className="text-foreground-muted font-normal">(optional)</span>
             </label>
             <div className="flex gap-3">
               {screenshots.map((file, i) => (
@@ -253,7 +253,7 @@ export default function ReportPage() {
                 />
               ))}
             </div>
-            <p className="text-xs text-neutral-400">Max 3 screenshots, up to 5 MB each</p>
+            <p className="text-xs text-foreground-muted">Max 3 screenshots, up to 5 MB each</p>
           </div>
           <input
             ref={fileInputRef}
@@ -265,7 +265,7 @@ export default function ReportPage() {
 
           {/* Include device info */}
           <div className="flex items-center justify-between py-1">
-            <p className="text-sm font-medium text-neutral-800">Include device information</p>
+            <p className="text-sm font-medium text-foreground">Include device information</p>
             <Toggle enabled={includeDevice} onToggle={() => setIncludeDevice((v) => !v)} />
           </div>
 

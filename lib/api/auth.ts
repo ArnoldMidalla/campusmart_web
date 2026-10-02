@@ -1,4 +1,4 @@
-import { fetchApi } from './client';
+﻿import { fetchApi } from './client';
 
 export type UserRole = 'BUYER' | 'SELLER' | 'ADMIN';
 export type VerificationStatus = 'UNVERIFIED' | 'PENDING' | 'VERIFIED' | 'REJECTED';
@@ -23,21 +23,21 @@ export interface AuthResponse {
 }
 
 export const authApi = {
-  login: async (data: any): Promise<AuthResponse> => {
+  login: async (data: unknown): Promise<AuthResponse> => {
     return fetchApi<AuthResponse>('/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
     });
   },
 
-  registerBuyer: async (data: any): Promise<AuthResponse> => {
+  registerBuyer: async (data: unknown): Promise<AuthResponse> => {
     return fetchApi<AuthResponse>('/auth/register/buyer', {
       method: 'POST',
       body: JSON.stringify(data),
     });
   },
 
-  registerSeller: async (data: any): Promise<AuthResponse> => {
+  registerSeller: async (data: unknown): Promise<AuthResponse> => {
     return fetchApi<AuthResponse>('/auth/register/seller', {
       method: 'POST',
       body: JSON.stringify(data),

@@ -1,8 +1,8 @@
 "use client";
 
-import { HeartPlus, ShoppingCart } from "lucide-react";
+import { Heart, HeartPlus, ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useFavouritesStore } from "../store/useFavouritesStore";
 
 interface ProductsCardProps {
@@ -26,8 +26,17 @@ export default function ProductsCard({
   id,
   // badge,
 }: ProductsCardProps) {
-  const { toggleFavourite, isFavourited } = useFavouritesStore();
-  const isHearted = isFavourited(id);
+  const router = useRouter();
+  
+  // Use precise selectors to avoid global re-renders
+  const isHearted = useFavouritesStore((state) => 
+    state.favourites.some(f => String(f.id) === String(id))
+  );
+  const toggleFavourite = useFavouritesStore((state) => state.toggleFavourite);
+
+  const handleCardClick = () => {
+    router.push(`/productItem/${id}`);
+  };
 
   const handleHeart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -35,9 +44,14 @@ export default function ProductsCard({
     toggleFavourite({ id, name, price, image, category });
   };
 
-
   return (
-    <Link href={`/productItem/` + id} className="flex justify-center w-full">
+    <div 
+      onClick={handleCardClick} 
+      className="flex justify-center w-full cursor-pointer transition-all duration-150 active:scale-95 active:opacity-80"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && handleCardClick()}
+    >
       <main className="w-full flex flex-col gap-2">
         <div className="relative overflow-hidden w-full h-28 rounded-lg">
           <Image
@@ -54,14 +68,13 @@ export default function ProductsCard({
             </div>
           )} */}
           
-
           {/* Heart Button */}
           <button
             onClick={handleHeart}
-            className="absolute -bottom-1 -right-1 bg-white size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-neutral-300"
+            className="absolute -bottom-1 -right-1 bg-card size-8 rounded-full text-main flex justify-center items-center shadow-lg border border-border-default transition-all duration-150 active:scale-90"
           >
             {isHearted ? (
-              <HeartPlus size={18} fill="#ff681f" color="white" />
+              <Heart size={18} fill="#ff681f" stroke="#ff681f" color="white" />
             ) : (
               <HeartPlus size={18} />
             )}
@@ -69,7 +82,7 @@ export default function ProductsCard({
         </div>
 
         <div className="flex flex-col gap-0.5 w-full">
-          <p className="text-xs font-dmSans tracking-tight text-neutral-600">
+          <p className="text-xs font-dmSans tracking-tight text-foreground-muted">
             {category}
           </p>
           <p className="font-dmSans tracking-tight text-sm font-normal leading-3.5 line-clamp-1">
@@ -83,6 +96,6 @@ export default function ProductsCard({
           </div>
         </div>
       </main>
-    </Link>
+    </div>
   );
 }

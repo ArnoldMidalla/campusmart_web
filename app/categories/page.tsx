@@ -35,7 +35,7 @@ export default function SearchPage() {
       <main className="pb-28 pt-8">
         {/* Search Input */}
         <div className="flex flex-col gap-4 px-4 sm:px-6">
-          <div className="border border-neutral-200 shadow-lg/5 flex w-full sm:max-w-md sm:mx-auto h-12 rounded-full justify-between pl-4 bg-white">
+          <div className="border border-border-default shadow-lg/5 flex w-full sm:max-w-md sm:mx-auto h-12 rounded-full justify-between pl-4 bg-card">
             <input
               type="text"
               placeholder="Search on Campusmart..."
@@ -46,9 +46,9 @@ export default function SearchPage() {
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="px-3 flex items-center justify-center hover:bg-neutral-100 transition"
+                className="px-3 flex items-center justify-center hover:bg-surface-muted transition"
               >
-                <X size={18} className="text-neutral-500" />
+                <X size={18} className="text-foreground-muted" />
               </button>
             )}
             <div className="bg-main flex justify-center items-center px-4 rounded-full">
@@ -85,7 +85,7 @@ export default function SearchPage() {
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition border ${
                 sortBy === option.value
                   ? "bg-main text-white border-main"
-                  : "bg-white border-neutral-200 text-black hover:border-neutral-300"
+                  : "bg-card border-border-default text-foreground hover:border-border-default"
               }`}
             >
               {option.label}
@@ -95,7 +95,7 @@ export default function SearchPage() {
 
         {/* Results Info */}
         <div className="flex justify-between items-center px-4 sm:px-6">
-          <p className="text-sm text-neutral-600">
+          <p className="text-sm text-foreground-muted">
             {filteredProducts.length} result
             {filteredProducts.length !== 1 ? "s" : ""}
             {searchQuery && ` for "${searchQuery}"`}
@@ -130,12 +130,12 @@ export default function SearchPage() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 gap-4 px-4">
-            <div className="size-16 rounded-full bg-neutral-100 flex items-center justify-center">
-              <SearchIcon size={32} className="text-neutral-400" />
+            <div className="size-16 rounded-full bg-surface-muted flex items-center justify-center">
+              <SearchIcon size={32} className="text-foreground-muted" />
             </div>
             <div className="text-center">
-              <p className="font-medium text-neutral-800">No products found</p>
-              <p className="text-sm text-neutral-600">
+              <p className="font-medium text-foreground">No products found</p>
+              <p className="text-sm text-foreground-muted">
                 {searchQuery
                   ? "Try adjusting your search terms"
                   : "Try searching or filtering by category"}

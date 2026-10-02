@@ -1,5 +1,5 @@
 import { fetchApi } from './client';
-import type { SellerOrder, OrderStatus } from '@/app/store/useOrdersStore';
+import type { SellerOrder, OrderStatus } from "@/types";
 
 // SellerOrder / OrderStatus types live in useOrdersStore.ts (types-only).
 // When the backend is built, the shape might be slightly different

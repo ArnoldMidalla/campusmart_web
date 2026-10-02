@@ -12,7 +12,7 @@ export default function ActiveSessionsPage() {
 
         {/* ── CURRENT SESSION ── */}
         <section className="mt-8 flex flex-col gap-4">
-          <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+          <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
             Current Session
           </p>
           <div className="flex items-start gap-4">
@@ -21,15 +21,15 @@ export default function ActiveSessionsPage() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-[15px] font-semibold text-neutral-900 truncate">
+                <p className="text-[15px] font-semibold text-foreground truncate">
                   iPhone 15 Pro Max
                 </p>
                 <span className="shrink-0 bg-green-100 text-green-600 text-[11px] font-semibold px-2.5 py-1 rounded-full">
                   This device
                 </span>
               </div>
-              <p className="text-sm text-neutral-500 mt-1">iOS 19.1 · Safari</p>
-              <p className="text-sm text-neutral-500 mt-0.5">Lagos, Nigeria · 105.112.xx.xx</p>
+              <p className="text-sm text-foreground-muted mt-1">iOS 19.1 · Safari</p>
+              <p className="text-sm text-foreground-muted mt-0.5">Lagos, Nigeria · 105.112.xx.xx</p>
               <p className="text-[13px] font-semibold text-green-500 flex items-center gap-1.5 mt-1.5">
                 <span className="size-2 rounded-full bg-green-500" />
                 Active now
@@ -40,7 +40,7 @@ export default function ActiveSessionsPage() {
 
         {/* ── OTHER SESSIONS ── */}
         <section className="mt-8 flex flex-col gap-6">
-          <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+          <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
             Other Sessions
           </p>
 
@@ -51,7 +51,7 @@ export default function ActiveSessionsPage() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-[15px] font-semibold text-neutral-900 truncate">
+                <p className="text-[15px] font-semibold text-foreground truncate">
                   MacBook Pro
                 </p>
                 <button
@@ -61,9 +61,9 @@ export default function ActiveSessionsPage() {
                   Revoke
                 </button>
               </div>
-              <p className="text-sm text-neutral-400 mt-1">macOS Sequoia · Chrome</p>
-              <p className="text-sm text-neutral-400 mt-0.5">Lagos, Nigeria · 105.112.xx.xx</p>
-              <p className="text-[13px] text-neutral-400 mt-1.5">Last active: 2 hours ago</p>
+              <p className="text-sm text-foreground-muted mt-1">macOS Sequoia · Chrome</p>
+              <p className="text-sm text-foreground-muted mt-0.5">Lagos, Nigeria · 105.112.xx.xx</p>
+              <p className="text-[13px] text-foreground-muted mt-1.5">Last active: 2 hours ago</p>
             </div>
           </div>
 
@@ -74,7 +74,7 @@ export default function ActiveSessionsPage() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-[15px] font-semibold text-neutral-900 truncate">
+                <p className="text-[15px] font-semibold text-foreground truncate">
                   iPad Air
                 </p>
                 <button
@@ -84,9 +84,9 @@ export default function ActiveSessionsPage() {
                   Revoke
                 </button>
               </div>
-              <p className="text-sm text-neutral-400 mt-1">iPadOS 19 · Safari</p>
-              <p className="text-sm text-neutral-400 mt-0.5">Abuja, Nigeria · 197.210.xx.xx</p>
-              <p className="text-[13px] text-neutral-400 mt-1.5">Last active: 3 days ago</p>
+              <p className="text-sm text-foreground-muted mt-1">iPadOS 19 · Safari</p>
+              <p className="text-sm text-foreground-muted mt-0.5">Abuja, Nigeria · 197.210.xx.xx</p>
+              <p className="text-[13px] text-foreground-muted mt-1.5">Last active: 3 days ago</p>
             </div>
           </div>
         </section>
@@ -97,10 +97,10 @@ export default function ActiveSessionsPage() {
             <span className="text-main text-[10px] font-bold">!</span>
           </div>
           <div>
-            <p className="text-[15px] font-semibold text-neutral-800 mb-0.5">
+            <p className="text-[15px] font-semibold text-foreground mb-0.5">
               Don&apos;t recognize a session?
             </p>
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-foreground-muted">
               Revoke it immediately and change your password.
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function ActiveSessionsPage() {
         <div className="w-full max-w-md px-6">
           <button
             disabled
-            className="w-full bg-white text-red-500 border border-red-500 rounded-full py-4 font-semibold text-[15px] transition-all"
+            className="w-full bg-card text-red-500 border border-red-500 rounded-full py-4 font-semibold text-[15px] transition-all"
           >
             Sign Out All Other Devices
           </button>

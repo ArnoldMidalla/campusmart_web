@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { MoreVertical } from "lucide-react";
-import { type OrderStatus, type SellerOrder } from "@/app/store/useOrdersStore";
+import { type OrderStatus, type SellerOrder } from "@/types";
 import { useUpdateOrderStatus } from "@/lib/api/hooks/useSellerOrders";
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
@@ -13,6 +13,7 @@ export function OrderStatusBadge({ status }: { status: OrderStatus }) {
     "Awaiting drop-off": "border-red-400 text-red-500",
     "Dropped off": "border-yellow-500 text-yellow-600",
     "Completed": "border-green-500 text-green-600",
+    "Cancelled": "border-neutral-400 text-foreground-muted",
   };
   return (
     <span
@@ -23,31 +24,32 @@ export function OrderStatusBadge({ status }: { status: OrderStatus }) {
   );
 }
 
+const MENU_ACTIONS: { label: string; status: OrderStatus }[] = [
+  { label: "Mark as Awaiting drop-off", status: "Awaiting drop-off" },
+  { label: "Mark as Dropped off", status: "Dropped off" },
+  { label: "Mark as Completed", status: "Completed" },
+  { label: "Mark as Cancelled", status: "Cancelled" },
+];
+
 // ─── Order Card ───────────────────────────────────────────────────────────────
 
 export default function OrderCard({ order }: { order: SellerOrder }) {
   const { mutate: updateOrderStatus } = useUpdateOrderStatus();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const menuActions: { label: string; status: OrderStatus }[] = [
-    { label: "Mark as Awaiting drop-off", status: "Awaiting drop-off" },
-    { label: "Mark as Dropped off", status: "Dropped off" },
-    { label: "Mark as Completed", status: "Completed" },
-  ];
-
   return (
-    <div className="bg-white rounded-lg px-3 py-3 flex flex-col gap-2 shadow-sm">
+    <div className="bg-card rounded-lg px-3 py-3 flex flex-col gap-2">
       {/* Top row */}
       <div className="flex items-start gap-3">
         {/* Thumbnail */}
-        <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-neutral-100">
+        <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-surface-muted">
           <Image src={order.productImage} alt={order.productName} fill className="object-cover" />
         </div>
 
         {/* Name + ID */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-neutral-900 truncate">{order.productName}</p>
-          <p className="text-[11px] text-neutral-400 mt-0.5">ID {order.orderId}</p>
+          <p className="text-sm font-semibold text-foreground truncate">{order.productName}</p>
+          <p className="text-[11px] text-foreground-muted mt-0.5">ID {order.orderId}</p>
         </div>
 
         {/* Badge + menu */}
@@ -56,7 +58,7 @@ export default function OrderCard({ order }: { order: SellerOrder }) {
           <div className="relative">
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="p-1 rounded-full hover:bg-neutral-100 transition"
+              className="p-1 rounded-full hover:bg-surface-muted transition"
             >
               <MoreVertical size={20} />
             </button>
@@ -64,16 +66,16 @@ export default function OrderCard({ order }: { order: SellerOrder }) {
             {menuOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(false)} />
-                <div className="absolute right-0 top-7 z-20 bg-white rounded-xl shadow-xl border border-neutral-100 py-1 w-52 overflow-hidden">
-                  {menuActions.map((a) => (
+                <div className="absolute right-0 top-7 z-20 bg-card rounded-xl shadow-xl border border-border-default py-1 w-48 overflow-hidden">
+                  {MENU_ACTIONS.map((a) => (
                     <button
                       key={a.label}
                       onClick={() => {
                         updateOrderStatus({ id: order.id, status: a.status });
                         setMenuOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-neutral-50 transition ${
-                        order.status === a.status ? "text-[#13368B] font-semibold" : "text-neutral-700"
+                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-surface-muted transition ${
+                        order.status === a.status ? "text-[#13368B] font-semibold" : "text-foreground"
                       }`}
                     >
                       {a.label}
@@ -87,20 +89,20 @@ export default function OrderCard({ order }: { order: SellerOrder }) {
       </div>
 
       {/* Bottom row */}
-      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-neutral-100">
+      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-border-default">
         <div>
-          <p className="text-[10px] text-neutral-400">Category</p>
-          <p className="text-xs font-semibold text-neutral-800 mt-0.5">{order.category}</p>
+          <p className="text-[10px] text-foreground-muted">Category</p>
+          <p className="text-xs font-semibold text-foreground mt-0.5">{order.category}</p>
         </div>
         <div>
-          <p className="text-[10px] text-neutral-400">Price</p>
-          <p className="text-xs font-semibold text-neutral-800 mt-0.5">
+          <p className="text-[10px] text-foreground-muted">Price</p>
+          <p className="text-xs font-semibold text-foreground mt-0.5">
             ₦{order.price.toLocaleString("en-NG")}
           </p>
         </div>
         <div>
-          <p className="text-[10px] text-neutral-400">Quantity</p>
-          <p className="text-xs font-semibold text-neutral-800 mt-0.5">{order.quantity}</p>
+          <p className="text-[10px] text-foreground-muted">Quantity</p>
+          <p className="text-xs font-semibold text-foreground mt-0.5">{order.quantity}</p>
         </div>
       </div>
     </div>

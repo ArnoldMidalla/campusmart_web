@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 
@@ -111,7 +111,7 @@ export default function ProfilePage() {
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <h2 className="text-lg font-semibold text-neutral-800">
+                <h2 className="text-lg font-semibold text-foreground">
                   {user.name}
                 </h2>
                 {user.verified && (
@@ -120,13 +120,13 @@ export default function ProfilePage() {
                   </span>
                 )}
               </div>
-              <p className="text-sm text-neutral-700 mb-1">{user.email}</p>
-              <p className="text-sm text-neutral-600">{user.phone}</p>
-              <p className="text-xs text-neutral-500 mt-2">
+              <p className="text-sm text-foreground mb-1">{user.email}</p>
+              <p className="text-sm text-foreground-muted">{user.phone}</p>
+              <p className="text-xs text-foreground-muted mt-2">
                 Member since {user.joinedDate}
               </p>
             </div>
-            <button className="p-2 bg-white rounded-full border border-blue-200 hover:bg-blue-50 transition">
+            <button className="p-2 bg-card rounded-full border border-blue-200 hover:bg-blue-50 transition">
               <Edit2 size={18} className="text-blue-600" />
             </button>
           </div>
@@ -134,21 +134,21 @@ export default function ProfilePage() {
 
         {/* Quick Access Menu */}
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-neutral-700">Quick Access</p>
+          <p className="text-sm font-medium text-foreground">Quick Access</p>
           <div className="flex flex-col gap-2">
             {menuItems.map((item) => {
               const IconComponent = item.icon;
               return (
                 <Link key={item.label} href={item.href}>
-                  <div className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition">
+                  <div className="flex items-center gap-3 p-3 rounded-lg border border-border-default hover:border-border-default hover:bg-surface-muted transition">
                     <div className="p-2 bg-blue-100 rounded-lg">
                       <IconComponent size={18} className="text-blue-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-neutral-800">
+                      <p className="text-sm font-medium text-foreground">
                         {item.label}
                       </p>
-                      <p className="text-xs text-neutral-600 truncate">
+                      <p className="text-xs text-foreground-muted truncate">
                         {item.description}
                       </p>
                     </div>
@@ -158,7 +158,7 @@ export default function ProfilePage() {
                           {item.badge}
                         </span>
                       )}
-                      <ChevronRight size={18} className="text-neutral-400" />
+                      <ChevronRight size={18} className="text-foreground-muted" />
                     </div>
                   </div>
                 </Link>
@@ -172,25 +172,25 @@ export default function ProfilePage() {
 
         {/* Settings Menu */}
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-neutral-700">Settings</p>
+          <p className="text-sm font-medium text-foreground">Settings</p>
           <div className="flex flex-col gap-2">
             {settingsItems.map((item) => {
               const IconComponent = item.icon;
               return (
                 <Link key={item.label} href={item.href}>
-                  <div className="flex items-center gap-3 p-3 rounded-lg border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition">
-                    <div className="p-2 bg-gray-100 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 rounded-lg border border-border-default hover:border-border-default hover:bg-surface-muted transition">
+                    <div className="p-2 bg-surface-muted-100 rounded-lg">
                       <IconComponent size={18} className="text-gray-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-neutral-800">
+                      <p className="text-sm font-medium text-foreground">
                         {item.label}
                       </p>
-                      <p className="text-xs text-neutral-600 truncate">
+                      <p className="text-xs text-foreground-muted truncate">
                         {item.description}
                       </p>
                     </div>
-                    <ChevronRight size={18} className="text-neutral-400" />
+                    <ChevronRight size={18} className="text-foreground-muted" />
                   </div>
                 </Link>
               );
@@ -213,11 +213,12 @@ export default function ProfilePage() {
         </div>
 
         {/* Footer Info */}
-        <div className="pt-4 border-t border-neutral-200">
-          <p className="text-xs text-neutral-500 text-center">
-            Campusmart v1.0.0 • {new Date().getFullYear()}
+        <div className="pt-4 border-t border-border-default">
+          <p className="text-xs text-foreground-muted text-center">
+            Campusmart v1.0.0 â€¢ {new Date().getFullYear()}
           </p>
         </div>
     </main>
   );
 }
+

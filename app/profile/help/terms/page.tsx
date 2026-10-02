@@ -10,16 +10,16 @@ import PageHeader from "../../../components/PageHeader";
 const EFFECTIVE_DATE = "April 21, 2026";
 
 const termsContent = (
-  <div className="flex flex-col gap-5 text-sm text-neutral-700 leading-relaxed">
+  <div className="flex flex-col gap-5 text-sm text-foreground leading-relaxed">
     <div>
-      <p className="text-xs font-bold tracking-widest text-neutral-500 uppercase">Campus Mart</p>
-      <p className="text-xs text-neutral-500 mt-0.5">
-        Effective Date: <strong className="text-neutral-800">{EFFECTIVE_DATE}</strong>
+      <p className="text-xs font-bold tracking-widest text-foreground-muted uppercase">Campus Mart</p>
+      <p className="text-xs text-foreground-muted mt-0.5">
+        Effective Date: <strong className="text-foreground">{EFFECTIVE_DATE}</strong>
       </p>
     </div>
 
     <div>
-      <p className="text-xs font-bold tracking-widest text-neutral-500 uppercase mb-2">
+      <p className="text-xs font-bold tracking-widest text-foreground-muted uppercase mb-2">
         Quick Summary (Read This First)
       </p>
       <ul className="list-disc pl-5 flex flex-col gap-1.5">
@@ -32,7 +32,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">1. Introduction</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">1. Introduction</p>
       <p>
         CampusMart (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) is a student marketplace that
         connects users to buy and sell within their campus.
@@ -41,7 +41,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">2. User Accounts</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">2. User Accounts</p>
       <ul className="list-disc pl-5 flex flex-col gap-1">
         <li>You must provide accurate information</li>
         <li>You are responsible for your account</li>
@@ -51,7 +51,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">3. Buying & Selling</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">3. Buying & Selling</p>
       <ul className="list-disc pl-5 flex flex-col gap-1">
         <li>Sellers set their own prices</li>
         <li>CampusMart takes a small platform fee per transaction</li>
@@ -61,7 +61,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">4. Payments</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">4. Payments</p>
       <p>
         Payments are processed securely. Funds are held in escrow until the buyer confirms receipt
         at a campus pickup station.
@@ -69,7 +69,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">5. Dispute Resolution</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">5. Dispute Resolution</p>
       <p>
         Disputes must be raised within 24 hours of pickup. CampusMart&apos;s decision in disputes
         is final and binding.
@@ -77,7 +77,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">6. Termination</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">6. Termination</p>
       <p>
         We reserve the right to suspend or terminate accounts that violate these Terms without prior
         notice.
@@ -85,7 +85,7 @@ const termsContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">7. Changes to Terms</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">7. Changes to Terms</p>
       <p>
         We may update these Terms periodically. Continued use of CampusMart after changes means you
         accept the new Terms.
@@ -95,16 +95,16 @@ const termsContent = (
 );
 
 const privacyContent = (
-  <div className="flex flex-col gap-5 text-sm text-neutral-700 leading-relaxed">
+  <div className="flex flex-col gap-5 text-sm text-foreground leading-relaxed">
     <div>
-      <p className="text-xs font-bold tracking-widest text-neutral-500 uppercase">Campus Mart</p>
-      <p className="text-xs text-neutral-500 mt-0.5">
-        Effective Date: <strong className="text-neutral-800">{EFFECTIVE_DATE}</strong>
+      <p className="text-xs font-bold tracking-widest text-foreground-muted uppercase">Campus Mart</p>
+      <p className="text-xs text-foreground-muted mt-0.5">
+        Effective Date: <strong className="text-foreground">{EFFECTIVE_DATE}</strong>
       </p>
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">1. Introduction</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">1. Introduction</p>
       <p>
         This Privacy Policy explains how CampusMart collects, uses, and protects your information.
         By using the app, you agree to this policy.
@@ -112,10 +112,10 @@ const privacyContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">
         2. Information We Collect
       </p>
-      <p className="font-semibold text-neutral-800 mt-1 mb-0.5">2.1 Information You Provide</p>
+      <p className="font-semibold text-foreground mt-1 mb-0.5">2.1 Information You Provide</p>
       <ul className="list-disc pl-5 flex flex-col gap-1">
         <li>Name</li>
         <li>Email address</li>
@@ -123,20 +123,20 @@ const privacyContent = (
         <li>Profile photo (optional)</li>
         <li>Listings and messages</li>
       </ul>
-      <p className="font-semibold text-neutral-800 mt-2 mb-0.5">2.2 Automatically Collected Data</p>
+      <p className="font-semibold text-foreground mt-2 mb-0.5">2.2 Automatically Collected Data</p>
       <ul className="list-disc pl-5 flex flex-col gap-1">
         <li>Device type</li>
         <li>IP address</li>
         <li>Usage data</li>
       </ul>
-      <p className="font-semibold text-neutral-800 mt-2 mb-0.5">2.3 Seller Verification Data</p>
+      <p className="font-semibold text-foreground mt-2 mb-0.5">2.3 Seller Verification Data</p>
       <ul className="list-disc pl-5 flex flex-col gap-1">
         <li>Student ID or verification details</li>
       </ul>
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">
         3. How We Use Your Information
       </p>
       <p>We use your data to:</p>
@@ -149,7 +149,7 @@ const privacyContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">4. Data Sharing</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">4. Data Sharing</p>
       <p>
         We do not sell your data. We may share it with trusted service providers (e.g., payment
         processors) strictly to operate CampusMart.
@@ -157,7 +157,7 @@ const privacyContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">5. Data Retention</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">5. Data Retention</p>
       <p>
         Your data is retained as long as your account is active. Deleted accounts are purged within
         30 days.
@@ -165,7 +165,7 @@ const privacyContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">6. Your Rights</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">6. Your Rights</p>
       <ul className="list-disc pl-5 flex flex-col gap-1">
         <li>Access your personal data</li>
         <li>Request correction or deletion</li>
@@ -174,7 +174,7 @@ const privacyContent = (
     </div>
 
     <div>
-      <p className="text-[13px] font-bold text-neutral-800 uppercase mb-1">7. Contact</p>
+      <p className="text-[13px] font-bold text-foreground uppercase mb-1">7. Contact</p>
       <p>
         For privacy questions, email us at{" "}
         <a href="mailto:privacy@campusmart.ng" className="text-main font-medium">
@@ -200,15 +200,15 @@ export default function TermsPage() {
         <PageHeader title="Terms & Privacy" showBack={true} />
 
         {/* Tab switcher */}
-        <div className="flex bg-neutral-100 rounded-2xl p-1 mt-5 mb-6">
+        <div className="flex bg-surface-muted rounded-2xl p-1 mt-5 mb-6">
           {(["terms", "privacy"] as Tab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                 activeTab === tab
-                  ? "bg-white text-main shadow-sm"
-                  : "text-neutral-500"
+                  ? "bg-card text-main shadow-sm"
+                  : "text-foreground-muted"
               }`}
             >
               {tab === "terms" ? "Terms of Service" : "Privacy Policy"}

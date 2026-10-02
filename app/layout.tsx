@@ -7,6 +7,7 @@ import PWAInstallPrompt from "./components/PWAInstallPrompt";
 import { Analytics } from "@vercel/analytics/next";
 import Providers from "./providers";
 import AuthProvider from "./components/AuthProvider";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const satoshi = localFont({
   src: [
@@ -71,21 +72,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${jost.variable} ${satoshi.variable} antialiased`}
       >
         <PWAInstallPrompt />
-        <div className="flex justify-center min-h-dvh bg-neutral-50">
-          <div className="w-full max-w-md bg-white min-h-dvh shadow-sm relative overflow-x-hidden">
-            <Providers>
-              <AuthProvider>
-                {children}
-              </AuthProvider>
-            </Providers>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="flex justify-center min-h-dvh bg-surface-muted">
+            <div className="w-full max-w-md bg-card min-h-dvh shadow-sm relative overflow-x-hidden">
+              <Providers>
+                <AuthProvider>
+                  {children}
+                </AuthProvider>
+              </Providers>
+            </div>
           </div>
-        </div>
+        </ThemeProvider>
         {/* vercel analytics to monitor metrics. cos why not */}
         <Analytics />
       </body>

@@ -164,8 +164,8 @@ export default function PickupStationPage() {
                 <div
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isSelected
-                      ? "border-neutral-300 shadow-lg/7"
-                      : "border-neutral-200 bg-neutral-50"
+                      ? "border-border-default shadow-lg/7"
+                      : "border-border-default bg-surface-muted"
                   }`}
                 >
                   {/* Top row — radio + name + address */}
@@ -177,16 +177,16 @@ export default function PickupStationPage() {
                           <Check size={13} color="white" strokeWidth={3} />
                         </div>
                       ) : (
-                        <div className="size-6 rounded-full border-2 border-neutral-300 bg-white" />
+                        <div className="size-6 rounded-full border-2 border-border-default bg-card" />
                       )}
                     </div>
 
                     {/* Name + address */}
                     <div className="flex flex-col gap-0.5">
-                      <p className="font-semibold text-sm leading-tight text-neutral-900">
+                      <p className="font-semibold text-sm leading-tight text-foreground">
                         {station.name}
                       </p>
-                      <p className="text-xs text-neutral-500 leading-relaxed">
+                      <p className="text-xs text-foreground-muted leading-relaxed">
                         {station.address}
                       </p>
                     </div>
@@ -198,17 +198,17 @@ export default function PickupStationPage() {
                       isSelected ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <div className="mx-4 mb-4 border-t border-neutral-200 pt-3 flex flex-col gap-3">
+                    <div className="mx-4 mb-4 border-t border-border-default pt-3 flex flex-col gap-3">
                       {/* Contact Information */}
                       <div className="flex flex-col gap-1">
-                        <p className="text-xs font-semibold text-neutral-800">
+                        <p className="text-xs font-semibold text-foreground">
                           Contact Information
                         </p>
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-xs text-foreground-muted">
                           {station.contactName}
                         </p>
                         <div className="flex items-center justify-between">
-                          <p className="text-xs text-neutral-500">
+                          <p className="text-xs text-foreground-muted">
                             {station.contactPhone}
                           </p>
                           <button
@@ -230,11 +230,11 @@ export default function PickupStationPage() {
 
                       {/* Opening Hours */}
                       <div className="flex flex-col gap-1">
-                        <p className="text-xs font-semibold text-neutral-800">
+                        <p className="text-xs font-semibold text-foreground">
                           Opening Hours
                         </p>
                         {station.openingHours.map((line, i) => (
-                          <p key={i} className="text-xs text-neutral-500">
+                          <p key={i} className="text-xs text-foreground-muted">
                             {line}
                           </p>
                         ))}
@@ -250,14 +250,14 @@ export default function PickupStationPage() {
 
       {/* Sticky confirm button */}
       <main className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
-        <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[80%] bg-white/30 max-w-sm gap-2">
+        <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-border-default w-[80%] bg-card/30 max-w-sm gap-2">
           <div className="w-full flex justify-center">
-            <p className="text-neutral-700 font-medium text-sm truncate px-2">
+            <p className="text-foreground font-medium text-sm truncate px-2">
               {localSelected ? localSelected.name : "No station selected"}
             </p>
           </div>
           <button
-            className="w-full h-10 rounded-full border bg-main border-neutral-200 disabled:opacity-40 transition-all duration-300"
+            className="w-full h-10 rounded-full border bg-main border-border-default disabled:opacity-40 transition-all duration-300"
             onClick={handleConfirm}
             disabled={!localSelected}
           >

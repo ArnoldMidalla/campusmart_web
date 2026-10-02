@@ -68,7 +68,7 @@ export default function ChangePasswordPage() {
           <div className="size-16 rounded-full bg-orange-100 flex items-center justify-center">
             <LockKeyhole size={30} className="text-main" />
           </div>
-          <p className="text-lg font-semibold text-neutral-800 text-center">
+          <p className="text-lg font-semibold text-foreground text-center">
             Create a Strong Unique Password
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function ChangePasswordPage() {
         <div className="flex flex-col gap-5">
           {/* Current Password */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-neutral-600 font-medium">
+            <label className="text-sm text-foreground-muted font-medium">
               Current Password
             </label>
             <FormInput
@@ -93,7 +93,7 @@ export default function ChangePasswordPage() {
 
           {/* New Password */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-neutral-600 font-medium">
+            <label className="text-sm text-foreground-muted font-medium">
               New Password
             </label>
             <div
@@ -121,7 +121,7 @@ export default function ChangePasswordPage() {
 
           {/* Confirm Password */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-neutral-600 font-medium">
+            <label className="text-sm text-foreground-muted font-medium">
               Confirm New Password
             </label>
             <FormInput
@@ -142,8 +142,8 @@ export default function ChangePasswordPage() {
           </div>
 
           {/* Password Requirements card */}
-          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 flex flex-col gap-2">
-            <p className="text-sm font-semibold text-neutral-800">
+          <div className="rounded-xl border border-border-default bg-surface-muted p-4 flex flex-col gap-2">
+            <p className="text-sm font-semibold text-foreground">
               Password Requirements
             </p>
             <ul className="flex flex-col gap-1.5">
@@ -160,7 +160,7 @@ export default function ChangePasswordPage() {
                     </span>
                     <span
                       className={`text-sm ${
-                        ok ? "text-neutral-700" : "text-neutral-400"
+                        ok ? "text-foreground" : "text-foreground-muted"
                       }`}
                     >
                       {req.label}

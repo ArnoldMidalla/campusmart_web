@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <main className="pb-28 pt-8">
         {/* Section 1: Search & Filter */}
-        <section className="flex flex-col gap-5 bg-white pt-0 pb-2 px-4 sm:px-6">
+        <section className="flex flex-col gap-5 bg-card pt-0 pb-2 px-4 sm:px-6">
           <SearchBar />
           <CategoryList />
         </section>
@@ -30,7 +30,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* Section 3: Recommendations */}
-        <section className="flex flex-col gap-3 bg-white py-5">
+        <section className="flex flex-col gap-3 bg-card py-5">
           <SectionHeader title="You Might Need" href="/recommendations" />
           <ProductCarousel products={products} />
         </section>
@@ -38,7 +38,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* Section 4: New Stocks */}
-        <section className="flex flex-col gap-3 bg-white py-5">
+        <section className="flex flex-col gap-3 bg-card py-5">
           <SectionHeader title="New in Stock" href="/new" />
           <ProductCarousel products={products} />
         </section>
@@ -46,7 +46,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* Section 5: Featured Store */}
-        <section className="flex flex-col gap-3 bg-white py-5">
+        <section className="flex flex-col gap-3 bg-card py-5">
           <SectionHeader title="Featured Store" href="/stores" />
           {/* Carousel layout */}
           <div className="flex gap-4 sm:gap-5 overflow-x-scroll pb-2 no-scrollbar px-4 sm:px-6">

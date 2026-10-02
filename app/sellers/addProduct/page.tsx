@@ -42,7 +42,7 @@ function ImageSlot({
 }) {
   if (image) {
     return (
-      <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-neutral-200 shrink-0">
+      <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-border-default shrink-0">
         <Image src={image.url} alt="product" fill className="object-cover" />
         <button
           type="button"
@@ -59,15 +59,15 @@ function ImageSlot({
     <button
       type="button"
       onClick={onAdd}
-      className={`w-24 h-24 rounded-xl border-2 border-dashed border-neutral-300 flex flex-col items-center justify-center gap-1 shrink-0 transition hover:border-seller-main hover:bg-seller-main/5 ${
-        isFirst ? "bg-white" : "bg-neutral-50"
+      className={`w-24 h-24 rounded-xl border-2 border-dashed border-border-default flex flex-col items-center justify-center gap-1 shrink-0 transition hover:border-seller-main hover:bg-seller-main/5 ${
+        isFirst ? "bg-card" : "bg-surface-muted"
       }`}
     >
-      <div className="size-7 rounded-full bg-neutral-100 flex items-center justify-center">
-        <Plus size={16} className="text-neutral-500" />
+      <div className="size-7 rounded-full bg-surface-muted flex items-center justify-center">
+        <Plus size={16} className="text-foreground-muted" />
       </div>
       {isFirst && (
-        <p className="text-neutral-500 text-[10px] font-medium">Add Image</p>
+        <p className="text-foreground-muted text-[10px] font-medium">Add Image</p>
       )}
     </button>
   );
@@ -88,12 +88,12 @@ function SelectField({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sm font-semibold text-neutral-800">{label}</label>
+      <label className="text-sm font-semibold text-foreground">{label}</label>
       <div className="relative">
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full appearance-none bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition pr-10"
+          className="w-full appearance-none bg-card border border-border-default rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition pr-10"
         >
           {options.map((o) => (
             <option key={o} value={o}>
@@ -103,7 +103,7 @@ function SelectField({
         </select>
         <ChevronDown
           size={16}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground-muted pointer-events-none"
         />
       </div>
     </div>
@@ -186,7 +186,7 @@ export default function AddProductPage() {
     <main className="flex flex-col max-w-md w-full pb-10">
 
         {/* ── Header ── */}
-        <div className="bg-white px-4 pt-10 pb-4 sticky top-0 z-10 border-b border-neutral-100">
+        <div className="bg-card px-4 pt-10 pb-4 sticky top-0 z-10 border-b border-border-default">
           <PageHeader title="Add Product" />
         </div>
 
@@ -196,10 +196,10 @@ export default function AddProductPage() {
           <section className=" px-4 pt-5 pb-4 flex flex-col gap-3">
             <div className="flex items-start justify-between">
               <div>
-                <p className="font-bold text-sm text-neutral-900">Product Images</p>
-                <p className="text-neutral-400 text-xs mt-0.5">Upload 6 – 8 images</p>
+                <p className="font-bold text-sm text-foreground">Product Images</p>
+                <p className="text-foreground-muted text-xs mt-0.5">Upload 6 – 8 images</p>
               </div>
-              <p className="text-neutral-400 text-xs">
+              <p className="text-foreground-muted text-xs">
                 {images.length}/{MAX_IMAGES} images uploaded
               </p>
             </div>
@@ -230,58 +230,58 @@ export default function AddProductPage() {
             />
 
             {/* Angle hints */}
-            <p className="text-neutral-500 text-xs leading-relaxed">
+            <p className="text-foreground-muted text-xs leading-relaxed">
               Upload clear photos from the angles below to get more buyers to trust and sell faster
             </p>
             <div className="flex gap-4">
               {angleHints.map(({ label, Icon }) => (
                 <div key={label} className="flex flex-col items-center gap-1">
-                  <div className="size-10 rounded-full bg-neutral-100 flex items-center justify-center">
-                    <Icon size={18} className="text-neutral-500" />
+                  <div className="size-10 rounded-full bg-surface-muted flex items-center justify-center">
+                    <Icon size={18} className="text-foreground-muted" />
                   </div>
-                  <p className="text-[10px] text-neutral-500">{label}</p>
+                  <p className="text-[10px] text-foreground-muted">{label}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          <div className="h-2 bg-background-subtle" />
+          <div className="h-2 bg-surface-muted" />
 
           {/* ── Product Name ── */}
           <section className=" px-4 py-5 flex flex-col gap-1.5">
-            <label className="text-sm font-semibold text-neutral-800">Product Name</label>
+            <label className="text-sm font-semibold text-foreground">Product Name</label>
             <input
               type="text"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
               placeholder="Enter the name of your product"
-              className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition"
+              className="w-full bg-surface-muted border border-border-default rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition"
             />
           </section>
 
-          <div className="h-2 bg-background-subtle" />
+          <div className="h-2 bg-surface-muted" />
 
           {/* ── Description ── */}
           <section className=" px-4 py-5 flex flex-col gap-1.5">
-            <label className="text-sm font-semibold text-neutral-800">Description</label>
+            <label className="text-sm font-semibold text-foreground">Description</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter a detailed description of your product"
               rows={5}
-              className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition resize-none"
+              className="w-full bg-surface-muted border border-border-default rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition resize-none"
             />
           </section>
 
-          <div className="h-2 bg-background-subtle" />
+          <div className="h-2 bg-surface-muted" />
 
           {/* ── Price & Quantity ── */}
           <section className=" px-4 py-5 grid grid-cols-2 gap-4">
             {/* Price */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-neutral-800">Price</label>
+              <label className="text-sm font-semibold text-foreground">Price</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground-muted text-sm font-medium">
                   ₦
                 </span>
                 <input
@@ -289,29 +289,29 @@ export default function AddProductPage() {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="0"
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl pl-7 pr-3 py-3 text-sm text-neutral-700 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition"
+                  className="w-full bg-surface-muted border border-border-default rounded-xl pl-7 pr-3 py-3 text-sm text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-seller-main/30 focus:border-seller-main transition"
                 />
               </div>
             </div>
 
             {/* Quantity */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-neutral-800">Quantity</label>
-              <div className="flex items-center gap-2 bg-neutral-50 border border-neutral-200 rounded-xl px-3 py-2.5">
-                <span className="flex-1 text-sm text-neutral-700 font-medium text-center">
+              <label className="text-sm font-semibold text-foreground">Quantity</label>
+              <div className="flex items-center gap-2 bg-surface-muted border border-border-default rounded-xl px-3 py-2.5">
+                <span className="flex-1 text-sm text-foreground font-medium text-center">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="size-6 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-200 transition shrink-0"
+                  className="size-6 rounded-full border border-border-default flex items-center justify-center hover:bg-neutral-200 transition shrink-0"
                 >
                   <Minus size={12} />
                 </button>
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="size-6 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-200 transition shrink-0"
+                  className="size-6 rounded-full border border-border-default flex items-center justify-center hover:bg-neutral-200 transition shrink-0"
                 >
                   <Plus size={12} />
                 </button>
@@ -319,7 +319,7 @@ export default function AddProductPage() {
             </div>
           </section>
 
-          <div className="h-2 bg-background-subtle" />
+          <div className="h-2 bg-surface-muted" />
 
           {/* ── Category & Condition ── */}
           <section className=" px-4 py-5 grid grid-cols-2 gap-4">
@@ -337,7 +337,7 @@ export default function AddProductPage() {
             />
           </section>
 
-          <div className="h-2 bg-background-subtle" />
+          <div className="h-2 bg-surface-muted" />
 
           {/* ── Pickup Location & Availability ── */}
           <section className=" px-4 py-5 grid grid-cols-2 gap-4">
@@ -358,7 +358,7 @@ export default function AddProductPage() {
           <div className="h-2 bg-[#f1f1f1]" />
 
           {/* ── Submit ── */}
-          {/* <section className="bg-white px-4 py-5">
+          {/* <section className="bg-card px-4 py-5">
             <button
               type="submit"
               className="w-full py-4 rounded-full bg-seller-main text-white font-bold text-sm hover:bg-seller-hover active:scale-[0.98] transition-all shadow-md"

@@ -1,5 +1,7 @@
+"use client";
+import BottomFloatingBar, { BottomFloatingBarContainer } from './BottomFloatingBar';
 import { useRouter } from "next/navigation";
-import { useCartStore } from "../store/useCartStore";
+import { useCartStore, selectTotalPrice } from "../store/useCartStore";
 import { useEffect, useState } from "react";
 
 export default function CheckoutNav({
@@ -11,7 +13,7 @@ export default function CheckoutNav({
 }) {
   const router = useRouter();
   const { cart } = useCartStore();
-  const totalPrice = useCartStore((state) => state.getTotalPrice());
+  const totalPrice = useCartStore(selectTotalPrice);
   const totalQty = cart.reduce((s, i) => s + i.quantity, 0);
 
   const [mounted, setMounted] = useState(false);
@@ -22,13 +24,13 @@ export default function CheckoutNav({
 
   if (!mounted) return null;
   return (
-    <nav className="fixed bottom-0 left-0 right-0 flex justify-center pb-6 font-dmSans tracking-tight z-50">
-      <div className="backdrop-blur-xs flex justify-center items-center py-2 px-2 rounded-full border border-neutral-200 w-[90%] sm:w-[80%] bg-white/30 max-w-sm sm:max-w-md gap-2">
+    <BottomFloatingBar zIndex={50}>
+      <BottomFloatingBarContainer className="gap-2">
         <div className="w-full flex justify-center">
           <p className="text-main font-semibold text-lg">₦{totalPrice}</p>
         </div>
         <button
-          className="w-full h-10 rounded-full border bg-main border-neutral-200 disabled:opacity-40 transition-all duration-300"
+          className="w-full h-10 rounded-full border bg-main border-border-default disabled:opacity-40 transition-all duration-300"
           onClick={() => router.push("/"+link)}
           disabled={cart.length <= 0}
         >
@@ -36,7 +38,7 @@ export default function CheckoutNav({
             {text} ({totalQty})
           </p>
         </button>
-      </div>
-    </nav>
+      </BottomFloatingBarContainer>
+    </BottomFloatingBar>
   );
 }

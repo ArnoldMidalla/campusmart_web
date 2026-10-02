@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { listingsApi } from '../listings';
-import type { SellerProduct } from '@/app/store/useProductsStore';
+import type { SellerProduct } from "@/types";
 
 // ─── Query keys ───────────────────────────────────────────────────────────────
 
@@ -18,38 +18,56 @@ export function useSellerListings() {
   });
 }
 
+/** Select one listing from the cache by id — no extra network request. */
+export function useSellerListing(id: string) {
+  return useQuery({
+    queryKey: listingsKeys.all,
+    queryFn: () => listingsApi.fetchListings(),
+    select: (data) => data.find((p) => p.id === id),
+  });
+}
+
 // ─── Mutations ────────────────────────────────────────────────────────────────
 
-/** Create a new listing, then refetch the list. */
+/** Create a new listing, then optimistically add it to the cache. */
 export function useCreateListing() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: Omit<SellerProduct, 'id'>) => listingsApi.createListing(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: listingsKeys.all });
+    onSuccess: (newProduct) => {
+      queryClient.setQueryData(listingsKeys.all, (oldData: SellerProduct[] | undefined) => {
+        if (!oldData) return [newProduct];
+        return [...oldData, newProduct];
+      });
     },
   });
 }
 
-/** Update an existing listing field (e.g. status), then refetch the list. */
+/** Update an existing listing field (e.g. status), then update the cache directly. */
 export function useUpdateListing() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, updates }: { id: string; updates: Partial<SellerProduct> }) =>
       listingsApi.updateListing(id, updates),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: listingsKeys.all });
+    onSuccess: (updatedProduct) => {
+      queryClient.setQueryData(listingsKeys.all, (oldData: SellerProduct[] | undefined) => {
+        if (!oldData) return oldData;
+        return oldData.map(item => item.id === updatedProduct.id ? updatedProduct : item);
+      });
     },
   });
 }
 
-/** Delete a listing, then refetch the list. */
+/** Delete a listing, then remove it from the cache. */
 export function useDeleteListing() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => listingsApi.deleteListing(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: listingsKeys.all });
+    onSuccess: (_, deletedId) => {
+      queryClient.setQueryData(listingsKeys.all, (oldData: SellerProduct[] | undefined) => {
+        if (!oldData) return oldData;
+        return oldData.filter(item => item.id !== deletedId);
+      });
     },
   });
 }

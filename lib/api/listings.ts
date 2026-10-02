@@ -1,5 +1,5 @@
 import { fetchApi } from './client';
-import type { SellerProduct } from '@/app/store/useProductsStore';
+import type { SellerProduct } from "@/types";
 
 export const listingsApi = {
   // Fetch all listings for the current seller

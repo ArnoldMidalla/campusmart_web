@@ -23,8 +23,8 @@ export default function PageHero({
         <Icon size={30} className={iconColor} />
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-neutral-800">{title}</p>
-        {subtitle && <p className="text-sm text-neutral-500 mt-1">{subtitle}</p>}
+        <p className="text-lg font-bold text-foreground">{title}</p>
+        {subtitle && <p className="text-sm text-foreground-muted mt-1">{subtitle}</p>}
       </div>
     </div>
   );

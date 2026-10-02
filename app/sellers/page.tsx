@@ -19,7 +19,7 @@ function StatCard({ label, value, change, className = "" }: StatCardProps) {
   const isPositive = change >= 0;
   return (
     <div
-      className={`flex flex-col gap-1 rounded-xl p-4 bg-white/10 backdrop-blur-sm border border-white/20 ${className}`}
+      className={`flex flex-col gap-1 rounded-xl p-4 bg-card/10 backdrop-blur-sm border border-white/20 ${className}`}
     >
       <div className="flex items-center justify-between">
         <p className="text-white/70 text-xs font-medium">{label}</p>
@@ -94,9 +94,12 @@ export default function SellersPage() {
                 Manage your business smoothly
               </p>
             </div>
-            <button className="size-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition">
+            <Link
+              href="/sellers/notifications"
+              className="size-9 rounded-full bg-card/10 border border-white/20 flex items-center justify-center text-white hover:bg-card/20 transition"
+            >
               <Bell size={18} />
-            </button>
+            </Link>
           </div>
 
           {/* Stats grid */}
@@ -122,7 +125,7 @@ export default function SellersPage() {
           />
 
           {/* Online / Offline Toggle */}
-          <div className="flex items-center bg-white/10 border border-white/20 rounded-full p-1 self-center w-full max-w-xs">
+          <div className="flex items-center bg-card/10 border border-white/20 rounded-full p-1 self-center w-full max-w-xs">
             <button
               onClick={() => setIsOnline(false)}
               className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${
@@ -134,7 +137,7 @@ export default function SellersPage() {
             <button
               onClick={() => setIsOnline(true)}
               className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${
-                isOnline ? "bg-white text-seller-dark shadow" : "text-white/60"
+                isOnline ? "bg-card text-seller-dark shadow" : "text-white/60"
               }`}
             >
               Go Online
@@ -144,17 +147,17 @@ export default function SellersPage() {
 
         {/* ── Best Performing ── */}
         <section className="flex flex-col gap-4 px-4 py-5">
-          <p className="text-black font-bold text-lg tracking-tight">
+          <p className="text-foreground font-bold text-lg tracking-tight">
             Best Performing
           </p>
           <BestPerformingCard />
         </section>
 
         {/* ── Action Buttons ── */}
-        <section className="flex flex-col gap-3 px-4 pt-2 pb-6 border-t border-neutral-100">
+        <section className="flex flex-col gap-3 px-4 pt-2 pb-6 border-t border-border-default">
           <Link
             href="/sellers/addProduct"
-            className="bg-white flex items-center justify-center gap-2 w-full py-3.5 rounded-full shadow-md text-seller-dark font-semibold text-sm hover:bg-seller-dark/5 transition"
+            className="bg-card flex items-center justify-center gap-2 w-full py-3.5 rounded-full shadow-md text-seller-dark font-semibold text-sm hover:bg-seller-dark/5 transition"
           >
             <Package size={18} />
             Add Product

@@ -11,14 +11,14 @@ export default function CategoryItem({ category, isActive, onClick }: Props) {
     <button
       key={category.name}
       onClick={onClick}
-      className="flex flex-col items-center gap-2"
+      className="flex flex-col items-center gap-2 transition-all duration-150 active:scale-95 active:opacity-80"
     >
       <div
         className={`p-2 rounded-full border shadow-lg transition-all duration-300
                     ${
                       isActive
                         ? "bg-main border-main text-white"
-                        : "border-neutral-200 text-black"
+                        : "border-border-default text-foreground"
                     }`}
       >
         <category.Icon size={20} strokeWidth={1.6} />

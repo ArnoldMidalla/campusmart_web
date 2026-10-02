@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { LogOut, Edit2 } from "lucide-react";
@@ -47,7 +47,7 @@ export default function ProfilePage() {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <h2 className="text-lg font-semibold text-neutral-800">
+                  <h2 className="text-lg font-semibold text-foreground">
                     {user.name}
                   </h2>
                   {user.verified && (
@@ -56,13 +56,13 @@ export default function ProfilePage() {
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-neutral-700 mb-1">{user.email}</p>
-                <p className="text-sm text-neutral-600">{user.phone}</p>
-                <p className="text-xs text-neutral-500 mt-2">
+                <p className="text-sm text-foreground mb-1">{user.email}</p>
+                <p className="text-sm text-foreground-muted">{user.phone}</p>
+                <p className="text-xs text-foreground-muted mt-2">
                   Member since {user.joinedDate}
                 </p>
               </div>
-              <button className="p-2 bg-white rounded-full border border-blue-200 hover:bg-blue-50 transition">
+              <button className="p-2 bg-card rounded-full border border-blue-200 hover:bg-blue-50 transition">
                 <Edit2 size={18} className="text-blue-600" />
               </button>
             </div>
@@ -72,7 +72,7 @@ export default function ProfilePage() {
           <div className="flex flex-col gap-6 mt-2">
             {profileMenuGroups.map((group, groupIdx) => (
               <div key={group.title} className="flex flex-col gap-3">
-                <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+                <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
                   {group.title}
                 </p>
                 <div className="flex flex-col gap-2">
@@ -101,7 +101,7 @@ export default function ProfilePage() {
 
             {/* Danger Zone */}
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+              <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
                 Danger Zone
               </p>
               <ActionListItem
@@ -116,9 +116,9 @@ export default function ProfilePage() {
             </div>
 
             {/* Footer */}
-            <div className="pt-4 border-t border-neutral-200">
-              <p className="text-xs text-neutral-500 text-center">
-                Campusmart v1.0.0 • {new Date().getFullYear()}
+            <div className="pt-4 border-t border-border-default">
+              <p className="text-xs text-foreground-muted text-center">
+                Campusmart v1.0.0 â€¢ {new Date().getFullYear()}
               </p>
             </div>
           </div>
@@ -128,3 +128,4 @@ export default function ProfilePage() {
     </>
   );
 }
+

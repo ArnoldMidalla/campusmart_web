@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 
-import { type ProductStatus } from "@/app/store/useProductsStore";
+import { type ProductStatus } from "@/types";
 import { useSellerListings } from "@/lib/api/hooks/useSellerListings";
 import SearchBar from "@/app/components/SearchBar";
 import SellerProductCard from "@/app/sellers/components/SellerProductCard";
@@ -29,7 +30,7 @@ export default function ProductsPage() {
     <main className="flex flex-col max-w-md w-full pb-32">
 
         {/* ── Sticky top bar ── */}
-        <div className="sticky top-0 z-10 bg-white pt-10 pb-3 px-4 flex flex-col gap-3">
+        <div className="sticky top-0 z-10 bg-card pt-10 pb-3 px-4 flex flex-col gap-3">
 
           <SearchBar/>
 
@@ -42,7 +43,7 @@ export default function ProductsPage() {
                 className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-semibold transition-all border ${
                   activeTab === tab
                     ? "bg-seller-main text-white border-seller-main"
-                    : "bg-white text-neutral-600 border-neutral-200"
+                    : "bg-card text-foreground-muted border-border-default"
                 }`}
               >
                 {tab}
@@ -54,7 +55,7 @@ export default function ProductsPage() {
         {/* ── Product list ── */}
         <div className="flex flex-col gap-3 px-4 pt-1 mt-2">
           {isLoading ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-3 text-neutral-400">
+            <div className="flex flex-col items-center justify-center py-20 gap-3 text-foreground-muted">
               <p className="text-sm">Loading products…</p>
             </div>
           ) : isError ? (
@@ -62,12 +63,14 @@ export default function ProductsPage() {
               <p className="text-sm">Failed to load products. Please try again.</p>
             </div>
           ) : filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-3 text-neutral-400">
+            <div className="flex flex-col items-center justify-center py-20 gap-3 text-foreground-muted">
               <p className="text-sm">No products found</p>
             </div>
           ) : (
             filtered.map((product) => (
-              <SellerProductCard key={product.id} product={product} />
+              <Link key={product.id} href={`/sellers/products/${product.id}`}>
+                <SellerProductCard product={product} />
+              </Link>
             ))
           )}
         </div>

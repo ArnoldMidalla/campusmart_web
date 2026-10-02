@@ -51,7 +51,7 @@ export default function FeaturedBanner() {
   };
 
   return (
-    <section className="flex flex-col gap-2 bg-white py-4 px-4">
+    <section className="flex flex-col gap-2 bg-card py-4 px-4">
       <div className="flex justify-between items-center">
         <p className="text-sm font-medium">Featured</p>
       </div>
@@ -84,7 +84,7 @@ export default function FeaturedBanner() {
               </p>
             </div>
             <button
-              className={`relative z-10 ${featured.textColor} flex items-center gap-1 px-3 py-1.5 rounded-full border border-current bg-white/10 backdrop-blur-sm hover:bg-white/20 transition text-xs font-medium`}
+              className={`relative z-10 ${featured.textColor} flex items-center gap-1 px-3 py-1.5 rounded-full border border-current bg-card/10 backdrop-blur-sm hover:bg-card/20 transition text-xs font-medium`}
               onClick={(e) => {
                 e.preventDefault();
               }}

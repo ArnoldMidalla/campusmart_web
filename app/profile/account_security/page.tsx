@@ -55,11 +55,11 @@ function Enable2FASheet({
                 label={opt.label}
                 description={opt.sub}
                 onClick={() => setMethod(opt.id)}
-                className={selected ? "border-main bg-white" : "border-neutral-200 bg-white"}
-                iconBg={selected ? "bg-orange-50" : "bg-neutral-100"}
-                iconColor={selected ? "text-main" : "text-neutral-500"}
+                className={selected ? "border-main bg-card" : "border-border-default bg-card"}
+                iconBg={selected ? "bg-orange-50" : "bg-surface-muted"}
+                iconColor={selected ? "text-main" : "text-foreground-muted"}
                 rightElement={
-                  <div className={`size-[22px] rounded-full border-2 flex items-center justify-center shrink-0 ${selected ? "border-main" : "border-neutral-300"}`}>
+                  <div className={`size-[22px] rounded-full border-2 flex items-center justify-center shrink-0 ${selected ? "border-main" : "border-border-default"}`}>
                     {selected && <div className="size-3 rounded-full bg-main" />}
                   </div>
                 }
@@ -77,7 +77,7 @@ function Enable2FASheet({
           </button>
           <button
             onClick={onClose}
-            className="w-full bg-neutral-100 text-neutral-700 rounded-2xl py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
+            className="w-full bg-surface-muted text-foreground rounded-2xl py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
           >
             Not Now
           </button>
@@ -124,7 +124,7 @@ function Disable2FASheet({
           </button>
           <button
             onClick={onClose}
-            className="w-full bg-neutral-100 text-neutral-700 rounded-2xl py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
+            className="w-full bg-surface-muted text-foreground rounded-2xl py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
           >
             Cancel
           </button>
@@ -173,7 +173,7 @@ export default function AccountSecurityPage() {
         <div className="flex flex-col gap-7">
           {/* LOGIN & PASSWORD */}
           <section className="flex flex-col gap-3">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Login &amp; Password
             </p>
 
@@ -191,7 +191,7 @@ export default function AccountSecurityPage() {
               customIcon={<span className="text-[10px] font-bold text-main leading-none">2FA</span>}
               label="Two-Factor Authentication"
               description={
-                <p className={`text-xs font-medium ${twoFactorEnabled ? "text-green-500" : "text-neutral-500"}`}>
+                <p className={`text-xs font-medium ${twoFactorEnabled ? "text-green-500" : "text-foreground-muted"}`}>
                   {twoFactorEnabled ? "Enabled — Extra layer active" : "Add extra layer of security"}
                 </p>
               }
@@ -205,7 +205,7 @@ export default function AccountSecurityPage() {
                   }`}
                 >
                   <span
-                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300 ${
+                    className={`inline-block h-5 w-5 transform rounded-full bg-card shadow-md transition-transform duration-300 ${
                       twoFactorEnabled ? "translate-x-6" : "translate-x-1"
                     }`}
                   />
@@ -216,7 +216,7 @@ export default function AccountSecurityPage() {
 
           {/* VERIFICATION */}
           <section className="flex flex-col gap-3">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Verification
             </p>
 
@@ -240,7 +240,7 @@ export default function AccountSecurityPage() {
 
           {/* SESSIONS */}
           <section className="flex flex-col gap-3">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Sessions
             </p>
             <ActionListItem

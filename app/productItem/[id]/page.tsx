@@ -56,13 +56,13 @@ export default function ProductItem() {
       <div className="flex gap-3">
         <Link
           href={"/categories"}
-          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
+          className="size-8 bg-card rounded-full border border-border-default flex justify-center items-center shadow-lg hover:bg-surface-muted transition"
         >
           <Search size={16} />
         </Link>
         <button
           onClick={() => router.push("/")}
-          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
+          className="size-8 bg-card rounded-full border border-border-default flex justify-center items-center shadow-lg hover:bg-surface-muted transition"
         >
           <Share2 size={16} />
         </button>
@@ -77,7 +77,7 @@ export default function ProductItem() {
               category: product.category,
             })
           }
-          className="size-8 bg-white rounded-full border border-neutral-200 flex justify-center items-center shadow-lg hover:bg-neutral-50 transition"
+          className="size-8 bg-card rounded-full border border-border-default flex justify-center items-center shadow-lg hover:bg-surface-muted transition"
         >
           {isHearted ? (
             <Heart size={16} fill="#ff681f" color="#ff681f" />
@@ -106,10 +106,10 @@ export default function ProductItem() {
 
           <div className="flex flex-col gap-2 px-6 pt-6">
             <p className="text-lg font-semibold">{product.name}</p>
-            <p className="text-black/50 text-sm leading-4">
+            <p className="text-foreground/50 text-sm leading-4">
               {product.productDetails}
             </p>
-            <div className="flex gap-2 text-sm text-neutral-600">
+            <div className="flex gap-2 text-sm text-foreground-muted">
               <div className="flex gap-0.5 items-center">
                 <Star fill="#ff681f" color="#ff681f" size={14} />
                 <p>{product.avgRating}</p>
@@ -139,11 +139,11 @@ export default function ProductItem() {
                       <button
                         key={size}
                         onClick={() => handlePress(size)}
-                        className={`flex justify-center items-center size-8 rounded-md border border-neutral-200 shadow-md/5 transition-all duration-300
+                        className={`flex justify-center items-center size-8 rounded-md border border-border-default shadow-md/5 transition-all duration-300
                       ${
                         isActive
                           ? "bg-blue-950 border-main text-white"
-                          : "bg-white text-black"
+                          : "bg-card text-foreground"
                       }`}
                       >
                         <p className="text-xs font-medium tracking-tight">
@@ -171,7 +171,7 @@ export default function ProductItem() {
             <div className="flex flex-col gap-2">
               {product.reviews.map((review) => (
                 <div
-                  className="p-4 rounded-xl border border-neutral-200 flex flex-col gap-2"
+                  className="p-4 rounded-xl border border-border-default flex flex-col gap-2"
                   key={review.id}
                 >
                   <div className="flex justify-between text-xs opacity-70 items-center">
@@ -201,7 +201,7 @@ export default function ProductItem() {
             </div>
             <div className="flex justify-between">
               <div className="flex gap-2 items-center">
-                <div className="size-7 rounded-full bg-neutral-500"></div>
+                <div className="size-7 rounded-full bg-surface-muted0"></div>
                 <div>
                   <div className="flex gap-1.5 items-center">
                     <p className="text-sm font-medium">{product.sellerName}</p>
@@ -209,7 +209,7 @@ export default function ProductItem() {
                       <BadgeCheck color="#ff681f" strokeWidth={3} size={16} />
                     )}
                   </div>
-                  <div className="flex gap-1.5 text-xs text-black/70 items-center">
+                  <div className="flex gap-1.5 text-xs text-foreground/70 items-center">
                     <p>{product.sellerSold}</p>
                     <div className="h-3.5 rounded w-0.5 bg-neutral-200" />
                     <p>{product.sellerRating}</p>
@@ -218,7 +218,7 @@ export default function ProductItem() {
               </div>
               <Link
                 href={"/"}
-                className="size-8 border border-neutral-200 shadow-lg/10 rounded-full flex justify-center items-center"
+                className="size-8 border border-border-default shadow-lg/10 rounded-full flex justify-center items-center"
               >
                 <ChevronRight size={18} />
               </Link>
@@ -228,7 +228,7 @@ export default function ProductItem() {
             <div className="w-full flex justify-between mt-4">
               <p className="text-sm font-medium ">Key Features</p>
             </div>
-            <p className="text-black/70 text-sm">{product.keyFeatures}</p>
+            <p className="text-foreground/70 text-sm">{product.keyFeatures}</p>
 
             <div className="w-full flex justify-between mt-4">
               <p className="text-sm font-medium ">Best Picks</p>

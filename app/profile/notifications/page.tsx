@@ -39,7 +39,7 @@ function Toggle({
       }`}
     >
       <span
-        className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300 ${
+        className={`inline-block h-5 w-5 transform rounded-full bg-card shadow-md transition-transform duration-300 ${
           enabled ? "translate-x-6" : "translate-x-1"
         }`}
       />
@@ -71,8 +71,8 @@ function NotificationRow({
         <Icon size={18} className="text-main" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-neutral-800">{label}</p>
-        <p className="text-xs text-neutral-500">{description}</p>
+        <p className="text-sm font-medium text-foreground">{label}</p>
+        <p className="text-xs text-foreground-muted">{description}</p>
       </div>
       <Toggle enabled={enabled} onToggle={onToggle} id={id} />
     </div>
@@ -203,16 +203,16 @@ function ConfirmSheet({
           <div className={`size-16 rounded-full ${cfg.subscribeIconBg} flex items-center justify-center`}>
             <SIcon size={28} className={cfg.subscribeIconColor} />
           </div>
-          <h2 className="text-[18px] font-bold text-neutral-900 text-center">
+          <h2 className="text-[18px] font-bold text-foreground text-center">
             {cfg.subscribeTitle}
           </h2>
-          <p className="text-sm text-neutral-500 text-center leading-relaxed">
+          <p className="text-sm text-foreground-muted text-center leading-relaxed">
             {cfg.subscribeBody}
           </p>
           {cfg.subscribeBullets && (
             <div className="flex gap-6 justify-center">
               {cfg.subscribeBullets.map((b) => (
-                <span key={b} className="flex items-center gap-1 text-sm text-neutral-700">
+                <span key={b} className="flex items-center gap-1 text-sm text-foreground">
                   <span className="text-green-500 font-bold">✓</span> {b}
                 </span>
               ))}
@@ -226,7 +226,7 @@ function ConfirmSheet({
           </button>
           <button
             onClick={onCancel}
-            className="w-full bg-neutral-100 text-neutral-700 rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
+            className="w-full bg-surface-muted text-foreground rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
           >
             No Thanks
           </button>
@@ -246,17 +246,17 @@ function ConfirmSheet({
         </div>
 
         {/* Title */}
-        <h2 className="text-[18px] font-bold text-neutral-900 text-center">
+        <h2 className="text-[18px] font-bold text-foreground text-center">
           {cfg.title}
         </h2>
 
         {/* Body + optional bullets */}
         <div className="text-center">
-          <p className="text-sm text-neutral-500 leading-relaxed">{cfg.body}</p>
+          <p className="text-sm text-foreground-muted leading-relaxed">{cfg.body}</p>
           {cfg.bullets && (
             <ul className="mt-2 text-left inline-block space-y-1">
               {cfg.bullets.map((b) => (
-                <li key={b} className="flex items-start gap-2 text-sm text-neutral-600">
+                <li key={b} className="flex items-start gap-2 text-sm text-foreground-muted">
                   <span className="text-main mt-0.5">•</span>
                   {b}
                 </li>
@@ -284,7 +284,7 @@ function ConfirmSheet({
             </button>
             <button
               onClick={onCancel}
-              className="flex-1 bg-neutral-100 text-neutral-700 rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
+              className="flex-1 bg-surface-muted text-foreground rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
             >
               Keep Enabled
             </button>
@@ -300,7 +300,7 @@ function ConfirmSheet({
             </button>
             <button
               onClick={onCancel}
-              className="w-full bg-neutral-100 text-neutral-700 rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
+              className="w-full bg-surface-muted text-foreground rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
             >
               Keep Enabled
             </button>
@@ -349,7 +349,7 @@ export default function NotificationsPage() {
           <div className="size-16 rounded-full bg-orange-100 flex items-center justify-center">
             <Bell size={30} className="text-main" />
           </div>
-          <p className="text-lg font-semibold text-neutral-800 text-center">
+          <p className="text-lg font-semibold text-foreground text-center">
             Customize your Notifications
           </p>
         </div>
@@ -357,7 +357,7 @@ export default function NotificationsPage() {
         <div className="flex flex-col gap-7">
           {/* PUSH NOTIFICATIONS */}
           <section className="flex flex-col gap-4">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Push Notifications
             </p>
             <NotificationRow
@@ -368,7 +368,7 @@ export default function NotificationsPage() {
               enabled={prefs.orderUpdates}
               onToggle={() => handleToggle("orderUpdates")}
             />
-            <div className="h-px bg-neutral-100" />
+            <div className="h-px bg-surface-muted" />
             <NotificationRow
               id="toggle-promotions"
               icon={TagIcon}
@@ -377,7 +377,7 @@ export default function NotificationsPage() {
               enabled={prefs.promotions}
               onToggle={() => handleToggle("promotions")}
             />
-            <div className="h-px bg-neutral-100" />
+            <div className="h-px bg-surface-muted" />
             <NotificationRow
               id="toggle-chat-messages"
               icon={MessageSquareOff}
@@ -390,7 +390,7 @@ export default function NotificationsPage() {
 
           {/* VERIFICATION */}
           <section className="flex flex-col gap-4">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               Verification
             </p>
             <NotificationRow
@@ -401,7 +401,7 @@ export default function NotificationsPage() {
               enabled={prefs.newsletter}
               onToggle={() => handleToggle("newsletter")}
             />
-            <div className="h-px bg-neutral-100" />
+            <div className="h-px bg-surface-muted" />
             <NotificationRow
               id="toggle-account-activity"
               icon={UserRound}

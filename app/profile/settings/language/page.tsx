@@ -30,19 +30,19 @@ function LangRow({
       <div>
         <p
           className={`text-[15px] leading-snug ${
-            selected ? "font-bold text-neutral-900" : "font-medium text-neutral-800"
+            selected ? "font-bold text-foreground" : "font-medium text-foreground"
           }`}
         >
           {label}
         </p>
-        <p className="text-xs text-neutral-400 mt-0.5">{native}</p>
+        <p className="text-xs text-foreground-muted mt-0.5">{native}</p>
       </div>
 
       {/* Radio circle / filled check */}
       {selected ? (
         <CheckCircle2 size={22} className="text-main shrink-0" fill="#ff681f" color="white" />
       ) : (
-        <div className="size-5 rounded-full border-2 border-neutral-300 shrink-0" />
+        <div className="size-5 rounded-full border-2 border-border-default shrink-0" />
       )}
     </button>
   );
@@ -92,15 +92,15 @@ export default function LanguageSelectPage() {
         <PageHeader title="Select Language" showBack={true} />
 
         {/* Search bar */}
-        <div className="mt-6 mb-6 flex items-center gap-2 bg-neutral-100 rounded-full px-4 py-3">
-          <Search size={16} className="text-neutral-400 shrink-0" />
+        <div className="mt-6 mb-6 flex items-center gap-2 bg-surface-muted rounded-full px-4 py-3">
+          <Search size={16} className="text-foreground-muted shrink-0" />
           <input
             id="language-search"
             type="text"
             placeholder="Search language"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-transparent flex-1 text-sm text-neutral-700 placeholder-neutral-400 outline-none"
+            className="bg-transparent flex-1 text-sm text-foreground placeholder-neutral-400 outline-none"
           />
         </div>
 
@@ -109,7 +109,7 @@ export default function LanguageSelectPage() {
           {/* ── SUGGESTED ── */}
           {filteredSuggested.length > 0 && (
             <section>
-              <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-1">
+              <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase mb-1">
                 Suggested
               </p>
               <div className="divide-y divide-neutral-100">
@@ -129,7 +129,7 @@ export default function LanguageSelectPage() {
           {/* ── ALL LANGUAGES ── */}
           {filteredAll.length > 0 && (
             <section>
-              <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-1">
+              <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase mb-1">
                 All Languages
               </p>
               <div className="divide-y divide-neutral-100">
@@ -148,7 +148,7 @@ export default function LanguageSelectPage() {
 
           {/* Empty state */}
           {filteredSuggested.length === 0 && filteredAll.length === 0 && (
-            <div className="flex flex-col items-center gap-2 py-12 text-neutral-400">
+            <div className="flex flex-col items-center gap-2 py-12 text-foreground-muted">
               <Search size={32} />
               <p className="text-sm">No languages found for &ldquo;{query}&rdquo;</p>
             </div>

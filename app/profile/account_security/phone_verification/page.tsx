@@ -82,10 +82,10 @@ function OTPInput({
           onKeyDown={(e) => handleKeyDown(i, e)}
           className={`size-12 text-center text-xl font-bold rounded-2xl border-2 outline-none transition-all duration-200 ${
             value[i]
-              ? "border-main text-neutral-900"
+              ? "border-main text-foreground"
               : i === filled
-              ? "border-main/60 bg-white"   // active cursor slot
-              : "border-neutral-200 bg-neutral-50 text-transparent"
+              ? "border-main/60 bg-card"   // active cursor slot
+              : "border-border-default bg-surface-muted text-transparent"
           }`}
         />
       ))}
@@ -148,24 +148,24 @@ export default function PhoneVerificationPage() {
           <div className="size-16 rounded-full bg-orange-100 flex items-center justify-center">
             <Smartphone size={28} className="text-main" />
           </div>
-          <p className="text-lg font-bold text-neutral-800">Verify Your Phone Number</p>
-          <p className="text-sm text-neutral-500">We&apos;ll send a 6-digit code via SMS</p>
+          <p className="text-lg font-bold text-foreground">Verify Your Phone Number</p>
+          <p className="text-sm text-foreground-muted">We&apos;ll send a 6-digit code via SMS</p>
         </div>
 
         {/* ── STEP 1: Phone input ── */}
         {step === "phone" && (
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-neutral-700">Phone Number</label>
-              <div className="flex items-center gap-3 bg-neutral-100 rounded-2xl px-4 py-3.5">
-                <Phone size={16} className="text-neutral-400 shrink-0" />
+              <label className="text-sm font-medium text-foreground">Phone Number</label>
+              <div className="flex items-center gap-3 bg-surface-muted rounded-2xl px-4 py-3.5">
+                <Phone size={16} className="text-foreground-muted shrink-0" />
                 <input
                   id="phone-number"
                   type="tel"
                   placeholder="Phone Number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="flex-1 bg-transparent text-sm text-neutral-800 placeholder-neutral-400 outline-none"
+                  className="flex-1 bg-transparent text-sm text-foreground placeholder-neutral-400 outline-none"
                 />
               </div>
             </div>
@@ -176,13 +176,13 @@ export default function PhoneVerificationPage() {
         {step === "otp" && (
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-neutral-700">Enter OTP Code</label>
+              <label className="text-sm font-medium text-foreground">Enter OTP Code</label>
               <OTPInput value={otp} onChange={setOtp} />
             </div>
 
             {/* Countdown */}
             <div className="flex flex-col items-center gap-1">
-              <p className="text-sm text-neutral-500">Resend code in</p>
+              <p className="text-sm text-foreground-muted">Resend code in</p>
               <p className={`text-xl font-bold ${expired ? "text-neutral-300" : "text-main"}`}>
                 {countdown}
               </p>
@@ -230,7 +230,7 @@ export default function PhoneVerificationPage() {
 
               {/* Resend */}
               <div className="flex flex-col items-center gap-1 mt-3">
-                <p className="text-sm text-neutral-500">Didn&apos;t receive the code?</p>
+                <p className="text-sm text-foreground-muted">Didn&apos;t receive the code?</p>
                 <button
                   onClick={handleResend}
                   disabled={!expired}

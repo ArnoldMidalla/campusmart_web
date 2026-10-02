@@ -34,8 +34,8 @@ function ConfirmClearSheet({
 
         {/* Title & body */}
         <div className="text-center">
-          <h2 className="text-[18px] font-bold text-neutral-900">Clear All Cache?</h2>
-          <p className="text-sm text-neutral-500 mt-1 leading-relaxed">
+          <h2 className="text-[18px] font-bold text-foreground">Clear All Cache?</h2>
+          <p className="text-sm text-foreground-muted mt-1 leading-relaxed">
             This will free up {totalMb.toFixed(1)} MB of space.{"\n"}
             Images and data will be reloaded as needed.
           </p>
@@ -43,7 +43,7 @@ function ConfirmClearSheet({
 
         {/* Warning pill */}
         <div className="w-full rounded-full border border-orange-200 bg-orange-50 px-4 py-2.5 text-center">
-          <span className="text-sm font-medium text-neutral-500">
+          <span className="text-sm font-medium text-foreground-muted">
             🗑️ This action cannot be undone
           </span>
         </div>
@@ -58,7 +58,7 @@ function ConfirmClearSheet({
           </button>
           <button
             onClick={onClose}
-            className="flex-1 bg-neutral-100 text-neutral-700 rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
+            className="flex-1 bg-surface-muted text-foreground rounded-full py-3.5 font-semibold text-[15px] hover:bg-neutral-200 transition-all"
           >
             Cancel
           </button>
@@ -94,10 +94,10 @@ export default function ClearCachePage() {
           <div className="size-16 rounded-full bg-orange-100 flex items-center justify-center">
             <Database size={28} className="text-main" />
           </div>
-          <p className="text-2xl font-bold text-neutral-900">
+          <p className="text-2xl font-bold text-foreground">
             {cleared ? "0.0" : TOTAL_MB.toFixed(1)} MB Used
           </p>
-          <p className="text-sm text-neutral-500">Cached data from browsing and activity</p>
+          <p className="text-sm text-foreground-muted">Cached data from browsing and activity</p>
 
           {/* Progress bar */}
           <div className="w-full h-2 bg-neutral-200 rounded-full mt-3 overflow-hidden">
@@ -110,7 +110,7 @@ export default function ClearCachePage() {
 
         {/* ── Storage breakdown ── */}
         <div className="flex flex-col gap-1">
-          <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-2">
+          <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase mb-2">
             Storage Breakdown
           </p>
 
@@ -122,8 +122,8 @@ export default function ClearCachePage() {
                   <Icon size={18} className="text-main" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-neutral-800">{item.label}</p>
-                  <p className="text-xs text-neutral-500">{item.description}</p>
+                  <p className="text-sm font-medium text-foreground">{item.label}</p>
+                  <p className="text-xs text-foreground-muted">{item.description}</p>
                 </div>
                 <p className={`text-sm font-semibold shrink-0 ${cleared ? "text-neutral-300 line-through" : "text-main"}`}>
                   {item.mb.toFixed(1)} MB
@@ -135,7 +135,7 @@ export default function ClearCachePage() {
           {/* Info banner */}
           <div className="mt-2 flex items-start gap-3 bg-orange-50 border border-orange-200 rounded-2xl px-4 py-3">
             <AlertCircle size={16} className="text-main shrink-0 mt-0.5" />
-            <p className="text-xs text-neutral-500 leading-relaxed">
+            <p className="text-xs text-foreground-muted leading-relaxed">
               Clearing cache won&apos;t delete your account data, saved items, or personal information.
             </p>
           </div>
@@ -150,7 +150,7 @@ export default function ClearCachePage() {
             disabled={cleared}
             className={`w-full rounded-full py-3.5 font-semibold text-[15px] border-2 transition-all ${
               cleared
-                ? "border-neutral-200 text-neutral-300 cursor-not-allowed"
+                ? "border-border-default text-neutral-300 cursor-not-allowed"
                 : "border-main text-main hover:bg-orange-50"
             }`}
           >

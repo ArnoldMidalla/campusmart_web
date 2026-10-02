@@ -37,7 +37,7 @@ export default function FeaturedStoreCard({ store }: StoreProps) {
   return (
     <Link
       href="#"
-      className="min-w-60 w-60 flex flex-col rounded-xl overflow-hidden border border-neutral-100"
+      className="min-w-60 w-60 flex flex-col rounded-xl overflow-hidden border border-border-default"
     >
       {/* Top Half: Solid Color */}
       <div 
@@ -46,7 +46,7 @@ export default function FeaturedStoreCard({ store }: StoreProps) {
       />
 
       {/* Bottom Half: White Body */}
-      <div className="relative bg-white p-4 pt-10 flex flex-col">
+      <div className="relative bg-card p-4 pt-10 flex flex-col">
         {/* Floating Circle Logo */}
         <div className="absolute -top-5 left-4 size-11 rounded-full border-3 border-white overflow-hidden bg-neutral-200 z-10">
           {/* <Image
@@ -60,15 +60,15 @@ export default function FeaturedStoreCard({ store }: StoreProps) {
 
         <div className="flex justify-between items-end">
           <div className="flex flex-col flex-1">
-            <h3 className="font-bold leading-tight text-neutral-900">
+            <h3 className="font-bold leading-tight text-foreground">
               {store.name}
             </h3>
-            <p className="text-xs text-neutral-500 font-normal mt-0.5">
+            <p className="text-xs text-foreground-muted font-normal mt-0.5">
               {store.category}
             </p>
           </div>
           <button className="rounded-full p-2 shadow-lg/15 transition shrink-0">
-            <ChevronRight size={18} className="text-neutral-700" />
+            <ChevronRight size={18} className="text-foreground" />
           </button>
         </div>
       </div>

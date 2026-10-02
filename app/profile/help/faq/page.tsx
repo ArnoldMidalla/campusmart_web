@@ -24,21 +24,21 @@ function AccordionItem({
   onToggle: () => void;
 }) {
   return (
-    <div className="rounded-2xl border border-neutral-200 overflow-hidden bg-white">
+    <div className="rounded-2xl border border-border-default overflow-hidden bg-card">
       <button
         onClick={onToggle}
         className="flex items-center justify-between w-full px-4 py-4 text-left gap-3"
       >
-        <p className="text-sm font-medium text-neutral-800 flex-1 leading-snug">{q}</p>
+        <p className="text-sm font-medium text-foreground flex-1 leading-snug">{q}</p>
         <div
           className={`size-7 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-            isOpen ? "bg-orange-100" : "bg-neutral-100"
+            isOpen ? "bg-orange-100" : "bg-surface-muted"
           }`}
         >
           {isOpen ? (
             <Minus size={14} className="text-main" />
           ) : (
-            <Plus size={14} className="text-neutral-500" />
+            <Plus size={14} className="text-foreground-muted" />
           )}
         </div>
       </button>
@@ -49,7 +49,7 @@ function AccordionItem({
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <p className="px-4 pb-4 text-sm text-neutral-500 leading-relaxed">{a}</p>
+        <p className="px-4 pb-4 text-sm text-foreground-muted leading-relaxed">{a}</p>
       </div>
     </div>
   );
@@ -81,15 +81,15 @@ export default function FAQPage() {
         <PageHeader title="FAQs" showBack={true} />
 
         {/* Search */}
-        <div className="mt-5 mb-4 flex items-center gap-2 bg-neutral-100 rounded-full px-4 py-3">
-          <Search size={16} className="text-neutral-400 shrink-0" />
+        <div className="mt-5 mb-4 flex items-center gap-2 bg-surface-muted rounded-full px-4 py-3">
+          <Search size={16} className="text-foreground-muted shrink-0" />
           <input
             id="faq-search"
             type="text"
             placeholder="Search FAQs"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-transparent flex-1 text-sm text-neutral-700 placeholder-neutral-400 outline-none"
+            className="bg-transparent flex-1 text-sm text-foreground placeholder-neutral-400 outline-none"
           />
         </div>
 
@@ -102,7 +102,7 @@ export default function FAQPage() {
               className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${
                 activeCategory === cat
                   ? "bg-main text-white border-main"
-                  : "bg-white text-main border-main"
+                  : "bg-card text-main border-main"
               }`}
             >
               {cat}
@@ -113,7 +113,7 @@ export default function FAQPage() {
         {/* Accordion list */}
         <div className="flex flex-col gap-3">
           {filtered.length === 0 ? (
-            <div className="flex flex-col items-center gap-2 py-12 text-neutral-400">
+            <div className="flex flex-col items-center gap-2 py-12 text-foreground-muted">
               <Search size={32} />
               <p className="text-sm">No FAQs found for &ldquo;{query}&rdquo;</p>
             </div>

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ordersApi } from '../orders';
-import type { SellerOrder, OrderStatus } from '@/app/store/useOrdersStore';
+import type { SellerOrder, OrderStatus } from "@/types";
 
 // ─── Query keys ───────────────────────────────────────────────────────────────
 
@@ -15,6 +15,15 @@ export function useSellerOrders() {
   return useQuery({
     queryKey: ordersKeys.all,
     queryFn: () => ordersApi.fetchOrders(),
+  });
+}
+
+/** Select one order from the cache by id — no extra network request. */
+export function useSellerOrder(id: string) {
+  return useQuery({
+    queryKey: ordersKeys.all,
+    queryFn: () => ordersApi.fetchOrders(),
+    select: (data) => data.find((o) => o.id === id),
   });
 }
 

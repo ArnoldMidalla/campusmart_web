@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Moon, Sun, Settings } from "lucide-react";
 import Nav from "../../components/nav";
 import PageHeader from "../../components/PageHeader";
@@ -37,10 +37,10 @@ function DarkModeSheet({
 
         {/* Title + subtitle */}
         <div className="text-center">
-          <h2 className="text-[18px] font-bold text-neutral-900">
+          <h2 className="text-[18px] font-bold text-foreground">
             {darkMode ? "Switch to Light Mode?" : "Enable Dark Mode?"}
           </h2>
-          <p className="text-sm text-neutral-500 mt-1 leading-relaxed">
+          <p className="text-sm text-foreground-muted mt-1 leading-relaxed">
             Switch to a darker theme that&apos;s easier on your eyes, especially at night.
           </p>
         </div>
@@ -50,8 +50,8 @@ function DarkModeSheet({
           {/* Light */}
           <button
             onClick={() => setPick("light")}
-            className={`relative flex-1 rounded-2xl border-2 p-4 flex flex-col items-start gap-2 transition-all bg-white ${
-              pick === "light" ? "border-main" : "border-neutral-200"
+            className={`relative flex-1 rounded-2xl border-2 p-4 flex flex-col items-start gap-2 transition-all bg-card ${
+              pick === "light" ? "border-main" : "border-border-default"
             }`}
           >
             <div className="flex items-center gap-2 w-full">
@@ -61,7 +61,7 @@ function DarkModeSheet({
                 <div className="h-1.5 bg-neutral-200 rounded-full w-1/2" />
               </div>
             </div>
-            <p className="text-[11px] text-neutral-400 font-medium self-center mt-1">Light</p>
+            <p className="text-[11px] text-foreground-muted font-medium self-center mt-1">Light</p>
             {pick === "light" && (
               <div className="absolute top-2 right-2 size-5 rounded-full bg-main flex items-center justify-center">
                 <span className="text-white text-[10px] font-bold">✓</span>
@@ -83,7 +83,7 @@ function DarkModeSheet({
                 <div className="h-1.5 bg-neutral-600 rounded-full w-1/2" />
               </div>
             </div>
-            <p className="text-[11px] text-neutral-400 font-medium self-center mt-1">Dark</p>
+            <p className="text-[11px] text-foreground-muted font-medium self-center mt-1">Dark</p>
             {pick === "dark" && (
               <div className="absolute top-2 right-2 size-5 rounded-full bg-main flex items-center justify-center">
                 <span className="text-white text-[10px] font-bold">✓</span>
@@ -103,7 +103,7 @@ function DarkModeSheet({
         {/* Secondary */}
         <button
           onClick={onCancel}
-          className="w-full bg-neutral-100 text-neutral-500 rounded-full py-3.5 font-semibold text-[15px] line-through hover:bg-neutral-200 transition-all"
+          className="w-full bg-surface-muted text-foreground-muted rounded-full py-3.5 font-semibold text-[15px] line-through hover:bg-neutral-200 transition-all"
         >
           {pick === "dark" ? "Stay in Light Mode" : "Enable Dark Mode"}
         </button>
@@ -115,15 +115,24 @@ function DarkModeSheet({
 /* ─────────────────────────────────────────────
    Page
 ───────────────────────────────────────────── */
+import { useTheme } from "next-themes";
+
 export default function SettingsPage() {
-  const { languageLabel, darkMode, setDarkMode } = useSettingsStore();
+  const { languageLabel, setDarkMode } = useSettingsStore(); // keep setDarkMode if other parts of app rely on it, otherwise we can just use useTheme
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const toast = useToast();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const [showDarkMode, setShowDarkMode] = useState(false);
 
+  const currentThemeIsDark = mounted ? (theme === "dark" || resolvedTheme === "dark") : false;
+
   const handleDarkModeConfirm = (pick: "light" | "dark") => {
     const enabling = pick === "dark";
-    setDarkMode(enabling);
+    setTheme(pick);
+    setDarkMode(enabling); // Sync with store if needed
     setShowDarkMode(false);
     if (enabling) {
       toast.dark("Dark Mode Enabled", "App theme has been switched to dark");
@@ -144,7 +153,7 @@ export default function SettingsPage() {
         <div className="flex flex-col gap-7">
           {settingGroups.map((group) => (
             <section key={group.title} className="flex flex-col gap-4">
-              <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+              <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
                 {group.title}
               </p>
 
@@ -155,16 +164,16 @@ export default function SettingsPage() {
                 const desc = isLanguage
                   ? languageLabel
                   : isDarkMode
-                  ? darkMode ? "Dark theme enabled" : "Switch to dark theme"
+                  ? currentThemeIsDark ? "Dark theme enabled" : "Switch to dark theme"
                   : item.description;
 
                 const rightElement = isDarkMode ? (
                   <span
                     className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                      darkMode ? "bg-seller-card text-yellow-400" : "bg-neutral-100 text-neutral-500"
+                      currentThemeIsDark ? "bg-seller-card text-yellow-400" : "bg-surface-muted text-foreground-muted"
                     }`}
                   >
-                    {darkMode ? "On" : "Off"}
+                    {currentThemeIsDark ? "On" : "Off"}
                   </span>
                 ) : undefined;
 
@@ -180,7 +189,7 @@ export default function SettingsPage() {
                       rightElement={rightElement}
                     />
                     {itemIdx < group.items.length - 1 && (
-                      <div className="h-px bg-neutral-100 mt-2 mb-2" />
+                      <div className="h-px bg-surface-muted mt-2 mb-2" />
                     )}
                   </div>
                 );
@@ -190,12 +199,12 @@ export default function SettingsPage() {
 
           {/* ── ABOUT ── */}
           <section className="flex flex-col gap-3">
-            <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-foreground-muted uppercase">
               About
             </p>
             <div className="flex items-center justify-between py-1">
-              <p className="text-sm font-medium text-neutral-800">App Version</p>
-              <p className="text-sm text-neutral-500 font-medium">v1.0</p>
+              <p className="text-sm font-medium text-foreground">App Version</p>
+              <p className="text-sm text-foreground-muted font-medium">v1.0</p>
             </div>
           </section>
         </div>
@@ -206,7 +215,7 @@ export default function SettingsPage() {
       {/* Dark mode sheet */}
       <DarkModeSheet
         isOpen={showDarkMode}
-        darkMode={darkMode}
+        darkMode={currentThemeIsDark}
         onConfirm={handleDarkModeConfirm}
         onCancel={() => setShowDarkMode(false)}
       />

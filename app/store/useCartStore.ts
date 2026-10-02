@@ -18,8 +18,8 @@ type CartStore = {
   increaseQty: (id: string, size: string) => void;
   decreaseQty: (id: string, size: string) => void;
   removeFromCart: (id: string, size: string) => void;
+  removeMultipleFromCart: (keysToRemove: string[]) => void;
   getItemById: (id: string, size: string) => CartItem | undefined;
-  getTotalPrice: () => number;
   checkout: (paymentMethod: number, pickupStationId?: string) => Promise<{ orderId: string; message: string }>;
 };
 
@@ -74,10 +74,12 @@ export const useCartStore = create<CartStore>()(
           ),
         })),
 
-      getTotalPrice: () => {
-        const { cart } = get();
-        return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-      },
+      removeMultipleFromCart: (keysToRemove) =>
+        set((state) => ({
+          cart: state.cart.filter(
+            (item) => !keysToRemove.includes(`${item.id}|${item.size}`)
+          ),
+        })),
 
       getItemById: (id, size) =>
         get().cart.find((i) => i.id === id && i.size === size),
@@ -112,3 +114,6 @@ export const useCartStore = create<CartStore>()(
   )
 );
 
+// Pure selector for total price calculation
+export const selectTotalPrice = (state: CartStore) =>
+  state.cart.reduce((total, item) => total + item.price * item.quantity, 0);
