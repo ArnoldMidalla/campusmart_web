@@ -1,5 +1,8 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
+import SwipeToDismiss from "../components/SwipeToDismiss";
+
 import { Trash2 } from "lucide-react";
 import { useFavouritesStore } from "../store/useFavouritesStore";
 import Image from "next/image";
@@ -60,47 +63,57 @@ export default function Favourites() {
             )}
 
             <div className="flex flex-col gap-4 px-5">
-              {Array.from(new Map(favourites.map(item => [String(item.id), item])).values()).map((item) => (
-                <div className="flex flex-col gap-4" key={String(item.id)}>
-                  <div className="flex gap-4">
-                    <Link
-                      href={`/productItem/${item.id}`}
-                      className="size-24 relative overflow-hidden rounded-sm shrink-0"
-                    >
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </Link>
-
-                    <div className="flex flex-col justify-between flex-1">
-                      <div>
-                        <p className="text-xs text-foreground">{item.category}</p>
-                        <Link href={`/productItem/${item.id}`}>
-                          <h2 className="font-medium text-sm leading-tight hover:text-main transition-colors">
-                            {item.name}
-                          </h2>
-                        </Link>
-                      </div>
-
-                      <div className="flex justify-between items-end">
-                        <p className="text-main text-lg font-bold">₦{item.price}</p>
-
-                        <button
-                          onClick={() => removeFavourite(item.id)}
-                          className="flex items-center gap-1.5 text-xs text-foreground-muted hover:text-red-500 transition-colors"
+              <AnimatePresence>
+                {Array.from(new Map(favourites.map(item => [String(item.id), item])).values()).map((item) => (
+                  <motion.div
+                    key={String(item.id)}
+                    layout
+                    initial={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0, overflow: "hidden", transition: { duration: 0.3 } }}
+                    className="flex flex-col gap-4 bg-card"
+                  >
+                    <SwipeToDismiss onDismiss={() => removeFavourite(item.id)}>
+                      <div className="flex gap-4">
+                        <Link
+                          href={`/productItem/${item.id}`}
+                          className="size-24 relative overflow-hidden rounded-sm shrink-0"
                         >
-                          <Trash2 size={15} strokeWidth={2} />
-                          <span>Remove</span>
-                        </button>
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </Link>
+
+                        <div className="flex flex-col justify-between flex-1">
+                          <div>
+                            <p className="text-xs text-foreground">{item.category}</p>
+                            <Link href={`/productItem/${item.id}`}>
+                              <h2 className="font-medium text-sm leading-tight hover:text-main transition-colors">
+                                {item.name}
+                              </h2>
+                            </Link>
+                          </div>
+
+                          <div className="flex justify-between items-end">
+                            <p className="text-main text-lg font-bold">₦{item.price}</p>
+
+                            <button
+                              onClick={() => removeFavourite(item.id)}
+                              className="flex items-center gap-1.5 text-xs text-foreground-muted hover:text-red-500 transition-colors"
+                            >
+                              <Trash2 size={15} strokeWidth={2} />
+                              <span>Remove</span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="w-full h-0.5 rounded-full bg-neutral-200" />
-                </div>
-              ))}
+                    </SwipeToDismiss>
+                    <div className="w-full h-0.5 rounded-full bg-neutral-200" />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
 
             {/* Suggestions */}

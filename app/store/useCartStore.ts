@@ -10,6 +10,7 @@ type CartItem = {
   quantity: number;
   category: string;
   size: string;
+  stockCount: number;
 };
 
 type CartStore = {

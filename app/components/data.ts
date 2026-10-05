@@ -86,6 +86,7 @@ export const products = [
     sellerVerified: true,
     sellerSold: 289,
     sellerRating: 4.3,
+    stockCount: 8,
   },
   {
     id: 2,
@@ -127,6 +128,7 @@ export const products = [
     sellerVerified: true,
     sellerSold: 289,
     sellerRating: 4.3,
+    stockCount: 15,
   },
   {
     id: 3,
@@ -165,6 +167,7 @@ export const products = [
     keyFeatures:
       "Low noise level, Adjustable thermostat, Removable glass shelf.",
     size: ["45L", "90L"],
+    stockCount: 4,
   },
   {
     id: 4,
@@ -207,6 +210,7 @@ export const products = [
     sellerVerified: true,
     sellerSold: 289,
     sellerRating: 4.3,
+    stockCount: 2,
   },
 ];
 

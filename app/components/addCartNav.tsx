@@ -10,7 +10,7 @@ export default function AddCartNav({
   product,
   selectedSize,
 }: {
-  product: { id: string | number; name: string; price: number; image: string; category: string; size: string[] };
+  product: { id: string | number; name: string; price: number; image: string; category: string; size: string[]; stockCount: number };
   selectedSize?: string | null;
 }) {
   const { addToCart, increaseQty, decreaseQty, getItemById } = useCartStore();
@@ -46,6 +46,7 @@ export default function AddCartNav({
                 quantity: 1,
                 category: product.category,
                 size,
+                stockCount: product.stockCount,
               })
             }
           >

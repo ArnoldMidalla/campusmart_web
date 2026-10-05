@@ -34,7 +34,7 @@ export default function Checkout() {
   const [payMethod, setPayMethod] = useState<number>();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showCouponModal, setShowCouponModal] = useState(false);
+
   const totalQty = cart.reduce((s, i) => s + i.quantity, 0);
 
   const handleCheckout = async () => {
@@ -98,10 +98,10 @@ export default function Checkout() {
                         fill
                         className="w-full h-full object-cover"
                       />
-                      {/* Stock badge — shown when quantity is low (≤20). Real data would drive this. */}
-                      {cartItem.quantity <= 2 && (
+                      {/* Stock badge — shown when quantity is low (<10). Real data would drive this. */}
+                      {cartItem.stockCount !== undefined && cartItem.stockCount < 10 && (
                         <div className="absolute bottom-0 left-0 right-0 bg-main text-white text-[10px] font-semibold text-center py-0.5">
-                          {cartItem.quantity * 10} Left
+                          {cartItem.stockCount} Left
                         </div>
                       )}
                     </div>
@@ -139,10 +139,16 @@ export default function Checkout() {
                 </div>
                 <div className="flex justify-between text-foreground/70 items-center">
                   <span>Coupon codes</span>
-                  <button onClick={() => setShowCouponModal(true)} className="flex items-center text-foreground/70 gap-0.5">
-                    <span className="text-sm">Enter here</span>
-                    <ChevronRight size={14} strokeWidth={1.9} />
-                  </button>
+                  <div className="flex items-center text-foreground/70 gap-0.5">
+                    <input
+                      type="text"
+                      placeholder="Enter here"
+                      className="text-sm bg-transparent outline-none text-right w-24 placeholder:text-foreground/70 text-foreground"
+                    />
+                    <button className="hover:text-main transition-colors" title="Apply Coupon">
+                      <ChevronRight size={14} strokeWidth={1.9} />
+                    </button>
+                  </div>
                 </div>
                 <Divider />
                 <div className="flex justify-between font-bold text-base">
@@ -255,21 +261,7 @@ export default function Checkout() {
         </div>
       </Modal>
 
-      <Modal isOpen={showCouponModal} onClose={() => setShowCouponModal(false)} title="Coupon Code">
-        <div className="flex flex-col gap-4">
-          <input 
-            type="text" 
-            placeholder="Enter coupon code" 
-            className="w-full border border-border-default rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-main/30 outline-none" 
-          />
-          <button 
-            onClick={() => setShowCouponModal(false)} 
-            className="w-full py-3 bg-main text-white font-medium rounded-xl hover:bg-main-light transition active:scale-95"
-          >
-            Apply Code
-          </button>
-        </div>
-      </Modal>
+
     </>
   );
 }
