@@ -163,8 +163,8 @@ export class AuthController {
   //   return { message: 'Verification code sent' };
   // }
 
+  
   // ── GET /auth/me ──────────────────────────────────────────────────────────
-
   @ApiOperation({
     summary: 'Get current user details',
     description: 'Retrieves the details of the currently authenticated user',
