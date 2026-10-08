@@ -14,7 +14,7 @@ Work through the phases in order: Phases 0 and 1 unblock everything, Phase 2 is 
 |3|Listings, variants, image uploads, seller store profile|2|4 to 5 days|
 |4|Server cart, pickup-station choice, checkout with stock reservation|3|4 days|
 |5|Paystack payments, webhooks, escrow, payouts, refunds|4|5 days|
-|6|Drop-off, collection, disputes, pickup- agent screens|5|4 days|
+|6|Drop-off, collection, disputes, pickup-agent screens|5|4 days|
 |7|Seller analytics and inventory alerts|4 (6 for payout figures)|3 days|
 |8|Wishlist, store pages, reviews|3 (6 for reviews)|3 days|
 |9|Admin UI and moderation|1, then grows with each phase|5 days|
@@ -46,7 +46,7 @@ Work through the phases in order: Phases 0 and 1 unblock everything, Phase 2 is 
 
 - There's a unit test for the service rule and an e2e test for the happy path plus one forbidden path.
 
-The frontend consumer has loading, empty and error states.
+- The frontend consumer has loading, empty and error states.
 
 ## Decisions record
 
@@ -54,34 +54,34 @@ The decisions below are locked in for everything that follows. The first seven c
 
 |#|Topic|Decision|Why|
 |---|---|---|---|
-|D1|Domains and cookies|The browser only ever talks to the Next.js origin. Next rewrites `/api/*`to the NestJS server. Cookies are first-party, `SameSite=Lax`, with no `Domain` attribute.|Works on any domain you pick later, with no CORS or third-party-cookie problems. Middleware can read the auth cookie.|
+|D1|Domains and cookies|The browser only ever talks to the Next.js origin. Next rewrites `/api/*` to the NestJS server. Cookies are first-party, `SameSite=Lax`, with no `Domain` attribute.|Works on any domain you pick later, with no CORS or third-party-cookie problems. Middleware can read the auth cookie.|
 |D2|Response shape|Success: `{ success: true, data, timestamp }`. Error: `{ statusCode, code, message, path, timestamp }`. The client unwraps `data`.|Keeps the existing interceptor; one place to change on the client.|
 
 |#|Topic|Decision|Why|
 |---|---|---|---|
-|D3|Money|Integers in kobo everywhere ( `priceKobo`, `totalKobo`). The UI formats with `formatNaira(kobo)`.|Paystack uses kobo; Prisma `Decimal`serialises as a string and invites rounding bugs.|
-|D4|Enums|The API speaks UPPER_SNAKE enum values. The UI maps them to labels in one file, `lib/labels.ts`.|Removes the "In Stock" versus `ACTIVE`drift.|
+|D3|Money|Integers in kobo everywhere ( `priceKobo`, `totalKobo`). The UI formats with `formatNaira(kobo)`.|Paystack uses kobo; Prisma `Decimal` serialises as a string and invites rounding bugs.|
+|D4|Enums|The API speaks UPPER_SNAKE enum values. The UI maps them to labels in one file, `lib/labels.ts`.|Removes the "In Stock" versus `ACTIVE` drift.|
 |D5|Types|Swagger (OpenAPI) is the source of truth. `openapi-typescript` generates `lib/api/schema.d.ts`.|Ends hand-written type drift.|
 |D6|Sessions|A 15-minute access JWT in cookie `access_token`, plus a 30-day rotating refresh token in cookie `refresh_token`(path `/api/auth`), hashed in a `Session` table.|Real logout, revocation after a password change, and the Active Sessions page.|
 |D7|Sign-up|School email and password are the only required fields. The institution comes from the email domain. A 6-digit email code must be verified before buying or selling. Username, names and phone are optional profile fields.|Your answer 3. The school email proves campus membership.|
-|D8|Roles|`BUYER`, `SELLER`, `ADMIN`, `PICKUP_AGENT`. Sellers can also buy. A seller account also has a `SellerProfile`(store name, payout account).|Your answer 7 plus escrow needs someone at the station to confirm hand- overs.|
+|D8|Roles|`BUYER`, `SELLER`, `ADMIN`, `PICKUP_AGENT`. Sellers can also buy. A seller account also has a `SellerProfile`(store name, payout account).|Your answer 7 plus escrow needs someone at the station to confirm hand-overs.|
 |D9|Institution scope|Every listing carries its seller's institution. Browsing, cart, checkout and pickup stations are filtered to the viewer's institution on the server.|Your answer 4.|
 
 |#|Topic|Decision|Why|
 |---|---|---|---|
-|D10|Multi-seller cart|One checkout creates one `Order` (the buyer's payment) and one `SellerOrder`per seller. Fulfilment, escrow, disputes and payouts live on the `SellerOrder`.|Your answer 2. Each seller drops off and gets paid independently.|
+|D10|Multi-seller cart|One checkout creates one `Order` (the buyer's payment) and one `SellerOrder` per seller. Fulfilment, escrow, disputes and payouts live on the `SellerOrder`.|Your answer 2. Each seller drops off and gets paid independently.|
 |D11|Escrow|All payments land in the platform's Paystack balance. Each `SellerOrder`'s funds are released 48 hours after collection unless the buyer opens a dispute. They're paid out by Paystack Transfer.|Your answer 2.|
-|D12|Pickup hand- over|The seller drops off at the buyer's chosen station; an agent enters the seller-order code. The buyer collects by giving a 6-digit collection code, which the agent enters.|Two independent confirmations; neither the buyer nor the seller can fake the other's step.|
-|D13|Variants|Optional `ListingVariant`rows (label, optional price, stock). A listing with variants tracks stock per variant.|Your answer 5.|
-|D14|Cart storage|A server-side `CartItem`table for signed-in users. Guests keep the local Zustand cart, which is merged on sign-in.|Stock and price checks need the server. Guests can still browse and add items.|
+|D12|Pickup handover|The seller drops off at the buyer's chosen station; an agent enters the seller-order code. The buyer collects by giving a 6-digit collection code, which the agent enters.|Two independent confirmations; neither the buyer nor the seller can fake the other's step.|
+|D13|Variants|Optional `ListingVariant` rows (label, optional price, stock). A listing with variants tracks stock per variant.|Your answer 5.|
+|D14|Cart storage|A server-side `CartItem` table for signed-in users. Guests keep the local Zustand cart, which is merged on sign-in.|Stock and price checks need the server. Guests can still browse and add items.|
 |D15|Images|Direct browser uploads to Cloudinary with a server-issued signature. The API stores the URL and `publicId`.|Keeps large files off the API server.|
-|D16|Admin UI|Lives in the same Next.js app under `app/admin/*`, with its own desktop layout. Pickup agents get `app/agent/*`(mobile). The backend serves both under `/api/admin/*`and `/api/agent/*`.|One deploy, shared API client and types, and the D1 cookies work unchanged. Sign-in state is shared.|
+|D16|Admin UI|Lives in the same Next.js app under `app/admin/*`, with its own desktop layout. Pickup agents get `app/agent/*`(mobile). The backend serves both under `/api/admin/*` and `/api/agent/*`.|One deploy, shared API client and types, and the D1 cookies work unchanged. Sign-in state is shared.|
 
 |#|Topic|Decision|Why|
 |---|---|---|---|
-|D17|Background jobs|`@nestjs/schedule`crons inside the API process: escrow release, unpaid order expiry, drop-off deadlines.|No extra infrastructure yet. Needs a long-running server, not serverless.|
-|D18|Email|`nodemailer`over the SMTP settings already in `.env.example`. In development, emails print to the console.|Already planned in env.|
-|D19|Real-time|No websockets. Status changes create `Notification`rows; the UI polls every 60 seconds and on window focus.|Enough for campus order volumes.|
+|D17|Background jobs|`@nestjs/schedule` crons inside the API process: escrow release, unpaid order expiry, drop-off deadlines.|No extra infrastructure yet. Needs a long-running server, not serverless.|
+|D18|Email|`nodemailer` over the SMTP settings already in `.env.example`. In development, emails print to the console.|Already planned in env.|
+|D19|Real-time|No websockets. Status changes create `Notification` rows; the UI polls every 60 seconds and on window focus.|Enough for campus order volumes.|
 
 ## Phase 0: security and hygiene quick wins
 
@@ -93,7 +93,7 @@ Phase 0 closes the password-hash leak and the account-takeover path, and fixes t
 
 2. Stop tracking the generated service worker: `git rm --cached public/sw.js` , then add `public/sw.js` , `public/sw.js.map` and `public/swe-worker-*.js` to the root `.gitignore` .
 
-3. Replace the real Neon hostname in `backend/.env.example` with `ep-xxxxpooler.region.aws.neon.tech` .
+3. Replace the real Neon hostname in `backend/.env.example` with `ep-xxxx-pooler.region.aws.neon.tech` .
 
 4. Remove the unused `All` import in `backend/src/main.ts` .
 
@@ -136,8 +136,7 @@ providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
 @Throttle({ default: { limit: 5, ttl: 60_000 } })
 // main.ts
 app.use(helmet());
-app.getHttpAdapter().getInstance().set('trust proxy', 1); // real client IP
-behind the Next proxy
+app.getHttpAdapter().getInstance().set('trust proxy', 1); // real client IP behind the Next proxy
 ```
 
 ### 0.6 Fix the Prisma client
@@ -150,11 +149,9 @@ The schema generates to `src/generated/prisma` , but the code imports the stale 
 
 ```
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit,
-OnModuleDestroy {
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
-    super({ adapter: new PrismaPg({ connectionString:
-process.env.DATABASE_URL! }) });
+    super({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
   }
   async onModuleInit() { await this.$connect(); }
   async onModuleDestroy() { await this.$disconnect(); }
@@ -225,8 +222,7 @@ Phase 1 ends with a real account flow: school-email sign-up, email code, login, 
 // next.config.ts
 const nextConfig: NextConfig = {
   async rewrites() {
-    return [{ source: '/api/:path*', destination:
-`${process.env.API_ORIGIN}/api/:path*` }];
+    return [{ source: '/api/:path*', destination: `${process.env.API_ORIGIN}/api/:path*` }];
   },
   // ...existing images, turbopack
 };
@@ -262,6 +258,7 @@ Add these to `schema.prisma` and run `npx prisma migrate dev --name auth_session
 
 ```
 enum UserRole { BUYER SELLER ADMIN PICKUP_AGENT }
+
 model User {
   // existing fields, plus:
   username        String?   @unique
@@ -272,6 +269,7 @@ model User {
   sessions        Session[]
   emailCodes      EmailCode[]
 }
+
 model Session {
   id               String    @id @default(uuid())
   userId           String
@@ -282,11 +280,12 @@ model Session {
   expiresAt        DateTime
   revokedAt        DateTime?
   createdAt        DateTime  @default(now())
-  user             User      @relation(fields: [userId], references: [id],
-onDelete: Cascade)
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId, revokedAt])
 }
+
 enum EmailCodePurpose { VERIFY_EMAIL RESET_PASSWORD }
+
 model EmailCode {
   id        String           @id @default(uuid())
   userId    String
@@ -296,8 +295,7 @@ model EmailCode {
   expiresAt DateTime
   usedAt    DateTime?
   createdAt DateTime         @default(now())
-  user      User             @relation(fields: [userId], references: [id],
-onDelete: Cascade)
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId, purpose])
 }
 ```
@@ -318,8 +316,8 @@ Also replace `Institution.domain` with `domains String[]` . Some schools use sev
 |`POST /auth/forgot-password`|`{ email }`|always 204, so accounts can't be probed|
 |`POST /auth/reset-password`|`{ email, code, newPassword }`|204, every session revoked|
 |`GET /users/me/sessions`|none|`[{ id, userAgent, ipAddress, lastUsedAt, current }]`|
-|`DELETE` `/users/me/sessions/:id`|none|204|
-|`DELETE` `/users/me/sessions`|none|204, every session except the current one revoked|
+|`DELETE /users/me/sessions/:id`|none|204|
+|`DELETE /users/me/sessions`|none|204, every session except the current one revoked|
 
 Rules to implement:
 
@@ -349,7 +347,7 @@ Rules to implement:
 
 1. Give each endpoint a response DTO ( `UserDto` , `SessionDto` , and so on). Add a decorator `ApiOkEnvelope(UserDto)` that documents the `{ success, data, timestamp }` wrapper.
 
-2. Frontend: `npm i -D openapi-typescript` , then add the script `"gen:api": "openapitypescript http://localhost:4000/api/docs-json -o lib/api/schema.d.ts"` .
+2. Frontend: `npm i -D openapi-typescript` , then add the script `"gen:api": "openapi-typescript http://localhost:4000/api/docs-json -o lib/api/schema.d.ts"` .
 
 3. Commit `schema.d.ts` . Rerun it whenever a DTO changes; CI checks it's current (see Testing).
 
@@ -403,311 +401,303 @@ One migration, `commerce_core` , reshapes the order model around seller orders a
 
 ### 2.2 Schema changes
 
-(add or replace in `backend/prisma/schema.prisma` )
+(add or replace in `backend/prisma/schema.prisma`)
 
-```
+```prisma
 model User {
   // after Phase 1, plus:
-  pickupStationId String?          // set only for PICKUP_AGENT
-  pickupStation   PickupStation?   @relation("StationAgents", fields:
-[pickupStationId], references: [id])
-  sellerProfile   SellerProfile?
-  cartItems       CartItem[]
-  notifications   Notification[]
-  sellerOrders    SellerOrder[]    @relation("SellerOrders")
-  reviewsReceived Review[]         @relation("Reviewee")   // was Review?
-(the bug)
+  pickupStationId  String?         // set only for PICKUP_AGENT
+  pickupStation    PickupStation?  @relation("StationAgents", fields: [pickupStationId], references: [id])
+  sellerProfile    SellerProfile?
+  cartItems        CartItem[]
+  notifications    Notification[]
+  sellerOrders     SellerOrder[]   @relation("SellerOrders")
+  reviewsReceived  Review[]        @relation("Reviewee")  // was Review? (the bug)
 }
+
 model Institution {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  domains   String[]
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id         String    @id @default(uuid())
+  name       String    @unique
+  domains    String[]
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
   // relations: users, listings, pickupStations, orders
 }
+
 model SellerProfile {
-  userId                String   @id
-  storeName             String?
-  bio                   String?
-  logoUrl               String?
-  isOnline              Boolean  @default(false)
-  ratingAvg             Float    @default(0)
-  ratingCount           Int      @default(0)
-  payoutBankName        String?
-  payoutAccountLast4    String?
-  payoutAccountName     String?
-  paystackRecipientCode String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  user                  User     @relation(fields: [userId], references:
-[id], onDelete: Cascade)
+  userId                 String    @id
+  storeName              String?
+  bio                    String?
+  logoUrl                String?
+  isOnline               Boolean   @default(false)
+  ratingAvg              Float     @default(0)
+  ratingCount            Int       @default(0)
+  payoutBankName         String?
+  payoutAccountLast4     String?
+  payoutAccountName      String?
+  paystackRecipientCode  String?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
 model PickupStation {
-  id            String      @id @default(uuid())
-  institutionId String
-  name          String
-  address       String
-  contactName   String
-  contactPhone  String
-  openingHours  Json        // [{ day: 'MON', open: '09:00', close: '17:00'
-}]
-  isActive      Boolean     @default(true)
-  institution   Institution @relation(fields: [institutionId], references:
-[id])
-  agents        User[]      @relation("StationAgents")
-  orders        Order[]
+  id             String       @id @default(uuid())
+  institutionId  String
+  name           String
+  address        String
+  contactName    String
+  contactPhone   String
+  openingHours   Json         // [{ day: 'MON', open: '09:00', close: '17:00' }]
+  isActive       Boolean      @default(true)
+  institution    Institution  @relation(fields: [institutionId], references: [id])
+  agents         User[]       @relation("StationAgents")
+  orders         Order[]
   @@index([institutionId, isActive])
 }
+
 model Listing {
-  id            String           @id @default(uuid())
-  title         String
-  description   String
-  priceKobo     Int                          // was Decimal price
-  stock         Int                          // was quantity; sum of variants
-when present
-  category      ListingCategory
-  condition     ProductCondition
-  status        ListingStatus    @default(DRAFT)
-  sellerId      String
-  institutionId String                       // now required
-  ratingAvg     Float            @default(0)
-  ratingCount   Int              @default(0)
-  isDeleted     Boolean          @default(false)
-  isPromoted    Boolean          @default(false)
-  isFlagged     Boolean          @default(false)
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  variants      ListingVariant[]
-  dailyStats    ListingDailyStat[]
-  // existing relations: seller, institution, images, reviews, wishlistedBy,
-moderationLogs, orderItems
+  id             String              @id @default(uuid())
+  title          String
+  description    String
+  priceKobo      Int                 // was Decimal price
+  stock          Int                 // was quantity; sum of variants when present
+  category       ListingCategory
+  condition      ProductCondition
+  status         ListingStatus       @default(DRAFT)
+  sellerId       String
+  institutionId  String              // now required
+  ratingAvg      Float               @default(0)
+  ratingCount    Int                 @default(0)
+  isDeleted      Boolean             @default(false)
+  isPromoted     Boolean             @default(false)
+  isFlagged      Boolean             @default(false)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  variants       ListingVariant[]
+  dailyStats     ListingDailyStat[]
+  // existing relations: seller, institution, images, reviews, wishlistedBy, moderationLogs, orderItems
   @@index([institutionId, status, isDeleted, createdAt])
   @@index([sellerId, status])
 }
+
 model ListingImage {
-  id        String  @id @default(uuid())
-  url       String
-  publicId  String
-  position  Int
-  listingId String
-  listing   Listing @relation(fields: [listingId], references: [id],
-onDelete: Cascade)
+  id         String   @id @default(uuid())
+  url        String
+  publicId   String
+  position   Int
+  listingId  String
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
+
 model ListingVariant {
-  id        String   @id @default(uuid())
-  listingId String
-  label     String            // e.g. 'M', 'Black / XL', '500 ml'
-  priceKobo Int?              // null = listing price
-  stock     Int
-  isActive  Boolean  @default(true)
-  listing   Listing  @relation(fields: [listingId], references: [id],
-onDelete: Cascade)
+  id         String   @id @default(uuid())
+  listingId  String
+  label      String   // e.g. 'M', 'Black / XL', '500 ml'
+  priceKobo  Int?     // null = listing price
+  stock      Int
+  isActive   Boolean  @default(true)
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
   @@unique([listingId, label])
 }
+
 model ListingDailyStat {
-  listingId String
-  date      DateTime @db.Date
-  views     Int      @default(0)
-  listing   Listing  @relation(fields: [listingId], references: [id],
-onDelete: Cascade)
+  listingId  String
+  date       DateTime  @db.Date
+  views      Int       @default(0)
+  listing    Listing   @relation(fields: [listingId], references: [id], onDelete: Cascade)
   @@id([listingId, date])
 }
+
 model CartItem {
-  id         String   @id @default(uuid())
-  userId     String
-  listingId  String
-  variantKey String   @default("")   // variantId, or '' for none; keeps the
-unique index strict
-  variantId  String?
-  quantity   Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  user       User     @relation(fields: [userId], references: [id], onDelete:
-Cascade)
-  listing    Listing  @relation(fields: [listingId], references: [id])
+  id          String    @id @default(uuid())
+  userId      String
+  listingId   String
+  variantKey  String    @default("")  // variantId, or '' for none; keeps the unique index strict
+  variantId   String?
+  quantity    Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing     Listing   @relation(fields: [listingId], references: [id])
   @@unique([userId, listingId, variantKey])
 }
-enum OrderStatus   { PENDING_PAYMENT PAID CANCELLED EXPIRED }   // CART,
-DISPUTED removed
+
+enum OrderStatus { PENDING_PAYMENT PAID CANCELLED EXPIRED } // CART, DISPUTED removed
+
 enum PaymentMethod { CARD BANK_TRANSFER OPAY PALMPAY }
+
 model Order {
-  id              String        @id @default(uuid())
-  buyerId         String
-  institutionId   String
-  pickupStationId String
-  status          OrderStatus   @default(PENDING_PAYMENT)
-  paymentMethod   PaymentMethod
-  subtotalKobo    Int
-  totalKobo       Int
-  idempotencyKey  String        @unique
-  expiresAt       DateTime               // unpaid orders expire (Phase 4)
-  paidAt          DateTime?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  sellerOrders    SellerOrder[]
-  payment         Payment?
+  id               String         @id @default(uuid())
+  buyerId          String
+  institutionId    String
+  pickupStationId  String
+  status           OrderStatus    @default(PENDING_PAYMENT)
+  paymentMethod    PaymentMethod
+  subtotalKobo     Int
+  totalKobo        Int
+  idempotencyKey   String         @unique
+  expiresAt        DateTime       // unpaid orders expire (Phase 4)
+  paidAt           DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  sellerOrders     SellerOrder[]
+  payment          Payment?
   // relations: buyer, institution, pickupStation
   @@index([buyerId, createdAt])
 }
-```
 
-|`enum FulfillmentStat`|`us { PENDING`|`AWAITING_DROPOFF DROPPED_OFF COLLECTED`|
-|---|---|---|
-|`CANCELLED DISPUTED }`|||
-|`enum EscrowStatus`|`{ PENDING`|`HELD RELEASED REFUNDED }`|
-|`model SellerOrder {`|||
-|`id`|`String`|`@id @default(uuid())`|
-|`orderId`|`String`||
-|`sellerId`|`String`||
-|`code`|`String`|`@unique   // 'CM-7F3K2Q', printed on`|
-|`the parcel`|||
-|`collectionCode`|`String`|`// 6 digits, shown only to`|
-|`the buyer`|||
-|`collectionAttempts`|`Int`|`@default(0)`|
-|`fulfillmentStatus`|`FulfillmentSt`|`atus @default(PENDING)`|
-|`escrowStatus`|`EscrowStatus`|`@default(PENDING)`|
-|`subtotalKobo`|`Int`||
-|`platformFeeKobo`|`Int`|`@default(0)`|
-|`sellerPayoutKobo`|`Int`||
-|`dropOffDeadline`|`DateTime?`||
-|`droppedOffAt`|`DateTime?`||
-|`collectedAt`|`DateTime?`||
-|`releaseAt`|`DateTime?`|`// collectedAt + dispute`|
-|`window`|||
-|`cancelledAt`|`DateTime?`||
-|`cancelReason`|`String?`||
-|`createdAt`|`DateTime`|`@default(now())`|
-|`updatedAt`|`DateTime`|`@updatedAt`|
-|`order`|`Order`|`@relation(fields: [orderId],`|
-|`references: [id])`|||
-|`seller`|`User`|`@relation("SellerOrders", fields:`|
+enum FulfillmentStatus { PENDING AWAITING_DROPOFF DROPPED_OFF COLLECTED CANCELLED DISPUTED }
 
-```
-[sellerId], references: [id])
-  items             OrderItem[]
-  payout            Payout?
-  dispute           Dispute?
-  reviews           Review[]
+enum EscrowStatus { PENDING HELD RELEASED REFUNDED }
+
+model SellerOrder {
+  id                  String             @id @default(uuid())
+  orderId             String
+  sellerId            String
+  code                String             @unique  // 'CM-7F3K2Q', printed on the parcel
+  collectionCode      String             // 6 digits, shown only to the buyer
+  collectionAttempts  Int                @default(0)
+  fulfillmentStatus   FulfillmentStatus  @default(PENDING)
+  escrowStatus        EscrowStatus       @default(PENDING)
+  subtotalKobo        Int
+  platformFeeKobo     Int                @default(0)
+  sellerPayoutKobo    Int
+  dropOffDeadline     DateTime?
+  droppedOffAt        DateTime?
+  collectedAt         DateTime?
+  releaseAt           DateTime?          // collectedAt + dispute window
+  cancelledAt         DateTime?
+  cancelReason        String?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  order               Order              @relation(fields: [orderId], references: [id])
+  seller              User               @relation("SellerOrders", fields: [sellerId], references: [id])
+  items               OrderItem[]
+  payout              Payout?
+  dispute             Dispute?
+  reviews             Review[]
   @@index([sellerId, fulfillmentStatus, createdAt])
   @@index([fulfillmentStatus, escrowStatus, releaseAt])
 }
+
 model OrderItem {
-  id            String      @id @default(uuid())
-  sellerOrderId String
-  listingId     String
-  variantId     String?
-  titleSnapshot String
-  variantLabel  String?
-  imageUrl      String?
-  unitPriceKobo Int
-  quantity      Int
-  sellerOrder   SellerOrder @relation(fields: [sellerOrderId], references:
-[id])
-  listing       Listing     @relation(fields: [listingId], references: [id])
+  id             String       @id @default(uuid())
+  sellerOrderId  String
+  listingId      String
+  variantId      String?
+  titleSnapshot  String
+  variantLabel   String?
+  imageUrl       String?
+  unitPriceKobo  Int
+  quantity       Int
+  sellerOrder    SellerOrder  @relation(fields: [sellerOrderId], references: [id])
+  listing        Listing      @relation(fields: [listingId], references: [id])
 }
+
 model Payment {
-  id         String        @id @default(uuid())
-  orderId    String        @unique
-  provider   String        @default("PAYSTACK")
-  reference  String        @unique
-  amountKobo Int
-  status     PaymentStatus @default(PENDING)
-  channel    String?
-  paidAt     DateTime?
-  rawEvent   Json?
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  order      Order         @relation(fields: [orderId], references: [id])
+  id          String         @id @default(uuid())
+  orderId     String         @unique
+  provider    String         @default("PAYSTACK")
+  reference   String         @unique
+  amountKobo  Int
+  status      PaymentStatus  @default(PENDING)
+  channel     String?
+  paidAt      DateTime?
+  rawEvent    Json?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  order       Order          @relation(fields: [orderId], references: [id])
 }
+
 enum PayoutStatus { AWAITING_ACCOUNT PENDING PROCESSING PAID FAILED }
+
 model Payout {
-  id            String       @id @default(uuid())
-  sellerOrderId String       @unique
-  sellerId      String
-  amountKobo    Int
-  status        PayoutStatus @default(PENDING)
-  reference     String       @unique
-  failureReason String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  sellerOrder   SellerOrder  @relation(fields: [sellerOrderId], references:
-[id])
+  id             String        @id @default(uuid())
+  sellerOrderId  String        @unique
+  sellerId       String
+  amountKobo     Int
+  status         PayoutStatus  @default(PENDING)
+  reference      String        @unique
+  failureReason  String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  sellerOrder    SellerOrder   @relation(fields: [sellerOrderId], references: [id])
 }
+
 enum DisputeStatus { OPEN RESOLVED_REFUND RESOLVED_RELEASE }
+
 model Dispute {
-  id            String        @id @default(uuid())
-  sellerOrderId String        @unique
-  openedById    String
-  reason        String
-  evidenceUrls  String[]
-  status        DisputeStatus @default(OPEN)
-  resolutionNote String?
-  resolvedById  String?
-  createdAt     DateTime      @default(now())
-  resolvedAt    DateTime?
-  sellerOrder   SellerOrder   @relation(fields: [sellerOrderId], references:
-[id])
+  id              String         @id @default(uuid())
+  sellerOrderId   String         @unique
+  openedById      String
+  reason          String
+  evidenceUrls    String[]
+  status          DisputeStatus  @default(OPEN)
+  resolutionNote  String?
+  resolvedById    String?
+  createdAt       DateTime       @default(now())
+  resolvedAt      DateTime?
+  sellerOrder     SellerOrder    @relation(fields: [sellerOrderId], references: [id])
 }
+
 model Review {
-  id            String      @id @default(uuid())
-  rating        Int                       // 1 to 5, checked in the DTO
-  comment       String?
-  reviewerId    String
-  revieweeId    String                    // the seller; no longer @unique
-  listingId     String
-  sellerOrderId String
-  createdAt     DateTime    @default(now())
-  sellerOrder   SellerOrder @relation(fields: [sellerOrderId], references:
-[id])
+  id             String       @id @default(uuid())
+  rating         Int          // 1 to 5, checked in the DTO
+  comment        String?
+  reviewerId     String
+  revieweeId     String       // the seller; no longer @unique
+  listingId      String
+  sellerOrderId  String
+  createdAt      DateTime     @default(now())
+  sellerOrder    SellerOrder  @relation(fields: [sellerOrderId], references: [id])
   // relations: reviewer, reviewee, listing
   @@unique([sellerOrderId, listingId])
   @@index([revieweeId])
   @@index([listingId, createdAt])
 }
+
 model Notification {
-  id        String    @id @default(uuid())
-  userId    String
-  type      String            // 'ORDER_PAID', 'READY_FOR_PICKUP', ...
-  title     String
-  body      String
-  data      Json?
-  readAt    DateTime?
-  createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id], onDelete:
-Cascade)
+  id         String     @id @default(uuid())
+  userId     String
+  type       String     // 'ORDER_PAID', 'READY_FOR_PICKUP', ...
+  title      String
+  body       String
+  data       Json?
+  readAt     DateTime?
+  createdAt  DateTime   @default(now())
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId, readAt, createdAt])
 }
+
 model SupportReport {
-  id            String   @id @default(uuid())
-  userId        String
-  type          String            // 'BUG', 'ORDER', 'PAYMENT', 'LISTING',
-'OTHER'
-  message       String
-  screenshotUrl String?
-  listingId     String?
-  status        String   @default("OPEN")
-  createdAt     DateTime @default(now())
+  id             String    @id @default(uuid())
+  userId         String
+  type           String    // 'BUG', 'ORDER', 'PAYMENT', 'LISTING', 'OTHER'
+  message        String
+  screenshotUrl  String?
+  listingId      String?
+  status         String    @default("OPEN")
+  createdAt      DateTime  @default(now())
 }
+
 model AuditLog {
-  id         String   @id @default(uuid())
-  actorId    String?          // null = system job
-  action     String           // 'ESCROW_RELEASED', 'USER_SUSPENDED', ...
-  entityType String
-  entityId   String
-  meta       Json?
-  createdAt  DateTime @default(now())
+  id          String    @id @default(uuid())
+  actorId     String?   // null = system job
+  action      String    // 'ESCROW_RELEASED', 'USER_SUSPENDED', ...
+  entityType  String
+  entityId    String
+  meta        Json?
+  createdAt   DateTime  @default(now())
   @@index([entityType, entityId])
 }
 ```
 
 Also:
 
-Remove the old `Order.fulfillmentStatus` , `Order.review` and `Order.items` relations. Remove `Wishlist` 's redundant `@@index([userId, listingId])` ; the unique index already covers it.
-
+- Remove the old `Order.fulfillmentStatus`, `Order.review` and `Order.items` relations. Remove `Wishlist`'s redundant `@@index([userId, listingId])`; the unique index already covers it.
 - Add `UNFLAG` and `SUSPEND_USER` to `ModerationActionType` , plus an optional `targetUserId` on `ModerationAction` .
-
-`VerificationRequest` stays. From Phase 9 it carries seller ID checks.
+- `VerificationRequest` stays. From Phase 9 it carries seller ID checks.
 
 ### 2.3 Run it
 
@@ -728,22 +718,22 @@ Remove the old `Order.fulfillmentStatus` , `Order.review` and `Order.items` rela
 
 ## Phase 3: listings, variants and uploads
 
-Phase 3 replaces the mock catalogue in `app/components/data.ts` with real, institutionscoped listings. It gives sellers a working add, edit and stock flow with Cloudinary images.
+Phase 3 replaces the mock catalogue in `app/components/data.ts` with real, institution-scoped listings. It gives sellers a working add, edit and stock flow with Cloudinary images.
 
 ### 3.1 Backend: `listings` module
 
 |Method and path|Who|Notes|
 |---|---|---|
 |`GET /listings`|verified user|Query: `q`, `category`, `condition`, `minPriceKobo`, `maxPriceKobo`, `sort` ( `newest`, `price_asc`, `price_desc`, `popular`), `cursor`, `limit`(max 50, default 20). Returns `{ items: ListingCardDto[], nextCursor }`.|
-|`GET /listings/:id`|verified user|Full `ListingDto`with images, variants, seller card and rating. Records a view.|
+|`GET /listings/:id`|verified user|Full `ListingDto` with images, variants, seller card and rating. Records a view.|
 |`GET /listings/:id/related`|verified user|Up to 10, same category, same institution|
-|`GET /sellers/me/listings`|SELLER|`status`filter, every status including drafts|
+|`GET /sellers/me/listings`|SELLER|`status` filter, every status including drafts|
 |`POST /listings`|SELLER, verified|`CreateListingDto`(below)|
-|`PATCH /listings/:id`|owner|Partial update. `images`and `variants`, when sent, replace the whole set.|
+|`PATCH /listings/:id`|owner|Partial update. `images` and `variants`, when sent, replace the whole set.|
 |`PATCH /listings/:id/status`|owner|`{ status: 'DRAFT' \| 'ACTIVE' \| 'ARCHIVED' }`|
 |`DELETE /listings/:id`|owner|Soft delete ( `isDeleted = true`). 409 if it has open seller orders.|
-|`GET /sellers/me`, `PATCH` `/sellers/me`|SELLER|Store profile: `storeName`, `bio`, `logoUrl`, `isOnline`|
-|`POST /uploads/signature`|verified user|`{ purpose: 'LISTING' \| 'AVATAR' \| 'VERIFICATION' }`returns `{ cloudName, apiKey, timestamp, signature, folder }`|
+|`GET /sellers/me`, `PATCH /sellers/me`|SELLER|Store profile: `storeName`, `bio`, `logoUrl`, `isOnline`|
+|`POST /uploads/signature`|verified user|`{ purpose: 'LISTING' \| 'AVATAR' \| 'VERIFICATION' }` returns `{ cloudName, apiKey, timestamp, signature, folder }`|
 
 `CreateListingDto` fields:
 
@@ -821,37 +811,32 @@ Checkout turns the server cart into one `Order` with one `SellerOrder` per selle
 
 ### 4.1 Backend: `cart` module (verified user; every route checks the buyer's institution)
 
-**`cart` module** (verified user; every route checks the buyer's institution)
-
 |Method and path|Body|Notes|
 |---|---|---|
-|`GET /cart`|none|`{ groups: [{ seller: { id,`|
-|||`storeName }, items: [...],`|
-|||`subtotalKobo }],`|
-|||`subtotalKobo, issues: [...]`|
-|||`}`. Each item has `listing`|
-|||(card), `variant`, `quantity`,|
-|||`unitPriceKobo`, `available`and|
-|||`maxQuantity`.|
+|`GET /cart`|none|`{ groups: [{ seller: { id, storeName }, items: [...], subtotalKobo }], subtotalKobo, issues: [...] }`. Each item has `listing` (card), `variant`, `quantity`, `unitPriceKobo`, `available` and `maxQuantity`.|
 |`PUT /cart/items`|`{ listingId, variantId?, quantity }`|Sets the absolute quantity; 0 deletes the line.|
-
-|Method and path Bo|dy Notes|
-|---|---|
-|`DELETE` `/cart/items/:id` no|ne 204|
-|`POST /cart/merge { va`|`items: [{ listingId, riantId?, quantity }] }` Called once after sign-in. Keeps the larger quantity per line and skips invalid lines.|
-|`UT /cart/items`rejects the listing isn't `ACTIVE`  the listing has variants a the buyer is the seller (4 the quantity is over the `details.available`); the cart would pass 50 l `ssues`in `GET /cart`lists dded, so the UI can warn b **.2 Backend: pickup statio** Method and path|the request when: or is in another institution (404); nd no `variantId`was sent (400 `VARIANT_REQUIRED`); 00 `OWN_LISTING`); available stock (409 `OUT_OF_STOCK`, with ines. lines that went out of stock or changed price since they were efore checkout. **ns and checkout**( `orders`module) Who Notes|
-|`GET /pickup-stations`|verified user Active stations in the user's institution|
-|`POST /orders/checkout`|verified user `{ pickupStationId, paymentMethod, idempotencyKey }`returns `{ orderId, totalKobo, authorizationUrl, reference }`|
-|`GET /orders`|buyer Cursor list of the buyer's orders with their seller orders|
-|`GET /orders/:id`|buyer (owner) Full detail. Includes each seller order's `collectionCode` **only for the buyer**.|
-|`POST`|buyer Only while `PENDING_PAYMENT`. Restores stock.|
-|`/orders/:id/cancel`|(owner)|
+|`DELETE /cart/items/:id`|none|204|
+|`POST /cart/merge`|`{ items: [{ listingId, variantId?, quantity }] }`|Called once after sign-in. Keeps the larger quantity per line and skips invalid lines.|
 
 `PUT /cart/items` rejects the request when:
+
+- the listing isn't `ACTIVE` or is in another institution (404);
+- the listing has variants and no `variantId` was sent (400 `VARIANT_REQUIRED`);
+- the buyer is the seller (400 `OWN_LISTING`);
+- the quantity is over the available stock (409 `OUT_OF_STOCK`, with `details.available`);
+- the cart would pass 50 lines.
 
 `issues` in `GET /cart` lists lines that went out of stock or changed price since they were added, so the UI can warn before checkout.
 
 ### 4.2 Backend: pickup stations and checkout (`orders` module)
+
+|Method and path|Who|Notes|
+|---|---|---|
+|`GET /pickup-stations`|verified user|Active stations in the user's institution|
+|`POST /orders/checkout`|verified user|`{ pickupStationId, paymentMethod, idempotencyKey }` returns `{ orderId, totalKobo, authorizationUrl, reference }`|
+|`GET /orders`|buyer|Cursor list of the buyer's orders with their seller orders|
+|`GET /orders/:id`|buyer (owner)|Full detail. Includes each seller order's `collectionCode` **only for the buyer**.|
+|`POST /orders/:id/cancel`|buyer (owner)|Only while `PENDING_PAYMENT`. Restores stock.|
 
 Checkout steps, all inside one `prisma.$transaction` :
 
@@ -866,19 +851,22 @@ const res = await tx.listingVariant.updateMany({
   where: { id: variantId, stock: { gte: qty }, isActive: true },
   data: { stock: { decrement: qty } },
 }); // or tx.listing.updateMany when there is no variant
-if (res.count !== 1) throw new ConflictException({ code: 'OUT_OF_STOCK',
-message: '...', details: { listingId, variantId } });
+if (res.count !== 1) throw new ConflictException({ code: 'OUT_OF_STOCK', message: '...', details: { listingId, variantId } });
 ```
 
 4. Recalculate `Listing.stock` and `SOLDOUT` for the touched listings.
 
 5. Group the lines by seller. For each group, create a `SellerOrder` :
 
-   - `code` : `CM-` plus 6 characters from an unambiguous alphabet (no 0, O, 1, I). `collectionCode` : 6 digits from `crypto.randomInt` .
+   - `code` : `CM-` plus 6 characters from an unambiguous alphabet (no 0, O, 1, I).
+
+   - `collectionCode` : 6 digits from `crypto.randomInt` .
 
    - `subtotalKobo` : the sum of the group's lines.
 
-   - `platformFeeKobo` : `floor(subtotal * PLATFORM_FEE_BPS / 10000)` . `sellerPayoutKobo` : subtotal minus the fee.
+   - `platformFeeKobo` : `floor(subtotal * PLATFORM_FEE_BPS / 10000)` .
+
+   - `sellerPayoutKobo` : subtotal minus the fee.
 
    - `OrderItem` rows with title, variant label, image and unit price **snapshotted** .
 
@@ -902,11 +890,11 @@ message: '...', details: { listingId, variantId } });
 
    - Payment options map to `PaymentMethod` ( `CARD` , `BANK_TRANSFER` , `OPAY` , `PALMPAY` ); don't send numeric IDs.
 
-Hide the coupon modal; there's no coupon backend.
+   - Hide the coupon modal; there's no coupon backend.
 
-- "Proceed to pay" calls checkout, then sets `window.location.href = authorizationUrl` .
+   - "Proceed to pay" calls checkout, then sets `window.location.href = authorizationUrl` .
 
-On `OUT_OF_STOCK` , refetch the cart and show which item.
+   - On `OUT_OF_STOCK` , refetch the cart and show which item.
 
 5. **Order confirmation page.** Read `?orderId` (Paystack returns the buyer here) and poll `GET /orders/:id` every 3 seconds, for up to 60 seconds, until `status = PAID` . Then show each seller order's code, the pickup station and "You'll be told when it's ready".
 
@@ -940,7 +928,7 @@ Money only moves on a signature-verified Paystack webhook, never on a browser re
 
    - `callback_url` : `${APP_URL}/order-confirmation?orderId=<id>` .
 
-`channels` : mapped from `paymentMethod` (below).
+   - `channels` : mapped from `paymentMethod` (below).
 
    - `metadata` : `{ orderId }` .
 
@@ -952,13 +940,9 @@ Money only moves on a signature-verified Paystack webhook, never on a browser re
 
 ### 5.2 Webhook: `POST /payments/webhook`
 
-**`POST /payments/webhook`**
-
 1. Enable raw bodies with `NestFactory.create(AppModule, { rawBody: true })` and read `req.rawBody` ( `RawBodyRequest<Request>` ).
 
-2. Verify the signature: `createHmac('sha512', x-`
-
-`PAYSTACK_SECRET_KEY).update(req.rawBody).digest('hex')` must equal the `paystack-signature` header, compared with `timingSafeEqual` . On mismatch, return 401.
+2. Verify the signature: `createHmac('sha512', PAYSTACK_SECRET_KEY).update(req.rawBody).digest('hex')` must equal the `x-paystack-signature` header, compared with `timingSafeEqual` . On mismatch, return 401.
 
 3. Mark the route `@SkipThrottle()` . As a second layer, allowlist the webhook source IPs listed in Paystack's webhook documentation.
 
@@ -970,9 +954,7 @@ Money only moves on a signature-verified Paystack webhook, never on a browser re
 
    - b. Check that `data.amount === payment.amountKobo` , `data.currency === 'NGN'` and `data.status === 'success'` . On any mismatch, mark it `FAILED` , write an `AuditLog` , and alert the admins.
 
-   - c. In one transaction: `Payment` becomes `COMPLETED` (with `paidAt` , `channel` , `rawEvent` ); `Order` becomes `PAID` . Each `SellerOrder` gets `escrowStatus =`
-
-   - `HELD` , `fulfillmentStatus = AWAITING_DROPOFF` and `dropOffDeadline = now + DROP_OFF_DEADLINE_DAYS` .
+   - c. In one transaction: `Payment` becomes `COMPLETED` (with `paidAt` , `channel` , `rawEvent` ); `Order` becomes `PAID` . Each `SellerOrder` gets `escrowStatus = HELD` , `fulfillmentStatus = AWAITING_DROPOFF` and `dropOffDeadline = now + DROP_OFF_DEADLINE_DAYS` .
 
    - d. If the order had already `EXPIRED` , first re-reserve its stock. If that fails, refund in full (5.6) and notify the buyer.
 
@@ -989,8 +971,7 @@ Money only moves on a signature-verified Paystack webhook, never on a browser re
 |Method and path|Notes|
 |---|---|
 |`GET /payouts/banks`|Paystack `GET /bank?country=nigeria`, cached for 24 hours|
-|`POST /sellers/me/payout-account`|`{ bankCode, accountNumber }`. Resolve the name with `GET /bank/resolve`, then create a recipient with `POST /transferrecipient`( `type:`|
-||`'nuban'`). Store the recipient code, bank name, last 4 digits and account name. Never store the full account number.|
+|`POST /sellers/me/payout-account`|`{ bankCode, accountNumber }`. Resolve the name with `GET /bank/resolve`, then create a recipient with `POST /transferrecipient` (`type: 'nuban'`). Store the recipient code, bank name, last 4 digits and account name. Never store the full account number.|
 |`GET /sellers/me/payouts`|Payout history with status|
 
 Add a "Payout account" screen to `app/sellers/profile` . The seller dashboard shows a banner until the account is set.
@@ -1001,11 +982,13 @@ Add an `@Cron('*/15 * * * *')` job.
 
 1. Select seller orders with `fulfillmentStatus = COLLECTED` , `escrowStatus = HELD` , `releaseAt <= now` , and no `OPEN` dispute.
 
-2. For each, in a transaction, set `escrowStatus = RELEASED` and create a `Payout` : `amountKobo = sellerPayoutKobo`
+2. For each, in a transaction, set `escrowStatus = RELEASED` and create a `Payout` :
+
+   - `amountKobo = sellerPayoutKobo`
 
    - `reference = PO_<sellerOrderId>`
 
-`status` : `PENDING` , or `AWAITING_ACCOUNT` when there's no recipient code.
+   - `status` : `PENDING` , or `AWAITING_ACCOUNT` when there's no recipient code.
 
 3. Outside the transaction, call `POST /transfer` with `{ source: 'balance', amount, recipient, reference, reason: 'CampusMart order CM-XXXXXX' }` and set the payout to `PROCESSING` .
 
@@ -1025,7 +1008,7 @@ One `RefundService.refundSellerOrder(sellerOrderId, reason)` :
 
    - Sets `escrowStatus = REFUNDED` and `fulfillmentStatus = CANCELLED` , restores stock, and notifies both sides.
 
-Is used by seller cancellation, missed drop-off deadlines and disputes resolved in the buyer's favour.
+   - Is used by seller cancellation, missed drop-off deadlines and disputes resolved in the buyer's favour.
 
 ### 5.7 Fees
 
@@ -1052,15 +1035,10 @@ Only a pickup agent can move a seller order to dropped off or collected, and col
 |---|---|---|---|
 |`PENDING`|`AWAITING_DROPOFF`|system|Paystack webhook (5.2)|
 |`AWAITING_DROPOFF`|`DROPPED_OFF`|agent at the order's station|`POST /agent/dropoffs`|
-|`AWAITING_DROPOFF`|`CANCELLED`|seller, or the system when the deadline passes|`POST` `/sellers/me/orders/:id/cancel`, deadline cron|
+|`AWAITING_DROPOFF`|`CANCELLED`|seller, or the system when the deadline passes|`POST /sellers/me/orders/:id/cancel`, deadline cron|
 |`DROPPED_OFF`|`COLLECTED`|agent, with the buyer's collection code|`POST /agent/collections`|
-|`DROPPED_OFF`or `COLLECTED`(before `releaseAt`)|`DISPUTED`|buyer|`POST /orders/:orderId/seller-orders/:id/dispute`|
-
-|From|To|Who|Endpoint|
-|---|---|---|---|
-|`DISPUTED`|`COLLECTED`|admin|`POST`|
-||(escrow released)||`/admin/disputes/:id/resolve`|
-||or `CANCELLED` (refunded)|||
+|`DROPPED_OFF` or `COLLECTED` (before `releaseAt`)|`DISPUTED`|buyer|`POST /orders/:orderId/seller-orders/:id/dispute`|
+|`DISPUTED`|`COLLECTED` (escrow released) or `CANCELLED` (refunded)|admin|`POST /admin/disputes/:id/resolve`|
 
 Every transition writes an `AuditLog` row and a `Notification` for the other party.
 
@@ -1068,9 +1046,7 @@ Every transition writes an `AuditLog` row and a `Notification` for the other par
 
 (SELLER)
 
-   - `GET /sellers/me/orders?status=&cursor=` returns rows of `{ id, code, placedAt,`
-
-   - <mark>`buyerDisplayName, pickupStation: { name }, items: [{ title, variantLabel, imageUrl, quantity, unitPriceKobo }], subtotalKobo, sellerPayoutKobo,`</mark> `fulfillmentStatus, escrowStatus, dropOffDeadline }` .
+   - `GET /sellers/me/orders?status=&cursor=` returns rows of `{ id, code, placedAt, buyerDisplayName, pickupStation: { name }, items: [{ title, variantLabel, imageUrl, quantity, unitPriceKobo }], subtotalKobo, sellerPayoutKobo, fulfillmentStatus, escrowStatus, dropOffDeadline }` .
 
    - `buyerDisplayName` is the buyer's username, or their first name, or "Buyer". Never send the buyer's email or phone to the seller.
 
@@ -1152,9 +1128,9 @@ The seller dashboard's numbers become real: views, orders, revenue and payouts f
 |Method and path|Returns|
 |---|---|
 |`GET /sellers/me/stats?range=7d\|30d\|90d`|`{ range, views, viewsChangePct, orders, ordersChangePct, revenueKobo, revenueChangePct, heldKobo, paidOutKobo }`|
-|`GET /sellers/me/analytics/timeseries? range=&metric=revenue\|orders\|views`|`[{ date: 'YYYY-MM-DD', value }]`, one row per day, zero-filled|
-|`GET /sellers/me/analytics/top-listings? range=&limit=5`|`[{ listingId, title, imageUrl, unitsSold, revenueKobo, views, conversionPct }]`|
-|`GET /sellers/me/inventory/alerts`|Listings and variants with stock at or below `LOW_STOCK_THRESHOLD`(3), with out-of-stock items first|
+|`GET /sellers/me/analytics/timeseries?range=&metric=revenue\|orders\|views`|`[{ date: 'YYYY-MM-DD', value }]`, one row per day, zero-filled|
+|`GET /sellers/me/analytics/top-listings?range=&limit=5`|`[{ listingId, title, imageUrl, unitsSold, revenueKobo, views, conversionPct }]`|
+|`GET /sellers/me/inventory/alerts`|Listings and variants with stock at or below `LOW_STOCK_THRESHOLD` (3), with out-of-stock items first|
 
 Definitions (put them in the Swagger descriptions too):
 
@@ -1192,7 +1168,7 @@ Cache each response for 60 seconds per seller in memory ( `@nestjs/cache-manager
 
    - A top-listings table.
 
-Inventory alerts with "Restock", which opens the edit page (3.2).
+   - Inventory alerts with "Restock", which opens the edit page (3.2).
 
    - A payouts summary: held, released and paid out.
 
@@ -1224,9 +1200,7 @@ Phase 8 wires the favourites, "Featured Store" and review UI that already exist,
 
 - `GET /stores?featured=true&limit=10` returns sellers with at least 1 active listing, ranked by `ratingAvg * log(1 + ratingCount)` , then by paid orders in the last 30 days. Each row is `{ sellerId, storeName, logoUrl, ratingAvg, ratingCount, verified, listingCount }` .
 
-- `GET /stores/:sellerId` returns the store header, plus `GET`
-
-- `/stores/:sellerId/listings?cursor=` .
+- `GET /stores/:sellerId` returns the store header, plus `GET /stores/:sellerId/listings?cursor=` .
 
 - Frontend: `FeaturedStoreCard` reads `/stores?featured=true` . Add the pages `/stores` (all stores) and `/stores/[id]` . Seller names on product pages link to the store.
 
@@ -1244,15 +1218,13 @@ Add a `/browse` page: a listing grid driven by URL params ( `sort` , `category` 
 
 ### 8.4 Reviews
 
-- `POST /seller-orders/:id/reviews { listingId, rating (1-5), comment? (up to`
-
-- `500 characters) }` is for the buyer only. The seller order must be `COLLECTED` and the listing must be in it, with one review per listing per seller order.
+- `POST /seller-orders/:id/reviews { listingId, rating (1-5), comment? (up to 500 characters) }` is for the buyer only. The seller order must be `COLLECTED` and the listing must be in it, with one review per listing per seller order.
 
 - In the same transaction, update `Listing.ratingAvg` and `ratingCount` , plus `SellerProfile.ratingAvg` and `ratingCount` .
 
-- `GET /listings/:id/reviews?cursor=` and `GET /stores/:sellerId/reviews?`
+- `GET /listings/:id/reviews?cursor=` and `GET /stores/:sellerId/reviews?cursor=` return `{ id, rating, comment, reviewerDisplayName, createdAt }` .
 
-- `cursor=` return `{ id, rating, comment, reviewerDisplayName, createdAt }` . **Trust score** (recalculated nightly, 0 to 100, shown as a badge; the weights are a starting point to tune):
+- **Trust score** (recalculated nightly, 0 to 100, shown as a badge; the weights are a starting point to tune):
 
    - 50 × (ratingAvg / 5)
 
@@ -1281,19 +1253,15 @@ Put `@UseGuards(JwtAuthGuard, RolesGuard) @Roles('ADMIN')` on the **controller c
 |Area|Endpoints|Needed from|
 |---|---|---|
 |Overview|`GET /admin/overview`: users, sellers, paid orders (7 and 30 days), GMV, escrow held, open disputes, pending verifications, failed payouts|Phase 5|
-|Institutions|`GET/POST /admin/institutions`, `PATCH`|Phase 2|
-||`/admin/institutions/:id`( `name`, `domains`, `isActive`)||
-|Pickup stations|`GET/POST /admin/pickup-stations`, `PATCH` `/admin/pickup-stations/:id`|Phase 2|
-
-|Area|Endpoints|Needed from|
-|---|---|---|
-|Users|`GET /admin/users? q&role&institutionId&cursor`, `PATCH` `/admin/users/:id/role { role,` `pickupStationId? }`, `POST` `/admin/users/:id/suspend { reason }`, `POST` `/admin/users/:id/unsuspend`|Phase 1|
-|Seller verification|`GET /admin/verification-requests? status=PENDING`, `POST /admin/verification-requests/:id/decide { decision: 'VERIFIED' \| 'REJECTED', note }`|Phase 3|
+|Institutions|`GET/POST /admin/institutions`, `PATCH /admin/institutions/:id` (`name`, `domains`, `isActive`)|Phase 2|
+|Pickup stations|`GET/POST /admin/pickup-stations`, `PATCH /admin/pickup-stations/:id`|Phase 2|
+|Users|`GET /admin/users?q&role&institutionId&cursor`, `PATCH /admin/users/:id/role { role, pickupStationId? }`, `POST /admin/users/:id/suspend { reason }`, `POST /admin/users/:id/unsuspend`|Phase 1|
+|Seller verification|`GET /admin/verification-requests?status=PENDING`, `POST /admin/verification-requests/:id/decide { decision: 'VERIFIED' \| 'REJECTED', note }`|Phase 3|
 |Listings|`GET /admin/listings?flagged=true&cursor`, `POST /admin/listings/:id/moderate { type: 'APPROVE' \| 'REJECT' \| 'FLAG' \| 'UNFLAG', reason }`|Phase 3|
-|Disputes|`GET /admin/disputes?status=OPEN`, `GET` `/admin/disputes/:id`(both sides, items, timeline, evidence), `POST /admin/disputes/:id/resolve { outcome: 'REFUND' \| 'RELEASE', note }`|Phase 6|
-|Payouts|`GET /admin/payouts? status=FAILED\|AWAITING_ACCOUNT`, `POST` `/admin/payouts/:id/retry`|Phase 5|
+|Disputes|`GET /admin/disputes?status=OPEN`, `GET /admin/disputes/:id`(both sides, items, timeline, evidence), `POST /admin/disputes/:id/resolve { outcome: 'REFUND' \| 'RELEASE', note }`|Phase 6|
+|Payouts|`GET /admin/payouts?status=FAILED\|AWAITING_ACCOUNT`, `POST /admin/payouts/:id/retry`|Phase 5|
 |Reports|`GET /admin/support-reports?status=OPEN`, `PATCH /admin/support-reports/:id { status }`|Phase 10|
-|Audit|`GET /admin/audit-log? entityType&entityId&actorId&cursor`|Phase 2|
+|Audit|`GET /admin/audit-log?entityType&entityId&actorId&cursor`|Phase 2|
 
 #### Rules
 
@@ -1311,7 +1279,7 @@ Put `@UseGuards(JwtAuthGuard, RolesGuard) @Roles('ADMIN')` on the **controller c
 
 ### 9.2 Frontend `app/admin/*`
 
-1. `app/admin/layout.tsx` : a desktop layout with a left sidebar and content up to `max-w6xl` . It breaks out of the app's mobile width constraint and redirects anyone who isn't `ADMIN` . Exclude `/admin` from the bottom nav.
+1. `app/admin/layout.tsx` : a desktop layout with a left sidebar and content up to `max-w-6xl` . It breaks out of the app's mobile width constraint and redirects anyone who isn't `ADMIN` . Exclude `/admin` from the bottom nav.
 
 2. Pages: `/admin` (overview cards), `/admin/institutions` , `/admin/stations` , `/admin/users` , `/admin/verifications` , `/admin/listings` , `/admin/disputes` , `/admin/disputes/[id]` , `/admin/payouts` , `/admin/reports` and `/admin/audit` .
 
@@ -1332,21 +1300,21 @@ Phase 10 wires the profile, help and notification screens that exist as UI only,
 
 |Item|Backend|Frontend|Notes|
 |---|---|---|---|
-|Notifications|`GET /notifications?cursor`, `GET` `/notifications/unread-count`, `POST /notifications/read { ids? }`(no ids marks all read), `GET/PATCH` `/users/me/notification-preferences`|`app/profile/notifications/page.tsx` reads real data. A bell badge polls the unread count every 60 seconds and on focus.|Store preferences as JSON on `User`. Email only for order and payment events by default.|
-|Profile|`PATCH /users/me/profile { username, firstName, lastName, phone }`|Profile and seller profile edit forms|Email isn't editable; the school email is the identity. `username`is unique (409 on clash) and matches `^[a-z0-9_]{3,20}$`.|
-|Support and reports|`POST /support/reports { type, message, screenshotUrl?, listingId? }`|Wire `help/report`and `help/email_support`. Upload screenshots through 3.1.|Admins see these in `/admin/reports`.|
+|Notifications|`GET /notifications?cursor`, `GET /notifications/unread-count`, `POST /notifications/read { ids? }`(no ids marks all read), `GET/PATCH /users/me/notification-preferences`|`app/profile/notifications/page.tsx` reads real data. A bell badge polls the unread count every 60 seconds and on focus.|Store preferences as JSON on `User`. Email only for order and payment events by default.|
+|Profile|`PATCH /users/me/profile { username, firstName, lastName, phone }`|Profile and seller profile edit forms|Email isn't editable; the school email is the identity. `username` is unique (409 on clash) and matches `^[a-z0-9_]{3,20}$`.|
+|Support and reports|`POST /support/reports { type, message, screenshotUrl?, listingId? }`|Wire `help/report` and `help/email_support`. Upload screenshots through 3.1.|Admins see these in `/admin/reports`.|
 |Seller verification|`POST /users/me/verify { documentUrl }`(exists; switch it to the authenticated upload)|Add a "Get verified" card to the seller profile|Reviewed in 9.1.|
 |Account deletion|`DELETE /users/me { password }`|Account security page|Blocked while seller orders or payouts are open. Otherwise it anonymises personal data and keeps order records, for NDPR compliance and tax records.|
-|Google sign-in|`GET /auth/google`, `GET` `/auth/google/callback` ( `passport-google-oauth20`)|Show the button again|Accept only emails whose domain maps to an institution (D7). Link to an existing account by email.|
-|Phone verification|Deferred|Hide the `phone_verification`page|Needs an SMS provider such as Termii. It isn't required anywhere in the flows above.|
-|Health check|`GET /health`with a database ping ( `@nestjs/terminus`)|none|Used by the host's health check and uptime monitoring.|
-|Web push (optional)|`POST /push/subscriptions`with VAPID keys|A permission prompt after the first order|Sends "Ready for pickup" even when the app is closed. Serwist already provides the service worker.|
+|Google sign-in|`GET /auth/google`, `GET /auth/google/callback` ( `passport-google-oauth20`)|Show the button again|Accept only emails whose domain maps to an institution (D7). Link to an existing account by email.|
+|Phone verification|Deferred|Hide the `phone_verification` page|Needs an SMS provider such as Termii. It isn't required anywhere in the flows above.|
+|Health check|`GET /health` with a database ping ( `@nestjs/terminus`)|none|Used by the host's health check and uptime monitoring.|
+|Web push (optional)|`POST /push/subscriptions` with VAPID keys|A permission prompt after the first order|Sends "Ready for pickup" even when the app is closed. Serwist already provides the service worker.|
 
 #### Clean-ups to do alongside
 
-Remove one of the two offline pages ( `/offline` or `/~offline` ). Keep `/~offline` , which `sw.ts` uses.
+- Remove one of the two offline pages ( `/offline` or `/~offline` ). Keep `/~offline` , which `sw.ts` uses.
 
-Remove the manual registration in `ServiceWorkerRegister.tsx` if Serwist already registers the worker. Check for two registrations in DevTools, Application tab.
+- Remove the manual registration in `ServiceWorkerRegister.tsx` if Serwist already registers the worker. Check for two registrations in DevTools, Application tab.
 
 - Remove `console.log` from `productItem/[id]/page.tsx` , `ServiceWorkerRegister.tsx` and `PWAInstallPrompt.tsx` .
 
@@ -1372,11 +1340,15 @@ Set up CI during Phase 0 so every later phase merges only with green checks. Put
 
    - analytics change %.
 
-- **E2E tests** (supertest against a real Postgres, run with `jest --config test/jeste2e.json` ). Each suite truncates tables in `beforeEach` . Cover at least:
+- **E2E tests** (supertest against a real Postgres, run with `jest --config test/jest-e2e.json` ). Each suite truncates tables in `beforeEach` . Cover at least:
 
-   - sign-up, verify, login, refresh rotation and reuse detection; cross-institution 404s;
+   - sign-up, verify, login, refresh rotation and reuse detection;
 
-   - the concurrent last-unit checkout race (fire 2 requests with `Promise.all` ); the webhook: signature, replay, amount mismatch;
+   - cross-institution 404s;
+
+   - the concurrent last-unit checkout race (fire 2 requests with `Promise.all` );
+
+   - the webhook: signature, replay, amount mismatch;
 
    - the agent flow and the collection-code lockout;
 
@@ -1390,11 +1362,11 @@ Set up CI during Phase 0 so every later phase merges only with green checks. Put
 
 - Vitest and Testing Library for `lib/api/client.ts` (envelope unwrap, refresh retry, timeout), `lib/labels.ts` , and the guest-cart merge.
 
-Playwright smoke test against a local stack: sign up, verify (read the code from the dev mail log), create a listing as a seller, buy as a buyer, run the agent drop-off and collection, then check the seller dashboard numbers.
+- Playwright smoke test against a local stack: sign up, verify (read the code from the dev mail log), create a listing as a seller, buy as a buyer, run the agent drop-off and collection, then check the seller dashboard numbers.
 
-**CI:** **`.github/workflows/ci.yml`**
+#### CI: `.github/workflows/ci.yml`
 
-```
+```yaml
 name: ci
 on: [push, pull_request]
 jobs:
@@ -1406,26 +1378,20 @@ jobs:
         image: postgres:16
         env: { POSTGRES_PASSWORD: postgres, POSTGRES_DB: campusmart_test }
         ports: ['5432:5432']
-        options: --health-cmd pg_isready --health-interval 5s --health-
-retries 10
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 10
     env:
-      DATABASE_URL:
-postgresql://postgres:postgres@localhost:5432/campusmart_test
-      DIRECT_URL:
-postgresql://postgres:postgres@localhost:5432/campusmart_test
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/campusmart_test
+      DIRECT_URL: postgresql://postgres:postgres@localhost:5432/campusmart_test
       JWT_SECRET: ci-secret-at-least-32-characters-long
       NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm, cache-dependency-path:
-backend/package-lock.json }
+        with: { node-version: 22, cache: npm, cache-dependency-path: backend/package-lock.json }
       - run: npm ci
       - run: npx prisma generate
       - run: npx prisma migrate deploy
-      - run: npx prisma migrate diff --from-migrations prisma/migrations --
-to-schema-datamodel prisma/schema.prisma --exit-code --shadow-database-url
-"$DATABASE_URL"
+      - run: npx prisma migrate diff --from-migrations prisma/migrations --to-schema-datamodel prisma/schema.prisma --exit-code --shadow-database-url "$DATABASE_URL"
       - run: npm run lint -- --max-warnings 0
       - run: npx tsc --noEmit
       - run: npm test
@@ -1450,9 +1416,9 @@ The `migrate diff` step fails the build when someone edits `schema.prisma` witho
 
 |Piece|Host|Why|
 |---|---|---|
-|Next.js app, including `/admin`and `/agent`|Vercel|The existing Vercel Analytics setup; rewrites give the same- origin API (D1)|
+|Next.js app, including `/admin` and `/agent`|Vercel|The existing Vercel Analytics setup; rewrites give the same-origin API (D1)|
 |NestJS API|A long-running container host: Render, Railway or Fly.io, in a region close to Nigeria or to your Neon region|The crons (D17) need a process that stays up. Serverless functions would miss them.|
-|Postgres|Neon: a `main`branch for production, a `dev`branch, and throwaway branches per phase|Already in use|
+|Postgres|Neon: a `main` branch for production, a `dev` branch, and throwaway branches per phase|Already in use|
 |Images|Cloudinary|D15|
 |Email|Any SMTP provider (Resend, Postmark, Zoho)|D18|
 
@@ -1493,9 +1459,6 @@ Every variable below goes in the matching `.env.example` , and the backend's zod
 |`DATABASE_URL`|backend|Neon pooled URL|now|
 |`DIRECT_URL`|backend (migrations)|Neon direct URL|Phase 0|
 |`JWT_SECRET`|backend|32+ random characters|now|
-
-|Variable|App|Example|Needed from|
-|---|---|---|---|
 |`PORT`|backend|`4000`|now|
 |`NODE_ENV`|both|`development`|now|
 |`FRONTEND_URL`|backend (CORS for tools)|`http://localhost:3000`|now|
@@ -1503,14 +1466,13 @@ Every variable below goes in the matching `.env.example` , and the backend's zod
 |`MAIL_HOST`, `MAIL_PORT`, `MAIL_USER`, `MAIL_PASS`, `MAIL_FROM`|backend|SMTP settings|Phase 1|
 |`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`|backend|from Cloudinary|Phase 3|
 |`PAYSTACK_SECRET_KEY`|backend|`sk_test_...`|Phase 5|
-|`PAYMENTS_ENABLED`|backend|`false`until Phase 5|Phase 4|
+|`PAYMENTS_ENABLED`|backend|`false` until Phase 5|Phase 4|
 |`PLATFORM_FEE_BPS`|backend|`0`|Phase 4|
 |`ORDER_PAYMENT_TTL_MINUTES`|backend|`30`|Phase 4|
 |`DROP_OFF_DEADLINE_DAYS`|backend|`3`|Phase 6|
 |`ESCROW_DISPUTE_WINDOW_HOURS`|backend|`48`|Phase 5|
 |`LOW_STOCK_THRESHOLD`|backend|`3`|Phase 7|
-|`SEED_ADMIN_EMAIL`,|backend (seed|your email|Phase 2|
-|`SEED_ADMIN_PASSWORD`|only)|||
+|`SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`|backend (seed only)|your email|Phase 2|
 
 Remove `PAYSTACK_PUBLIC_KEY` and `PAYSTACK_CALLBACK_URL` (the redirect flow doesn't need them), and `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_STRIPE_KEY` from the README.
 
@@ -1519,21 +1481,18 @@ Remove `PAYSTACK_PUBLIC_KEY` and `PAYSTACK_CALLBACK_URL` (the redirect flow does
 |Area|Endpoints|Access|Phase|
 |---|---|---|---|
 |System|`GET /`, `GET /health`|public|0, 10|
-|Auth|`POST /auth/register`, `/auth/verify-email`, `/auth/verify-email/resend`, `/auth/login`, `/auth/refresh`, `/auth/logout`, `/auth/forgot-password`, `/auth/reset-password`; `GET` `/auth/me`; `GET /auth/google`, `/auth/google/callback`|public or signed in|1, 10|
-|Me|`GET/PATCH /users/me/profile`, `PATCH` `/users/me/password`, `POST` `/users/me/verify`, `GET/DELETE` `/users/me/sessions[/:id]`, `GET/PATCH` `/users/me/notification-preferences`, `DELETE /users/me`; `GET /users/:id`|signed in|0, 1, 10|
-|Institutions|`GET /institutions`, `GET` `/institutions/:id`|public (sign-up and waitlist pages)|0|
-|Listings|`GET /listings`, `GET /listings/:id`, `GET /listings/:id/related`, `GET` `/listings/:id/reviews`, `POST` `/listings/:id/report`; `POST` `/listings`, `PATCH /listings/:id`, `PATCH /listings/:id/status`, `DELETE` `/listings/:id`|verified; owner for writes|3, 8, 9|
+|Auth|`POST /auth/register`, `/auth/verify-email`, `/auth/verify-email/resend`, `/auth/login`, `/auth/refresh`, `/auth/logout`, `/auth/forgot-password`, `/auth/reset-password`; `GET /auth/me`; `GET /auth/google`, `/auth/google/callback`|public or signed in|1, 10|
+|Me|`GET/PATCH /users/me/profile`, `PATCH /users/me/password`, `POST /users/me/verify`, `GET/DELETE /users/me/sessions[/:id]`, `GET/PATCH /users/me/notification-preferences`, `DELETE /users/me`; `GET /users/:id`|signed in|0, 1, 10|
+|Institutions|`GET /institutions`, `GET /institutions/:id`|public (sign-up and waitlist pages)|0|
+|Listings|`GET /listings`, `GET /listings/:id`, `GET /listings/:id/related`, `GET /listings/:id/reviews`, `POST /listings/:id/report`; `POST /listings`, `PATCH /listings/:id`, `PATCH /listings/:id/status`, `DELETE /listings/:id`|verified; owner for writes|3, 8, 9|
 |Uploads|`POST /uploads/signature`|verified|3|
-|Seller|`GET/PATCH /sellers/me`, `GET` `/sellers/me/listings`, `GET` `/sellers/me/orders`, `POST` `/sellers/me/orders/:id/cancel`, `POST` `/sellers/me/payout-account`, `GET` `/sellers/me/payouts`, `GET` `/sellers/me/stats`, `GET` `/sellers/me/analytics/timeseries`, `GET /sellers/me/analytics/top-listings`, `GET` `/sellers/me/inventory/alerts`|SELLER|3 to 7|
-
-|Area|Endpoints|Access|Phase|
-|---|---|---|---|
-|Cart|`GET /cart`, `PUT /cart/items`, `DELETE` `/cart/items/:id`, `POST /cart/merge`|verified|4|
-|Orders|`GET /pickup-stations`; `POST` `/orders/checkout`, `GET /orders`, `GET` `/orders/:id`, `POST` `/orders/:id/cancel`, `POST` `/orders/:orderId/seller-orders/:id/dispute`, `POST /seller-orders/:id/reviews`|verified; owner|4, 6, 8|
-|Payments|`POST /payments/webhook`(Paystack signature), `GET` `/payments/verify/:reference`, `GET` `/payouts/banks`|webhook; owner; SELLER|5|
-|Agent|`GET /agent/orders`, `POST` `/agent/dropoffs`, `POST` `/agent/collections`|PICKUP_AGENT|6|
-|Wishlist and stores|`GET /wishlist`, `PUT/DELETE` `/wishlist/:listingId`; `GET /stores`, `GET /stores/:sellerId`, `GET` `/stores/:sellerId/listings`, `GET` `/stores/:sellerId/reviews`|verified|8|
-|Notifications and support|`GET /notifications`, `GET` `/notifications/unread-count`, `POST` `/notifications/read`; `POST` `/support/reports`; `POST` `/push/subscriptions`|signed in|10|
+|Seller|`GET/PATCH /sellers/me`, `GET /sellers/me/listings`, `GET /sellers/me/orders`, `POST /sellers/me/orders/:id/cancel`, `POST /sellers/me/payout-account`, `GET /sellers/me/payouts`, `GET /sellers/me/stats`, `GET /sellers/me/analytics/timeseries`, `GET /sellers/me/analytics/top-listings`, `GET /sellers/me/inventory/alerts`|SELLER|3 to 7|
+|Cart|`GET /cart`, `PUT /cart/items`, `DELETE /cart/items/:id`, `POST /cart/merge`|verified|4|
+|Orders|`GET /pickup-stations`; `POST /orders/checkout`, `GET /orders`, `GET /orders/:id`, `POST /orders/:id/cancel`, `POST /orders/:orderId/seller-orders/:id/dispute`, `POST /seller-orders/:id/reviews`|verified; owner|4, 6, 8|
+|Payments|`POST /payments/webhook`(Paystack signature), `GET /payments/verify/:reference`, `GET /payouts/banks`|webhook; owner; SELLER|5|
+|Agent|`GET /agent/orders`, `POST /agent/dropoffs`, `POST /agent/collections`|PICKUP_AGENT|6|
+|Wishlist and stores|`GET /wishlist`, `PUT/DELETE /wishlist/:listingId`; `GET /stores`, `GET /stores/:sellerId`, `GET /stores/:sellerId/listings`, `GET /stores/:sellerId/reviews`|verified|8|
+|Notifications and support|`GET /notifications`, `GET /notifications/unread-count`, `POST /notifications/read`; `POST /support/reports`; `POST /push/subscriptions`|signed in|10|
 |Admin|`/admin/overview`, `/admin/institutions`, `/admin/pickup-stations`, `/admin/users`, `/admin/verification-requests`, `/admin/listings`, `/admin/disputes`, `/admin/payouts`, `/admin/support-reports`, `/admin/audit-log`|ADMIN|9|
 
 The current `POST /auth/register/buyer` , `POST /auth/register/seller` and `POST /institutions` are removed in Phases 1 and 9; `/admin/institutions` replaces the last one.
