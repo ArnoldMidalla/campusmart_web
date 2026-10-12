@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 
@@ -30,7 +30,6 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // eslint-disable-next-line
     setMounted(true);
   }, []);
 
