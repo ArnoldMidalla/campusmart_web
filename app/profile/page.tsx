@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { LogOut, Edit2 } from "lucide-react";
@@ -17,7 +17,6 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // eslint-disable-next-line
     setMounted(true);
   }, []);
 

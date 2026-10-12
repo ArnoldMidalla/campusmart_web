@@ -80,6 +80,17 @@ export const settingGroups = [
       },
     ],
   },
+  {
+    title: "Support",
+    items: [
+      {
+        icon: HelpCircle,
+        label: "Help & Support",
+        description: "Get help and contact us",
+        href: "/profile/help",
+      },
+    ],
+  },
 ];
 
 /* ─────────────────────────────────────────────

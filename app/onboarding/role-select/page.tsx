@@ -7,7 +7,7 @@ import Button from "@/app/components/Button";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Role = "browse" | "buy" | "sell" | null;
+type Role = "browse" | "buy" | "sell" | "dispatch" | null;
 
 // ─── Role Card ────────────────────────────────────────────────────────────────
 
@@ -84,6 +84,13 @@ const ROLES = [
       "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=200&auto=format&fit=crop&q=60",
   },
   {
+    role: "dispatch" as Role,
+    title: "Dispatch Rider",
+    description: "Deliver orders across campus and earn.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=200&auto=format&fit=crop&q=60",
+  },
+  {
     role: "sell" as Role,
     title: "Sell Items",
     description: "List your items for sale to the purchasing community.",
@@ -101,6 +108,8 @@ export default function RoleSelectPage() {
 
     if (selected === "sell") {
       router.push("/onboarding/sellers/welcome");
+    } else if (selected === "dispatch") {
+      router.push("/dispatch");
     } else {
       router.push("/onboarding/buyers/welcome");
     }
